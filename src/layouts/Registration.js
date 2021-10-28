@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // creates a beautiful scrollbar
 import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
@@ -13,12 +13,42 @@ import Form from './../components/Form/Form';
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 import CardBody from "../components/Card/CardBody";
+import {Input} from "../components/Input/Input";
+import {useForm} from "react-hook-form";
+import * as yup from 'yup';
+import {yupResolver} from '@hookform/resolvers/yup';
+import axios from 'axios';
 
 let ps;
+
+const schema = yup.object().shape({
+    login:yup.string().min(3).max(10).required("Обязательное поле"),
+    password:yup.string().min(6).max(20).required("Обязательное поле"),
+    repeatPassword:yup.string().min(6).required('Confirm Password is required')
+        .oneOf([yup.ref('password')], 'Passwords must match')
+});
+
 
 const useStyles = makeStyles(styles);
 
 export default function Registration({ ...rest }) {
+
+    const[message,setMessage] = useState('');
+
+    const submitHandler = (data) => {
+        console.log('data', data);
+        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+            .then(res => {
+                setMessage('Ошибка №68', res);
+                console.log('message', message);
+            })
+    }
+
+    const {register, handleSubmit, formState:{ errors }} = useForm({
+        mode: "onBlur",
+        resolver: yupResolver(schema)
+    })
+
     // styles
     const classes = useStyles();
     // ref to help us initialize PerfectScrollbar on windows devices
@@ -79,9 +109,18 @@ export default function Registration({ ...rest }) {
 
 
 
-                            <Form>
+                            <Form onSubmit={handleSubmit(submitHandler)}>
 
-                               555
+                                <Input
+                                    {...register('login')}
+                                    type="text"
+                                    id="login"
+                                    label="Введите логин"
+                                    name="login"
+                                    error={!!errors.login}
+                                    helperText={errors?.login?.message}
+                                    tooltip='test test!'
+                                />
 
                             </Form>
 
