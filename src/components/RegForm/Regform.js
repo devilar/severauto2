@@ -9,6 +9,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import axios from 'axios';
 
 
+
 const schema = yup.object().shape({
     login:yup.string().min(3).max(10).required("Обязательное поле"),
     password:yup.string().min(6).max(20).required("Обязательное поле"),

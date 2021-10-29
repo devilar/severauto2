@@ -16,8 +16,10 @@ import AdminNavbarLinks from "components/Navbars/AdminNavbarLinks.js";
 import RTLNavbarLinks from "components/Navbars/RTLNavbarLinks.js";
 
 import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.js";
-
+import {Link} from 'react-router-dom';
 const useStyles = makeStyles(styles);
+import imageLogo from '../../logo.png';
+import Img from "../Image/Image";
 
 export default function Sidebar(props) {
   const classes = useStyles();
@@ -77,18 +79,7 @@ export default function Sidebar(props) {
   );
   var brand = (
     <div className={classes.logo}>
-      <a
-        href="https://www.creative-tim.com?ref=mdr-sidebar"
-        className={classNames(classes.logoLink, {
-          [classes.logoLinkRTL]: props.rtlActive,
-        })}
-        target="_blank"
-      >
-        <div className={classes.logoImage}>
-          <img src={logo} alt="logo" className={classes.img} />
-        </div>
-        {logoText}
-      </a>
+      <Link className={classes.customLogo} to='/'><Img src={imageLogo}/></Link>
     </div>
   );
   return (

@@ -100,6 +100,10 @@ const sidebarStyle = (theme) => ({
     marginLeft: "10px",
     marginRight: "15px",
   },
+  customLogo: {
+    display: "block",
+    textAlign:"center"
+  },
   img: {
     width: "35px",
     top: "22px",

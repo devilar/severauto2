@@ -28,12 +28,16 @@ import DashboardPage from "views/Dashboard/Dashboard.js";
 import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
-import Typography2 from "views/Typography2/Typography2.js";
+import Remains from "views/Remains/Remains.js";
 import Icons from "views/Icons/Icons.js";
 import Maps from "views/Maps/Maps.js";
 import NotificationsPage from "views/Notifications/Notifications.js";
 // core components/views for RTL layout
 import RTLPage from "views/RTLPage/RTLPage.js";
+import Supply from "./views/Supply/Supply";
+import Stocks from "./views/Stocks/Stocks";
+import Employees from "./views/Employees/Employees";
+import Contracts from "./views/Contracts/Contracts";
 
 const dashboardRoutes = [
   {
@@ -69,13 +73,49 @@ const dashboardRoutes = [
     layout: "/admin",
   },
   {
-    path: "/typography2",
-    name: "Typography2",
+    path: "/remains",
+    name: "Остатки",
     rtlName: "طباعة",
     icon: LibraryBooks,
-    component: Typography2,
+    component: Remains,
     layout: "/admin",
   },
+  {
+    path: "/supply",
+    name: "Поставки",
+    rtlName: "طباعة",
+    icon: LibraryBooks,
+    component: Supply,
+    layout: "/admin",
+  },
+
+  {
+    path: "/stocks",
+    name: "Склады",
+    rtlName: "طباعة",
+    icon: LibraryBooks,
+    component: Stocks,
+    layout: "/admin",
+  },
+
+  {
+    path: "/employees",
+    name: "Сотрудники",
+    rtlName: "طباعة",
+    icon: LibraryBooks,
+    component: Employees,
+    layout: "/admin",
+  },
+
+  {
+    path: "/contracts",
+    name: "Договоры",
+    rtlName: "طباعة",
+    icon: LibraryBooks,
+    component: Contracts,
+    layout: "/admin",
+  },
+
   {
     path: "/icons",
     name: "Icons",

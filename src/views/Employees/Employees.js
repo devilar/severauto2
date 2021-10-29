@@ -26,7 +26,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function Typography2Page() {
+export default function Employees() {
     const classes = useStyles();
     return (
         <Card>
@@ -37,7 +37,7 @@ export default function Typography2Page() {
                 </p>
             </CardHeader>
             <CardBody>
-              HELLLOO!!!!
+                Employees
             </CardBody>
         </Card>
     );
