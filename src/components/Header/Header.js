@@ -14,7 +14,7 @@ const Header = ({...props}) => {
     return (
         <Grid className='header' container height='100px' alignItems='center' {...props}>
             <Grid spacing={0} item xs={2}> <div className='logo'><Link to='/'><Img src={imageLogo}/></Link></div></Grid>
-            <Grid spacing={0} item xs={8}><Typography color='#ffffff' align='center' component="h2" variant="p">The Life of Material Dashboard</Typography></Grid>
+            <Grid spacing={0} item xs={8}><Typography color='#ffffff' align='center' component="h3" variant="p">The Life of Material Dashboard</Typography></Grid>
             <Grid spacing={0} item xs={2}><HeaderProfile/></Grid>
 
         </Grid>
