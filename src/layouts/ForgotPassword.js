@@ -19,7 +19,7 @@ let ps;
 
 const useStyles = makeStyles(styles);
 
-export default function Registration({ ...rest }) {
+export default function ForgotPassword({ ...rest }) {
 
 
     // styles
@@ -74,19 +74,18 @@ export default function Registration({ ...rest }) {
 
 
 
-                    <Card>
-                        <CardHeader color="primary"> <h4 className={classes.cardTitleWhite}>Форма регистрации</h4>
-                         </CardHeader>
+                <Card>
+                    <CardHeader color="primary"><h4 className={classes.cardTitleWhite}>Форма забыли пароль</h4></CardHeader>
 
-                        <CardBody>
+                    <CardBody>
 
                         <Regform/>
 
 
-                        </CardBody>
+                    </CardBody>
 
 
-                    </Card>
+                </Card>
 
             </div>
         </div>

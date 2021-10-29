@@ -1,0 +1,13 @@
+.inputContainer {
+  position: relative;
+
+  .inputHint {
+    position: absolute;
+    right: -40px;
+    top: calc(50% - 14px);
+    clear: both;
+    padding: 0;
+    margin: 0;
+  }
+
+}
