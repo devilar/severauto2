@@ -7,6 +7,9 @@ import {PrimaryButton} from "../CustomButtons/PrimaryButton";
 import {Alert, Container} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup";
 import axios from 'axios';
+import CardHeader from "../Card/CardHeader";
+import Card from "components/Card/Card.js";
+import CardBody from "components/Card/CardBody.js";
 
 
 
@@ -16,6 +19,25 @@ const schema = yup.object().shape({
     repeatPassword:yup.string().min(6).required('Confirm Password is required')
         .oneOf([yup.ref('password')], 'Passwords must match')
 });
+
+const styles = {
+    cardCategoryWhite: {
+        color: "rgba(255,255,255,.62)",
+        margin: "0",
+        fontSize: "14px",
+        marginTop: "0",
+        marginBottom: "0",
+    },
+    cardTitleWhite: {
+        color: "#FFFFFF",
+        marginTop: "0px",
+        minHeight: "auto",
+        fontWeight: "300",
+        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+        marginBottom: "3px",
+        textDecoration: "none",
+    },
+};
 
 
 const Regform = () => {
@@ -39,43 +61,57 @@ const Regform = () => {
 
     return (
         <Container maxWidth="sm">
-            {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
-            <Form onSubmit={handleSubmit(submitHandler)}>
+            <Card>
+                <CardHeader color="primary">
 
-            <Input
-                {...register('login')}
-                type="text"
-                id="login"
-                label="Введите логин"
-                name="login"
-                error={!!errors.login}
-                helperText={errors?.login?.message}/>
+                    <p className={styles.cardCategoryWhite}>Форма регистрации</p>
+                </CardHeader>
 
-                <Input
-                    {...register('password')}
-                    id="password"
-                    type="password"
-                    label="Введите пароль"
-                    name="password"
-                    error={!!errors.password}
-                    helperText={errors?.password?.message}
-                />
+                <CardBody>
 
-                <Input
-                    {...register('repeatPassword')}
-                    id="repeatPassword"
-                    type="password"
-                    label="Повторите пароль"
-                    name="repeatPassword"
-                    error={!!errors.repeatPassword}
-                    helperText={errors?.repeatPassword?.message}
-                    tooltip='test test!'
-                />
+                    {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
-            <PrimaryButton color="primary" fullWidth>Зарегистрироваться</PrimaryButton>
+                    <Form onSubmit={handleSubmit(submitHandler)}>
 
-        </Form>
+                        <Input
+                            {...register('login')}
+                            type="text"
+                            id="login"
+                            label="Введите логин"
+                            name="login"
+                            error={!!errors.login}
+                            helperText={errors?.login?.message}/>
+
+                        <Input
+                            {...register('password')}
+                            id="password"
+                            type="password"
+                            label="Введите пароль"
+                            name="password"
+                            error={!!errors.password}
+                            helperText={errors?.password?.message}
+                        />
+
+                        <Input
+                            {...register('repeatPassword')}
+                            id="repeatPassword"
+                            type="password"
+                            label="Повторите пароль"
+                            name="repeatPassword"
+                            error={!!errors.repeatPassword}
+                            helperText={errors?.repeatPassword?.message}
+                            tooltip='test test!'
+                        />
+
+                        <PrimaryButton color="primary" fullWidth>Зарегистрироваться</PrimaryButton>
+
+                    </Form>
+
+                </CardBody>
+
+            </Card>
+
         </Container>
     );
 };

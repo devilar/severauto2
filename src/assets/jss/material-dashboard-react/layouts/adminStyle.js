@@ -10,19 +10,16 @@ const appStyle = (theme) => ({
     top: "0",
     height: "100vh",
   },
+  regWrapper: {
+    position: "relative",
+    top: "0",
+    height: "100vh",
+    background:'#ffffff'
+  },
   mainPanel: {
     [theme.breakpoints.up("md")]: {
       width: `calc(100% - ${drawerWidth}px)`,
     },
-    overflow: "auto",
-    position: "relative",
-    float: "right",
-    ...transition,
-    maxHeight: "100%",
-    width: "100%",
-    overflowScrolling: "touch",
-  },
-  bigPanel: {
     overflow: "auto",
     position: "relative",
     float: "right",
