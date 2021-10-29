@@ -4,10 +4,13 @@
   .inputHint {
     position: absolute;
     right: -40px;
-    top: calc(50% - 14px);
+    top: calc(50% - 12px);
     clear: both;
     padding: 0;
     margin: 0;
+    >*{
+      display:block !important;
+    }
   }
 
 }

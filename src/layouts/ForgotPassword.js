@@ -12,7 +12,7 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 import CardBody from "../components/Card/CardBody";
-import Regform from "../components/RegForm/Regform";
+import ForgotPasswordForm from "../components/ForgotPasswordForm/ForgotPasswordForm";
 
 let ps;
 
@@ -79,7 +79,7 @@ export default function ForgotPassword({ ...rest }) {
 
                     <CardBody>
 
-                        <Regform/>
+                        <ForgotPasswordForm/>
 
 
                     </CardBody>
