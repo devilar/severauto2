@@ -11,16 +11,10 @@ const useStyles = makeStyles(styles);
 
 export default function Registration() {
 
-
-    // styles
     const classes = useStyles();
-    // ref to help us initialize PerfectScrollbar on windows devices
     const mainPanel = React.createRef();
-    // states and functions
-    // initialize and destroy the PerfectScrollbar plugin
-
     return (
-        <div className={classes.regWrapper}>
+        <div>
 
             <Header/>
 

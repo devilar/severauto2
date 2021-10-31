@@ -8,8 +8,10 @@ import PropTypes from "prop-types";
 
 
 const useStyles = makeStyles((theme) =>({
-    root:{
-        margin:theme.spacing(3,0,2),
+    root2:{
+        margin:theme.spacing(5,0,2),
+        boxShadow: '0 2px 2px 0 rgb(37 37 37 / 14%), 0 3px 1px -2px rgb(37 37 37 / 20%), 0 1px 5px 0 rgb(37 37 37 / 12%)',
+backgroundColor: '#252525'
     }
 
 }))

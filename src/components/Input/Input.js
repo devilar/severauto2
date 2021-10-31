@@ -9,7 +9,7 @@ export const Input = forwardRef((props, ref) => {
     const {tooltip} = props;
     return (
         <div className='inputContainer'>
-            <TextField inputRef={ref} variant="outlined" margin="normal" fullWidth {...props}/>
+            <TextField inputRef={ref} variant="standard" margin="normal" fullWidth {...props}/>
             {tooltip && <div className='inputHint'><Tooltip title={tooltip}><HelpOutlineIcon/></Tooltip></div>}
         </div>
     )

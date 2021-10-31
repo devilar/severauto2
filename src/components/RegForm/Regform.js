@@ -3,13 +3,14 @@ import Form from "../Form/Form";
 import {Input} from "../Input/Input";
 import {useForm} from "react-hook-form";
 import * as yup from "yup";
-import {PrimaryButton} from "../CustomButtons/PrimaryButton";
 import {Alert, Container} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup";
 import axios from 'axios';
 import CardHeader from "../Card/CardHeader";
 import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
+import {makeStyles} from "@material-ui/core/styles";
+import Button from "components/CustomButtons/Button.js";
 
 
 
@@ -20,27 +21,15 @@ const schema = yup.object().shape({
         .oneOf([yup.ref('password')], 'Passwords must match')
 });
 
-const styles = {
-    cardCategoryWhite: {
-        color: "rgba(255,255,255,.62)",
-        margin: "0",
-        fontSize: "14px",
-        marginTop: "0",
-        marginBottom: "0",
-    },
-    cardTitleWhite: {
-        color: "#FFFFFF",
-        marginTop: "0px",
-        minHeight: "auto",
-        fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
-        textDecoration: "none",
-    },
-};
+const useStyles = makeStyles({
+    cardBody:{
+        padding:"20px 60px 30px 60px"
+    }
+});
 
 
 const Regform = () => {
+    const classes = useStyles();
 
     const[message,setMessage] = useState('');
 
@@ -62,17 +51,19 @@ const Regform = () => {
     return (
         <Container maxWidth="sm">
 
-            <Card>
-                <CardHeader color="primary">
+            <Card className={classes.formBody}>
+                <CardHeader color="primary" style={{fontSize:'18px'}}>
 
-                    <p className={styles.cardCategoryWhite}>Форма регистрации</p>
+                    <p>Форма регистрации</p>
                 </CardHeader>
 
-                <CardBody>
+                <CardBody className={classes.cardBody}>
+
 
                     {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
                     <Form onSubmit={handleSubmit(submitHandler)}>
+
 
                         <Input
                             {...register('login')}
@@ -104,7 +95,7 @@ const Regform = () => {
                             tooltip='test test!'
                         />
 
-                        <PrimaryButton color="primary" fullWidth>Зарегистрироваться</PrimaryButton>
+                        <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
 
                     </Form>
 
