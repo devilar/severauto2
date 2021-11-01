@@ -1,14 +1,13 @@
 import React, {useState} from 'react';
-import Form from "../Form/Form";
-import {Input} from "../Input/Input";
+import Form from "../../Form/Form";
+import {Input} from "../../Input/Input";
 import * as yup from "yup";
 import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import Button from "../CustomButtons/Button";
-import GridContainer from "../Grid/GridContainer";
-import GridItem from "../Grid/GridItem";
-import tableResult from "../../store/tableResult";
+import Button from "../../CustomButtons/Button";
+import GridContainer from "../../Grid/GridContainer";
+import GridItem from "../../Grid/GridItem";
 
 
 const schema = yup.object().shape({
@@ -40,8 +39,8 @@ const RemainsForm = () => {
         <Form onSubmit={handleSubmit(submitHandler)}>
 
             <GridContainer>
-                {tableResult.trs}
-                {console.log('srs', tableResult.tableResult)}
+
+
                 <GridItem xs="6">
                     <Input
                         {...register('itemRN')}
