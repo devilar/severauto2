@@ -11,12 +11,13 @@ import GridItem from "../../Grid/GridItem";
 
 
 const schema = yup.object().shape({
+    contractNumber:yup.string().min(3).max(10).required("Обязательное поле2"),
     itemRN:yup.string().min(3).max(10).required("Обязательное поле"),
     itemPeriod:yup.string().min(6).max(20).required("Обязательное поле"),
     itemStock:yup.string().min(6).required('Confirm Password is required')
 });
 
-const RemainsForm = () => {
+const SupplyForm = () => {
 
     const[message,setMessage] = useState('');
 
@@ -39,6 +40,16 @@ const RemainsForm = () => {
 
             <GridContainer>
 
+                <GridItem xs="6">
+                    <Input
+                        {...register('contractNumber')}
+                        type="text"
+                        id="contractNumber"
+                        label="Введите номер договора"
+                        name="contractNumber"
+                        error={!!errors.contractNumber}
+                        helperText={errors?.contractNumber?.message}/>
+                </GridItem>
 
                 <GridItem xs="6">
                     <Input
@@ -61,7 +72,8 @@ const RemainsForm = () => {
                         error={!!errors.itemPeriod}
                         helperText={errors?.itemPeriod?.message}/>
                 </GridItem>
-                <GridItem xs="12">
+
+                <GridItem xs="6">
                     <Input
                         {...register('itemStock')}
                         type="text"
@@ -71,6 +83,7 @@ const RemainsForm = () => {
                         error={!!errors.itemStock}
                         helperText={errors?.itemStock?.message}/>
                 </GridItem>
+
             </GridContainer>
 
 
@@ -86,4 +99,4 @@ const RemainsForm = () => {
     );
 };
 
-export default RemainsForm;
+export default SupplyForm;
