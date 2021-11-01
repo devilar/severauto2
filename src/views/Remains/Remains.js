@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardBody from "components/Card/CardBody.js";
+import RemainsForm from "../../components/RemainsForm/RemainsForm";
 
 const styles = {
     cardCategoryWhite: {
@@ -30,6 +31,8 @@ export default function RemainsPage() {
     const classes = useStyles();
     return (
         <Card>
+
+
             <CardHeader color="primary">
                 <h4 className={classes.cardTitleWhite}>Material Dashboard Heading</h4>
                 <p className={classes.cardCategoryWhite}>
@@ -37,7 +40,8 @@ export default function RemainsPage() {
                 </p>
             </CardHeader>
             <CardBody>
-              HELLLOO3!!!!
+
+              <RemainsForm/>
             </CardBody>
         </Card>
     );
