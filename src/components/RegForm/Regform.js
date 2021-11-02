@@ -17,8 +17,8 @@ import Button from "components/CustomButtons/Button.js";
 const schema = yup.object().shape({
     login:yup.string().min(3).max(10).required("Обязательное поле"),
     password:yup.string().min(6).max(20).required("Обязательное поле"),
-    repeatPassword:yup.string().min(6).required('Confirm Password is required')
-        .oneOf([yup.ref('password')], 'Passwords must match')
+    repeatPassword:yup.string().required('Confirm Password is required')
+        .oneOf([yup.ref('password')], 'Пароли должны совпадать')
 });
 
 const useStyles = makeStyles({
@@ -51,9 +51,9 @@ const Regform = () => {
     return (
         <Container maxWidth="sm">
 
+
             <Card className={classes.formBody}>
                 <CardHeader color="primary" style={{fontSize:'18px'}}>
-
                     <p>Форма регистрации</p>
                 </CardHeader>
 

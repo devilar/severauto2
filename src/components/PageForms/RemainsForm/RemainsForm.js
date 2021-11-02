@@ -8,6 +8,10 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../CustomButtons/Button";
 import GridContainer from "../../Grid/GridContainer";
 import GridItem from "../../Grid/GridItem";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 
 
 const schema = yup.object().shape({
@@ -19,6 +23,7 @@ const schema = yup.object().shape({
 const RemainsForm = () => {
 
     const[message,setMessage] = useState('');
+    const [stock, setStock] = React.useState('');
 
     const submitHandler = (data) => {
         console.log('data SUBMITHANDLER', data);
@@ -35,12 +40,15 @@ const RemainsForm = () => {
     })
 
     return (
+
         <Form onSubmit={handleSubmit(submitHandler)}>
 
-            <GridContainer>
+            <GridContainer xs={8}>
 
 
                 <GridItem xs="6">
+
+
                     <Input
                         {...register('itemRN')}
                         type="text"
@@ -49,6 +57,9 @@ const RemainsForm = () => {
                         name="itemRN"
                         error={!!errors.itemRN}
                         helperText={errors?.itemRN?.message}/>
+                </GridItem>
+                <GridItem xs="6">
+
                 </GridItem>
                 <GridItem xs="6">
 
@@ -61,15 +72,26 @@ const RemainsForm = () => {
                         error={!!errors.itemPeriod}
                         helperText={errors?.itemPeriod?.message}/>
                 </GridItem>
-                <GridItem xs="12">
-                    <Input
-                        {...register('itemStock')}
-                        type="text"
-                        id="itemStock"
-                        label="Введите склад"
-                        name="itemStock"
-                        error={!!errors.itemStock}
-                        helperText={errors?.itemStock?.message}/>
+                <GridItem xs="6">
+
+                    <FormControl variant="standard" fullWidth>
+                        <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
+                        <Select
+                            {...register('itemStock')}
+                            labelId="itemStock"
+                            id="itemStock"
+                            value={stock}
+                            label="Выбрать склад"
+                            onChange={(e)=>setStock(e.target.value)}
+                            error={!!errors.itemStock}
+                            helperText={errors?.itemStock?.message}
+                        >
+                            <MenuItem value={'butovo'}>Бутово</MenuItem>
+                            <MenuItem value={'cherkizovo'}>Черкизово</MenuItem>
+                        </Select>
+                    </FormControl>
+
+
                 </GridItem>
             </GridContainer>
 
@@ -83,6 +105,8 @@ const RemainsForm = () => {
 
 
         </Form>
+
+
     );
 };
 

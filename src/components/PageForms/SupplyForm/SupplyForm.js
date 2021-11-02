@@ -6,8 +6,7 @@ import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../CustomButtons/Button";
-import GridContainer from "../../Grid/GridContainer";
-import GridItem from "../../Grid/GridItem";
+import Grid from '@mui/material/Grid';
 
 
 const schema = yup.object().shape({
@@ -36,11 +35,13 @@ const SupplyForm = () => {
     })
 
     return (
+
+
         <Form onSubmit={handleSubmit(submitHandler)}>
 
-            <GridContainer>
+            <Grid container xs={8} rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
 
-                <GridItem xs="6">
+                <Grid item xs={6}>
                     <Input
                         {...register('contractNumber')}
                         type="text"
@@ -49,9 +50,9 @@ const SupplyForm = () => {
                         name="contractNumber"
                         error={!!errors.contractNumber}
                         helperText={errors?.contractNumber?.message}/>
-                </GridItem>
+                </Grid>
 
-                <GridItem xs="6">
+                <Grid item xs={6}>
                     <Input
                         {...register('itemRN')}
                         type="text"
@@ -60,8 +61,8 @@ const SupplyForm = () => {
                         name="itemRN"
                         error={!!errors.itemRN}
                         helperText={errors?.itemRN?.message}/>
-                </GridItem>
-                <GridItem xs="6">
+                </Grid>
+                <Grid item xs={6}>
 
                     <Input
                         {...register('itemPeriod')}
@@ -71,9 +72,9 @@ const SupplyForm = () => {
                         name="itemPeriod"
                         error={!!errors.itemPeriod}
                         helperText={errors?.itemPeriod?.message}/>
-                </GridItem>
+                </Grid>
 
-                <GridItem xs="6">
+                <Grid item xs={6}>
                     <Input
                         {...register('itemStock')}
                         type="text"
@@ -82,9 +83,9 @@ const SupplyForm = () => {
                         name="itemStock"
                         error={!!errors.itemStock}
                         helperText={errors?.itemStock?.message}/>
-                </GridItem>
+                </Grid>
 
-            </GridContainer>
+            </Grid>
 
 
 
@@ -93,6 +94,8 @@ const SupplyForm = () => {
 
 
             <Button style={{marginTop:'40px'}} type='submit' color="primary">Показать</Button>
+
+            <div className="hrCustom"></div>
 
 
         </Form>

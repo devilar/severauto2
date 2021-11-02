@@ -1,10 +1,14 @@
 .header{
   min-height:80px;
-  box-shadow: 0 1px 4px 0 rgb(0 0 0 / 14%);
+  box-shadow: 0 4px 20px 0 rgb(0 0 0 / 14%), 0 7px 10px -5px rgb(37 37 37 / 40%);
   background-color: #00acc1 !important;
 
   .logo{
     text-align:center;
+
+    img{
+      height:60px
+    }
   }
 }
 

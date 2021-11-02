@@ -7,6 +7,9 @@ import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Alert} from "@mui/material";
+import {PasswordInput} from "../Input/passwordInput";
+import Grid from "@material-ui/core/Grid";
+import EditIcon from '@mui/icons-material/Edit';
 
 
 const schema = yup.object().shape({
@@ -19,6 +22,7 @@ const ProfileInfo = () => {
 
 
     const[message,setMessage] = useState('');
+    const[password,setPassword] = useState('');
 
 
     const submitHandler = (data) => {
@@ -41,24 +45,35 @@ const ProfileInfo = () => {
 
             {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
+            <Grid container xs={6}>
+
             <Form onSubmit={handleSubmit(submitHandler)}>
 
-
-                <Input
+                <Grid container>
+                 <Grid item xs={6}>
+                <PasswordInput
                     {...register('password')}
                     id="password"
                     type="password"
-                    label="Введите пароль"
+                    label="Пароль"
+                    value={password}
                     name="password"
                     showPasswordBtn="true"
+                    onChange={(e)=>setPassword(e.target.value)}
                     error={!!errors.password}
                     helperText={errors?.password?.message}
                 />
+                 </Grid>
+                    <Grid item xs={6}>
+                    <Button style={{marginLeft:'80px', marginTop:'20px'}} color="primary" onClick={()=>console.log('tar', password)}>
+                        <EditIcon style={{marginRight:'10px'}}/>Изменить пароль</Button>
+                    </Grid>
+                </Grid>
 
                 <Input
                     {...register('fullName')}
                     id="fullName"
-                    type="text"
+                    type="number"
                     label="ФИО"
                     name="repeatPassword"
                     error={!!errors.fullName}
@@ -80,10 +95,10 @@ const ProfileInfo = () => {
 '
                 />
 
-                <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
+                <Button style={{marginTop:'40px'}} type='submit' color="primary">Сохранить</Button>
 
             </Form>
-
+            </Grid>
 
         </div>
     );

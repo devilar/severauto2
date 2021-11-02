@@ -48,7 +48,7 @@ const EmployeesForm = () => {
     return (
         <Form onSubmit={handleSubmit(submitHandler)}>
 
-            <GridContainer>
+            <GridContainer xs='12' md='10'>
                 <GridItem xs="6">
                     <Input
                         {...register('fullName')}
@@ -61,7 +61,7 @@ const EmployeesForm = () => {
                 </GridItem>
 
                 <GridItem xs="6">
-                    <FormControl fullWidth>
+                    <FormControl variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Статус</InputLabel>
                         <Select
                             {...register('status')}
@@ -82,7 +82,7 @@ const EmployeesForm = () => {
                 <GridItem xs="6">
 
 
-                    <FormControl fullWidth>
+                    <FormControl variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
                         <Select
                             {...register('stock')}
@@ -103,7 +103,7 @@ const EmployeesForm = () => {
 
                 <GridItem xs="6">
 
-                    <FormControl fullWidth>
+                    <FormControl variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Роли</InputLabel>
                         <Select
                             {...register('roles')}

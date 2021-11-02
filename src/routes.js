@@ -19,10 +19,14 @@
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
+import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import BubbleChart from "@material-ui/icons/BubbleChart";
 import Notifications from "@material-ui/icons/Notifications";
 import Language from "@material-ui/icons/Language";
 import DashboardPage from "views/Dashboard/Dashboard.js";
+import GroupIcon from '@mui/icons-material/Group';
 import UserProfile from "views/UserProfile/UserProfile.js";
 import TableList from "views/TableList/TableList.js";
 import Typography from "views/Typography/Typography.js";
@@ -34,6 +38,7 @@ import Supply from "./views/Supply/Supply";
 import Stocks from "./views/Stocks/Stocks";
 import Employees from "./views/Employees/Employees";
 import Contracts from "./views/Contracts/Contracts";
+import MenuBookIcon from '@mui/icons-material/MenuBook';
 
 const dashboardRoutes = [
   {
@@ -72,7 +77,7 @@ const dashboardRoutes = [
     path: "/remains",
     name: "Остатки",
     rtlName: "طباعة",
-    icon: LibraryBooks,
+    icon: ContentPasteIcon,
     component: Remains,
     layout: "/admin",
   },
@@ -80,7 +85,7 @@ const dashboardRoutes = [
     path: "/supply",
     name: "Поставки",
     rtlName: "طباعة",
-    icon: LibraryBooks,
+    icon: LocalShippingIcon,
     component: Supply,
     layout: "/admin",
   },
@@ -89,7 +94,7 @@ const dashboardRoutes = [
     path: "/stocks",
     name: "Склады",
     rtlName: "طباعة",
-    icon: LibraryBooks,
+    icon: ApartmentIcon,
     component: Stocks,
     layout: "/admin",
   },
@@ -98,7 +103,7 @@ const dashboardRoutes = [
     path: "/employees",
     name: "Сотрудники",
     rtlName: "طباعة",
-    icon: LibraryBooks,
+    icon: GroupIcon,
     component: Employees,
     layout: "/admin",
   },
@@ -107,7 +112,7 @@ const dashboardRoutes = [
     path: "/contracts",
     name: "Договоры",
     rtlName: "طباعة",
-    icon: LibraryBooks,
+    icon: MenuBookIcon,
     component: Contracts,
     layout: "/admin",
   },

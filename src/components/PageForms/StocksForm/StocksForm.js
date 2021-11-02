@@ -46,7 +46,7 @@ const StocksForm = () => {
             <GridContainer>
                 <GridItem xs="6">
 
-                    <FormControl fullWidth>
+                    <FormControl variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
                         <Select
                             {...register('itemStock')}
@@ -66,7 +66,7 @@ const StocksForm = () => {
                 </GridItem>
 
                 <GridItem xs="6">
-                    <FormControl fullWidth>
+                    <FormControl variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Статус</InputLabel>
                         <Select
                             {...register('stockStatus')}

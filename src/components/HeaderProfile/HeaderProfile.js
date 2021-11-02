@@ -9,7 +9,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Grow from "@material-ui/core/Grow";
 import Paper from "@material-ui/core/Paper";
 import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Hidden from "@material-ui/core/Hidden";
 import Poppers from "@material-ui/core/Popper";
 // @material-ui/icons
 import FaceIcon from '@mui/icons-material/Face';
@@ -49,11 +48,6 @@ export default function HeaderProfile() {
             >
             <FaceIcon style={{fill:"#000000"}}/>
                 <Typography ml='5px' color='#ffffff' align='center' component="h6" variant="p" fontSize={14}>Сергей</Typography>
-            <Hidden mdUp implementation="css">
-              <p onClick={handleClose} className={classes.linkText}>
-                Notification
-              </p>
-            </Hidden>
           </Button>
           <Poppers
               open={Boolean(open)}
@@ -78,12 +72,14 @@ export default function HeaderProfile() {
                   <Paper>
                     <ClickAwayListener onClickAway={handleClose}>
                       <MenuList role="menu">
+                          <Link to='/profile'>
                         <MenuItem
                             onClick={handleClose}
                             className={classes.dropdownItem}
                         >
-                            <Link to='/profile'>Профиль</Link>
+                            Профиль
                         </MenuItem>
+                          </Link>
                         <MenuItem
                             onClick={handleClose}
                             className={classes.dropdownItem}

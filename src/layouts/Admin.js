@@ -56,6 +56,7 @@ export default function Admin({ ...rest }) {
   };
   const resizeFunction = () => {
     if (window.innerWidth >= 960) {
+
       setMobileOpen(false);
     }
   };
