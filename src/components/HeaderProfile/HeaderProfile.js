@@ -15,6 +15,7 @@ import Poppers from "@material-ui/core/Popper";
 import FaceIcon from '@mui/icons-material/Face';
 //core components
 import Button from "components/CustomButtons/Button.js";
+import {Link} from 'react-router-dom';
 
 import styles from "assets/jss/material-dashboard-react/dropdownStyle.js";
 import {Typography} from "@mui/material";
@@ -81,7 +82,7 @@ export default function HeaderProfile() {
                             onClick={handleClose}
                             className={classes.dropdownItem}
                         >
-                          Профиль
+                            <Link to='/profile'>Профиль</Link>
                         </MenuItem>
                         <MenuItem
                             onClick={handleClose}

@@ -6,11 +6,14 @@ import PropTypes from "prop-types";
 import './input.scss';
 
 export const Input = forwardRef((props, ref) => {
-    const {tooltip} = props;
+
+    const {tooltip, showPasswordBtn} = props;
     return (
         <div className='inputContainer'>
             <TextField inputRef={ref} variant="standard" margin="normal" fullWidth {...props}/>
             {tooltip && <div className='inputHint'><Tooltip title={tooltip}><HelpOutlineIcon/></Tooltip></div>}
+            {showPasswordBtn && <div className='inputHint'>test</div>}
+
         </div>
     )
 
@@ -20,4 +23,5 @@ Input.displayName = 'InputComponent';
 
 Input.propTypes = {
     tooltip: PropTypes.any,
+    showPasswordBtn: PropTypes.any,
 };

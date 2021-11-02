@@ -26,6 +26,7 @@ import RTL from "layouts/RTL.js";
 import './index.scss';
 import "assets/css/material-dashboard-react.css?v=1.10.0";
 import Login from "./layouts/Login";
+import Profile from "./layouts/Profile";
 import ForgotPassword from "./layouts/ForgotPassword";
 
 ReactDOM.render(
@@ -33,6 +34,7 @@ ReactDOM.render(
     <Switch>
       <Route path="/admin" component={Admin} />
       <Route path="/registration" component={Registration} />
+      <Route path="/profile" component={Profile} />
       <Route path="/login" component={Login} />
       <Route path="/rtl" component={RTL} />
       <Route path="/forgotPassword" component={ForgotPassword} />
