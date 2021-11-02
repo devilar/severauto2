@@ -81,31 +81,13 @@ export default function HeaderProfile() {
                             onClick={handleClose}
                             className={classes.dropdownItem}
                         >
-                          Mike John responded to your email
+                          Профиль
                         </MenuItem>
                         <MenuItem
                             onClick={handleClose}
                             className={classes.dropdownItem}
                         >
-                          You have 5 new tasks
-                        </MenuItem>
-                        <MenuItem
-                            onClick={handleClose}
-                            className={classes.dropdownItem}
-                        >
-                          test
-                        </MenuItem>
-                        <MenuItem
-                            onClick={handleClose}
-                            className={classes.dropdownItem}
-                        >
-                          test2
-                        </MenuItem>
-                        <MenuItem
-                            onClick={handleClose}
-                            className={classes.dropdownItem}
-                        >
-                          test3
+                          Выйти
                         </MenuItem>
                       </MenuList>
                     </ClickAwayListener>

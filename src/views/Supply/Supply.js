@@ -28,7 +28,7 @@ const styles = {
         minHeight: "auto",
         fontWeight: "300",
         fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
-        marginBottom: "3px",
+        marginBottom: "0",
         textDecoration: "none",
     },
 };
@@ -40,15 +40,12 @@ const SupplyPage = observer(() => {
     return (
         <Card>
             <CardHeader color="primary">
-                <h4 className={classes.cardTitleWhite}>Material Dashboard Heading</h4>
-                <p className={classes.cardCategoryWhite}>
-                    Created using Roboto Font Family
-                </p>
+                <h4 className={classes.cardTitleWhite}>Поставки</h4>
             </CardHeader>
             <CardBody>
                 <SupplyForm/>
 
-                <Typography color='#000000' align='left' component="h3" variant="p" mt={4} mb={4}>Form result</Typography>
+                <Typography align='left' component="h3" variant="p" mt={4} mb={4}>Результаты формы</Typography>
 
 
 

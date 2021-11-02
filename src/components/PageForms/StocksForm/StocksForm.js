@@ -53,7 +53,7 @@ const StocksForm = () => {
                             labelId="itemStock"
                             id="itemStock"
                             value={stock}
-                            label="itemStock"
+                            label="Выбрать склад"
                             onChange={(e)=>setStock(e.target.value)}
                             error={!!errors.itemStock}
                             helperText={errors?.itemStock?.message}
@@ -73,7 +73,7 @@ const StocksForm = () => {
                             labelId="stockStatus"
                             id="stockStatus"
                             value={status}
-                            label="stockStatus"
+                            label="Статус"
                             onChange={(e)=>setStatus(e.target.value)}
                             error={!!errors.stockStatus}
                             helperText={errors?.stockStatus?.message}

@@ -16,9 +16,9 @@ import Select from '@mui/material/Select';
 
 const schema = yup.object().shape({
     fullName:yup.string().min(6).required('Confirm Password is required'),
-    status:yup.string().min(6).required('Confirm Password is required'),
-    stock:yup.string().min(6).required('Confirm Password is required'),
-    roles:yup.string().min(6).required('Confirm Password is required'),
+    status:yup.string().required('Confirm Password is required'),
+    stock:yup.string().required('Confirm Password is required'),
+    roles:yup.string().required('Confirm Password is required'),
 });
 
 const EmployeesForm = () => {
@@ -68,7 +68,7 @@ const EmployeesForm = () => {
                             labelId="status"
                             id="status"
                             value={status}
-                            label="status"
+                            label="Статус"
                             onChange={(e)=>setStatus(e.target.value)}
                             error={!!errors.status}
                             helperText={errors?.status?.message}
@@ -89,7 +89,7 @@ const EmployeesForm = () => {
                             labelId="stock"
                             id="stock"
                             value={stock}
-                            label="stock"
+                            label="Выбрать склад"
                             onChange={(e)=>setStock(e.target.value)}
                             error={!!errors.stock}
                             helperText={errors?.stock?.message}
@@ -110,7 +110,7 @@ const EmployeesForm = () => {
                             labelId="roles"
                             id="roles"
                             value={role}
-                            label="roles"
+                            label="Роли"
                             onChange={(e)=>setRole(e.target.value)}
                             error={!!errors.roles}
                             helperText={errors?.roles?.message}>
