@@ -28,7 +28,14 @@ const useStyles = makeStyles({
 });
 
 
+
+
+
 const Regform = () => {
+
+    const loginToolTip = 'Длинна логина должна быть от 5 до 30 символов. Логин должен содержать только буквы Латинского алфавита и не должен состоять только из цифр. Может содержать элементы пунктуации (-_.).Логин не может содержать пробел или заканчиваться точкой';
+    const passwordToolTip = 'Длинна пароля не должна быть менее 8 символов. В пароле должны обязательно быть буквы верхнего регистра, быквы нижнего регистра, цифры или спец символы (!,@,#,$,&,*,% и т.п.)';
+
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
@@ -72,7 +79,9 @@ const Regform = () => {
                             label="Введите логин"
                             name="login"
                             error={!!errors.login}
-                            helperText={errors?.login?.message}/>
+                            helperText={errors?.login?.message}
+                            tooltip={loginToolTip}
+                        />
 
                         <Input
                             {...register('password')}
@@ -82,6 +91,7 @@ const Regform = () => {
                             name="password"
                             error={!!errors.password}
                             helperText={errors?.password?.message}
+                            tooltip={passwordToolTip}
                         />
 
                         <Input
@@ -92,7 +102,7 @@ const Regform = () => {
                             name="repeatPassword"
                             error={!!errors.repeatPassword}
                             helperText={errors?.repeatPassword?.message}
-                            tooltip='test test!'
+
                         />
 
                         <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
