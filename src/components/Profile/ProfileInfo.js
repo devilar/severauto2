@@ -10,6 +10,8 @@ import {Alert} from "@mui/material";
 import {PasswordInput} from "../Input/passwordInput";
 import Grid from "@material-ui/core/Grid";
 import EditIcon from '@mui/icons-material/Edit';
+import ProfileStockInfo from "./ProfileStockInfo/ProfileStockInfo";
+import ProfileRoleInfo from "./ProfileRoleInfo/ProfileRoleInfo";
 
 
 const schema = yup.object().shape({
@@ -98,6 +100,11 @@ const ProfileInfo = () => {
                 <Button style={{marginTop:'40px'}} type='submit' color="primary">Сохранить</Button>
 
             </Form>
+            </Grid>
+
+            <Grid container xs={12}>
+                <Grid container xs={6}><ProfileStockInfo/></Grid>
+                <Grid container xs={6}><ProfileRoleInfo/></Grid>
             </Grid>
 
         </div>
