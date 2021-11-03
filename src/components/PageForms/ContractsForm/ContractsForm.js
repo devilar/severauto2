@@ -6,8 +6,8 @@ import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../CustomButtons/Button";
-import GridContainer from "../../Grid/GridContainer";
-import GridItem from "../../Grid/GridItem";
+import Grid from '@mui/material/Grid';
+import {Alert} from "@mui/material";
 
 
 const schema = yup.object().shape({
@@ -25,7 +25,6 @@ const ContractsForm = () => {
         axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
             .then(res => {
                 setMessage('Ошибка №68', res);
-                console.log('message', message);
             })
     }
 
@@ -35,12 +34,14 @@ const ContractsForm = () => {
     })
 
     return (
-        <Form onSubmit={handleSubmit(submitHandler)}>
+        <>
+        {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
+        <Form className='pageForm' onSubmit={handleSubmit(submitHandler)}>
 
-            <GridContainer>
+            <Grid container xs={8} rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
 
 
-                <GridItem xs="6">
+                <Grid item xs={6}>
                     <Input
                         {...register('itemRN')}
                         type="text"
@@ -49,8 +50,8 @@ const ContractsForm = () => {
                         name="itemRN"
                         error={!!errors.itemRN}
                         helperText={errors?.itemRN?.message}/>
-                </GridItem>
-                <GridItem xs="6">
+                </Grid>
+                <Grid item xs={6}>
 
                     <Input
                         {...register('offerOrConctractRn')}
@@ -61,8 +62,8 @@ const ContractsForm = () => {
                         error={!!errors.offerOrConctractRn}
                         helperText={errors?.offerOrConctractRn?.message}/>
 
-                </GridItem>
-                <GridItem xs="12">
+                </Grid>
+                <Grid item xs={6}>
                     <Input
                         {...register('itemPeriod')}
                         type="text"
@@ -72,8 +73,8 @@ const ContractsForm = () => {
                         error={!!errors.itemPeriod}
                         helperText={errors?.itemPeriod?.message}/>
 
-                </GridItem>
-            </GridContainer>
+                </Grid>
+            </Grid>
 
 
 
@@ -85,6 +86,8 @@ const ContractsForm = () => {
 
 
         </Form>
+    <div className="hrCustom"></div>
+        </>
     );
 };
 

@@ -15,7 +15,7 @@ import AdminHeader from "../components/Header/AdminHeader";
 import Card from "../components/Card/Card";
 import CardHeader from "../components/Card/CardHeader";
 import CardBody from "../components/Card/CardBody";
-import ProfileInfo from "../components/Profile/ProfileInfo";
+import EmployerCreateForm from "../components/EmployerCreateForm/EmployerCreateForm";
 
 
 let ps;
@@ -43,7 +43,8 @@ const switchRoutes = (
 
 const useStyles = makeStyles(styles);
 
-export default function Profile({ ...rest }) {
+
+export default function EmployerCreate({ ...rest }) {
     // styles
     const classes = useStyles();
     // ref to help us initialize PerfectScrollbar on windows devices
@@ -112,7 +113,7 @@ export default function Profile({ ...rest }) {
                             <CardBody>
 
 
-                                <ProfileInfo/>
+                                <EmployerCreateForm/>
 
 
                             </CardBody>

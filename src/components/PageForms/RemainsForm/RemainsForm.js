@@ -6,12 +6,12 @@ import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../CustomButtons/Button";
-import GridContainer from "../../Grid/GridContainer";
-import GridItem from "../../Grid/GridItem";
+import Grid from '@mui/material/Grid';
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
+import {Alert} from "@mui/material";
 
 
 const schema = yup.object().shape({
@@ -40,13 +40,14 @@ const RemainsForm = () => {
     })
 
     return (
+        <>
+        {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
+        <Form className='pageForm' onSubmit={handleSubmit(submitHandler)}>
 
-        <Form onSubmit={handleSubmit(submitHandler)}>
-
-            <GridContainer xs={8}>
+            <Grid container xs={8} rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
 
 
-                <GridItem xs="6">
+                <Grid item xs={6}>
 
 
                     <Input
@@ -57,11 +58,13 @@ const RemainsForm = () => {
                         name="itemRN"
                         error={!!errors.itemRN}
                         helperText={errors?.itemRN?.message}/>
-                </GridItem>
-                <GridItem xs="6">
+                </Grid>
 
-                </GridItem>
-                <GridItem xs="6">
+                <Grid item xs={6}>
+
+                </Grid>
+
+                <Grid item xs={6}>
 
                     <Input
                         {...register('itemPeriod')}
@@ -71,10 +74,11 @@ const RemainsForm = () => {
                         name="itemPeriod"
                         error={!!errors.itemPeriod}
                         helperText={errors?.itemPeriod?.message}/>
-                </GridItem>
-                <GridItem xs="6">
+                </Grid>
 
-                    <FormControl variant="standard" fullWidth>
+                <Grid item xs={6}>
+
+                    <FormControl className='customSelect' variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
                         <Select
                             {...register('itemStock')}
@@ -92,8 +96,8 @@ const RemainsForm = () => {
                     </FormControl>
 
 
-                </GridItem>
-            </GridContainer>
+                </Grid>
+            </Grid>
 
 
 
@@ -105,7 +109,8 @@ const RemainsForm = () => {
 
 
         </Form>
-
+        <div className="hrCustom"></div>
+        </>
 
     );
 };

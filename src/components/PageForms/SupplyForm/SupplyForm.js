@@ -7,6 +7,11 @@ import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../CustomButtons/Button";
 import Grid from '@mui/material/Grid';
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import {Alert} from "@mui/material";
 
 
 const schema = yup.object().shape({
@@ -19,6 +24,7 @@ const schema = yup.object().shape({
 const SupplyForm = () => {
 
     const[message,setMessage] = useState('');
+    const[stock,setStock] = useState('');
 
     const submitHandler = (data) => {
         console.log('data SUBMITHANDLER', data);
@@ -35,11 +41,11 @@ const SupplyForm = () => {
     })
 
     return (
+        <>
+        {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
+        <Form className='pageForm' onSubmit={handleSubmit(submitHandler)}>
 
-
-        <Form onSubmit={handleSubmit(submitHandler)}>
-
-            <Grid container xs={8} rowSpacing={5} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
+            <Grid container xs={8} rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
 
                 <Grid item xs={6}>
                     <Input
@@ -75,14 +81,25 @@ const SupplyForm = () => {
                 </Grid>
 
                 <Grid item xs={6}>
-                    <Input
-                        {...register('itemStock')}
-                        type="text"
-                        id="itemStock"
-                        label="Введите склад"
-                        name="itemStock"
-                        error={!!errors.itemStock}
-                        helperText={errors?.itemStock?.message}/>
+
+                    <FormControl className='customSelect' variant="standard" fullWidth>
+                        <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
+                        <Select
+                            {...register('itemStock')}
+                            labelId="itemStock"
+                            id="itemStock"
+                            value={stock}
+                            label="Выбрать склад"
+                            onChange={(e)=>setStock(e.target.value)}
+                            error={!!errors.itemStock}
+                            helperText={errors?.itemStock?.message}
+                        >
+                            <MenuItem value={'butovo'}>Бутово</MenuItem>
+                            <MenuItem value={'cherkizovo'}>Черкизово</MenuItem>
+                        </Select>
+                    </FormControl>
+
+
                 </Grid>
 
             </Grid>
@@ -95,10 +112,14 @@ const SupplyForm = () => {
 
             <Button style={{marginTop:'40px'}} type='submit' color="primary">Показать</Button>
 
-            <div className="hrCustom"></div>
+
 
 
         </Form>
+
+    <div className="hrCustom"></div>
+        </>
+
     );
 };
 

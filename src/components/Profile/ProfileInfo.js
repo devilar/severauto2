@@ -73,7 +73,7 @@ const ProfileInfo = () => {
                 <Input
                     {...register('fullName')}
                     id="fullName"
-                    type="number"
+                    type="text"
                     label="ФИО"
                     name="repeatPassword"
                     error={!!errors.fullName}

@@ -28,12 +28,15 @@ import "assets/css/material-dashboard-react.css?v=1.10.0";
 import Login from "./layouts/Login";
 import Profile from "./layouts/Profile";
 import ForgotPassword from "./layouts/ForgotPassword";
+import EmployerCreate from "./layouts/EmployerCreate";
+
 
 ReactDOM.render(
   <BrowserRouter>
     <Switch>
       <Route path="/admin" component={Admin} />
       <Route path="/registration" component={Registration} />
+      <Route path="/create" component={EmployerCreate} />
       <Route path="/profile" component={Profile} />
       <Route path="/login" component={Login} />
       <Route path="/rtl" component={RTL} />
