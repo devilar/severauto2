@@ -15,6 +15,7 @@ import {Alert} from "@mui/material";
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
+import {Link} from "react-router-dom";
 
 
 const schema = yup.object().shape({
@@ -38,7 +39,7 @@ const style = {
 
 const EmployeesForm = () => {
     const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
+    //const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
     const [status, setStatus] = React.useState('');
     const [stock, setStock] = React.useState('');
@@ -154,7 +155,10 @@ const EmployeesForm = () => {
             <div className="hrCustom"></div>
 
 
-            <Button onClick={handleOpen} color="info">Создать</Button>
+            <Grid container justifyContent="flex-end">
+            <Link to="/create"><Button /*onClick={handleOpen}*/ color="info">Создать</Button></Link>
+            </Grid>
+
             <Modal
                 open={open}
                 onClose={handleClose}

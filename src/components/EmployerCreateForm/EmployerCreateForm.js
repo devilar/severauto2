@@ -5,21 +5,38 @@ import * as yup from "yup";
 import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Alert} from "@mui/material";
-import Grid from "@material-ui/core/Grid";
+import {Alert, Checkbox} from "@mui/material";
+import Grid from '@mui/material/Grid';
 import {Input} from "../Input/Input";
-import EmployerStockCreateForm from "./stockForm/EmployerStockCreateForm";
+//import EmployerStockCreateForm from "./stockForm/EmployerStockCreateForm";
+import Table from "@mui/material/Table";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import TableBody from "@mui/material/TableBody";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import {observer} from "mobx-react-lite";
+import createUserRoleStore from "../../store/createUserRoleStore";
+
+//const tar = {roleItem2:yup.string().required("Обязательное поле")}
 
 
-const schema = yup.object().shape({
+const schema = yup.object().shape(
+    {
     password:yup.string().min(6, ('test!!!')).max(20).required("Обязательное поле"),
     fullName:yup.string().min(6).max(20).required("Обязательное поле"),
     email:yup.string().email().required("Обязательное поле"),
-});
+    roleItem0:yup.string().required("Обязательное поле"),
+    //...tar
+}
+);
 
-const EmployerCreateForm = () => {
+const EmployerCreateForm = observer(() => {
 
-
+    const [stock, setStock] = useState('');
     const[message,setMessage] = useState('');
 
 
@@ -110,12 +127,142 @@ const EmployerCreateForm = () => {
                     />
                         </Grid>
 
-                        <Grid item xs={12}> <Button style={{marginTop:'40px'}} color="primary">Добавить доступ к складу</Button></Grid>
 
-                   <Grid container xs={12}>
-                       <Grid container xs={6}><EmployerStockCreateForm/></Grid>
-                       <Grid container xs={6}><Grid item xs={12}>Role Form</Grid></Grid>
-                   </Grid>
+
+                        <Grid container xs={12} rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
+
+                            <Grid item xs={6}>
+
+                                <Button style={{marginTop:'40px'}} color="primary">Добавить доступ к складу</Button>
+
+
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Склад</TableCell>
+                                            <TableCell>Просмотр</TableCell>
+                                            <TableCell>Редактирование</TableCell>
+                                        </TableRow>
+                                    </TableHead>
+                                    <TableBody>
+
+
+
+                                        <TableRow>
+                                            <TableCell>
+
+                                                <FormControl className='customSelect' variant="standard" fullWidth>
+                                                    <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
+                                                    <Select
+                                                        {...register('itemStock')}
+                                                        labelId="itemStock"
+                                                        id="itemStock"
+                                                        value={stock}
+                                                        label="Выбрать склад"
+                                                        onChange={(e)=>setStock(e.target.value)}
+                                                        error={!!errors.itemStock}
+                                                        helperText={errors?.itemStock?.message}
+                                                    >
+                                                        <MenuItem value={'butovo'}>Бутово</MenuItem>
+                                                        <MenuItem value={'cherkizovo'}>Черкизово</MenuItem>
+                                                    </Select>
+                                                </FormControl>
+
+
+                                            </TableCell>
+                                            <TableCell><Checkbox/></TableCell>
+                                            <TableCell><Checkbox/></TableCell>
+                                        </TableRow>
+                                        <TableRow>
+                                            <TableCell>
+
+                                                <FormControl className='customSelect' variant="standard" fullWidth>
+                                                    <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
+                                                    <Select
+                                                        {...register('itemStock2')}
+                                                        labelId="itemStock2"
+                                                        id="itemStock2"
+                                                        value={stock}
+                                                        label="Выбрать склад2"
+                                                        onChange={(e)=>setStock(e.target.value)}
+                                                        error={!!errors.itemStock2}
+                                                        helperText={errors?.itemStock2?.message}
+                                                    >
+                                                        <MenuItem value={'butovo'}>Бутово</MenuItem>
+                                                        <MenuItem value={'cherkizovo'}>Черкизово</MenuItem>
+                                                    </Select>
+                                                </FormControl>
+
+                                            </TableCell>
+
+                                            <TableCell><Checkbox/></TableCell>
+                                            <TableCell><Checkbox/></TableCell>
+                                        </TableRow>
+
+                                    </TableBody>
+                                </Table>
+
+
+
+                            </Grid>
+
+
+
+                            <Grid item xs={6}>
+
+                                <Button style={{marginTop:'40px'}} color="primary">Назначить роль</Button>
+
+
+                                <Table>
+                                    <TableHead>
+                                        <TableRow>
+                                            <TableCell>Роли</TableCell>
+                                        </TableRow>
+
+                                    </TableHead>
+                                    <TableBody>
+
+
+                                        {createUserRoleStore.rolesQuantity.map((elem, index)=>{
+                                            return(
+
+
+
+                                                <TableRow key={elem.id}>
+                                                    <TableCell>
+
+                                                        <FormControl className='customSelect' variant="standard" fullWidth>
+
+                                                            <InputLabel id="demo-simple-select-label">Выбрать роль</InputLabel>
+                                                            <Select
+                                                                {...register(`roleItem${index}`)}
+                                                                labelId='roleItem'
+                                                                id="roleItem"
+                                                                value={createUserRoleStore.rolesQuantity[index].roleTitle}
+                                                                label="roleItem"
+                                                                onChange={(e)=>createUserRoleStore.handleChange(index, e.target.value)}
+                                                                error={!!errors[`roleItem${index}`]}
+                                                                helperText={errors?.roleItem?.message}
+                                                            >
+                                                                {createUserRoleStore.rolesList.map(elem=><MenuItem key={elem.id} value={elem.title}>{elem.title}</MenuItem>)}
+
+                                                            </Select>
+                                                        </FormControl>
+
+                                                    </TableCell>
+                                                </TableRow>
+
+                                            )
+                                        })}
+
+                                    </TableBody>
+                                </Table>
+
+                            </Grid>
+                        </Grid>
+
+
+                        <Button style={{marginTop:'40px'}} type='submit' color="primary">Сохранить</Button>
 
 
                     </Grid>
@@ -124,6 +271,6 @@ const EmployerCreateForm = () => {
 
         </div>
     );
-};
+});
 
 export default EmployerCreateForm;

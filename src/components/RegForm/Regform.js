@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Form from "../Form/Form";
 import {Input} from "../Input/Input";
 import {useForm} from "react-hook-form";
@@ -39,6 +39,7 @@ const Regform = () => {
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
+    const[canOpen, setCanOpen] = useState(false);
 
     const submitHandler = (data) => {
         console.log('data SUBMITHANDLER', data);
@@ -54,66 +55,65 @@ const Regform = () => {
         resolver: yupResolver(schema)
     })
 
+    useEffect(()=>{
+
+        axios.get('https://jsonplaceholder.typicode.com/todos/1')
+            .then(function (response) {
+                console.log(response);
+                setCanOpen(true);
+            });
+    },[])
+
 
     return (
-        <Container maxWidth="sm">
+       <>
+           <Container maxWidth="sm">
+                   <Card className={classes.formBody}>
+                   <CardHeader color="primary" style={{fontSize:'18px'}}>
+                       <p>Форма регистрации</p>
+                   </CardHeader>
+                   <CardBody className={classes.cardBody}>
+                       {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
+
+                       {canOpen?  <Form onSubmit={handleSubmit(submitHandler)}>
+                           <Input
+                               {...register('login')}
+                               type="text"
+                               id="login"
+                               label="Введите логин"
+                               name="login"
+                               error={!!errors.login}
+                               helperText={errors?.login?.message}
+                               tooltip={loginToolTip}
+                           />
+                           <Input
+                               {...register('password')}
+                               id="password"
+                               type="password"
+                               label="Введите пароль"
+                               name="password"
+                               error={!!errors.password}
+                               helperText={errors?.password?.message}
+                               tooltip={passwordToolTip}
+                           />
+                           <Input
+                               {...register('repeatPassword')}
+                               id="repeatPassword"
+                               type="password"
+                               label="Повторите пароль"
+                               name="repeatPassword"
+                               error={!!errors.repeatPassword}
+                               helperText={errors?.repeatPassword?.message}
+
+                           />
+                           <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
+                       </Form> : <Alert variant="filled" severity="error">Ошибка! Доступ запрещен! Обратитесь к администрации</Alert>}
 
 
-            <Card className={classes.formBody}>
-                <CardHeader color="primary" style={{fontSize:'18px'}}>
-                    <p>Форма регистрации</p>
-                </CardHeader>
-
-                <CardBody className={classes.cardBody}>
-
-
-                    {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
-
-                    <Form onSubmit={handleSubmit(submitHandler)}>
-
-
-                        <Input
-                            {...register('login')}
-                            type="text"
-                            id="login"
-                            label="Введите логин"
-                            name="login"
-                            error={!!errors.login}
-                            helperText={errors?.login?.message}
-                            tooltip={loginToolTip}
-                        />
-
-                        <Input
-                            {...register('password')}
-                            id="password"
-                            type="password"
-                            label="Введите пароль"
-                            name="password"
-                            error={!!errors.password}
-                            helperText={errors?.password?.message}
-                            tooltip={passwordToolTip}
-                        />
-
-                        <Input
-                            {...register('repeatPassword')}
-                            id="repeatPassword"
-                            type="password"
-                            label="Повторите пароль"
-                            name="repeatPassword"
-                            error={!!errors.repeatPassword}
-                            helperText={errors?.repeatPassword?.message}
-
-                        />
-
-                        <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
-
-                    </Form>
-
-                </CardBody>
-
-            </Card>
-
-        </Container>
+                   </CardBody>
+               </Card>
+           </Container>
+       </>
     );
 };
 

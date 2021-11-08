@@ -6,12 +6,17 @@ import * as yup from "yup";
 import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {Alert} from "@mui/material";
+import {Alert, Checkbox} from "@mui/material";
 import {PasswordInput} from "../Input/passwordInput";
-import Grid from "@material-ui/core/Grid";
+import Grid from '@mui/material/Grid';
 import EditIcon from '@mui/icons-material/Edit';
 import ProfileStockInfo from "./ProfileStockInfo/ProfileStockInfo";
 import ProfileRoleInfo from "./ProfileRoleInfo/ProfileRoleInfo";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
 
 
 const schema = yup.object().shape({
@@ -97,15 +102,77 @@ const ProfileInfo = () => {
 '
                 />
 
+                <Grid container xs={12} rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
+
+                    <Grid item xs={6}>
+
+                        <ProfileStockInfo/>
+
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Склад</TableCell>
+                                    <TableCell>Просмотр</TableCell>
+                                    <TableCell>Редактирование</TableCell>
+
+                                </TableRow>
+
+                            </TableHead>
+                            <TableBody>
+
+                                <TableRow>
+                                    <TableCell>Бутово</TableCell>
+                                    <TableCell><Checkbox/></TableCell>
+                                    <TableCell>Чекбокс</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Кемерово</TableCell>
+                                    <TableCell><Checkbox/></TableCell>
+                                    <TableCell>Чекбокс</TableCell>
+                                </TableRow>
+
+                            </TableBody>
+                        </Table>
+
+
+
+                    </Grid>
+
+
+
+                    <Grid item xs={6}>
+                        <ProfileRoleInfo/>
+
+
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Роли</TableCell>
+
+
+                                </TableRow>
+
+                            </TableHead>
+                            <TableBody>
+                                <TableRow>
+                                    <TableCell>Логист</TableCell>
+                                </TableRow>
+                                <TableRow>
+                                    <TableCell>Ответственный за склад</TableCell>
+                                </TableRow>
+                            </TableBody>
+                        </Table>
+
+                    </Grid>
+                </Grid>
+
+
                 <Button style={{marginTop:'40px'}} type='submit' color="primary">Сохранить</Button>
 
             </Form>
             </Grid>
 
-            <Grid container xs={12}>
-                <Grid container xs={6}><ProfileStockInfo/></Grid>
-                <Grid container xs={6}><ProfileRoleInfo/></Grid>
-            </Grid>
+
 
         </div>
     );

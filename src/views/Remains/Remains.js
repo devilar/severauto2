@@ -10,8 +10,9 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import tableResult from "../../store/remainsStore";
-import {Typography} from "@mui/material";
+import {Grid, Typography} from "@mui/material";
 import {observer} from "mobx-react-lite";
+import Button from "../../components/CustomButtons/Button";
 
 
 const styles = {
@@ -47,6 +48,12 @@ const RemainsPage = observer(() => {
             <CardBody>
 
               <RemainsForm/>
+
+                <Grid container justifyContent="flex-end">
+                <Button style={{marginTop:'40px'}} type='submit' color="primary">Скачать</Button>
+                <Button style={{marginTop:'40px'}} type='submit' color="primary">Загрузить</Button>
+                <Button style={{marginTop:'40px'}} type='submit' color="primary">Отправить</Button>
+                </Grid>
 
                 <Typography align='left' component="h3" variant="p" mt={4} mb={4}>Результаты формы</Typography>
 

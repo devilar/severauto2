@@ -23,5 +23,4 @@ class ContractsStore {
 }
 
 
-
 export default new ContractsStore();
