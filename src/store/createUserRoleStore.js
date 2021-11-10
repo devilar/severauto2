@@ -13,21 +13,21 @@ class UserRoleStore {
     rolesQuantity = [
         {id:1, roleTitle: ''},
         {id:2, roleTitle: ''},
+        {id:2, roleTitle: ''},
     ]
 
     constructor() {
         makeAutoObservable(this)
     }
 
+    addRole(){
+        this.rolesQuantity.push({id:this.rolesQuantity.length+1, roleTitle: ''})
+    }
+
     handleChange(index, value){
        this.rolesQuantity[index].roleTitle = value;
     }
 
-    buttonClick(){
-        console.log('grn!!!')
-        this.result.push({id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'});
-
-    }
 
 }
 

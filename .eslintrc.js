@@ -14,8 +14,8 @@ module.exports = {
   },
   plugins: ["react"],
   extends: [
-    "eslint:recommended",
-    "plugin:react/recommended",
+    //включить"eslint:recommended",
+    //включить"plugin:react/recommended",
     //"plugin:prettier/recommended",
   ],
 };

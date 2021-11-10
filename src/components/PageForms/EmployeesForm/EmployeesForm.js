@@ -16,7 +16,8 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import Box from '@mui/material/Box';
 import {Link} from "react-router-dom";
-
+import SearchIcon from '@mui/icons-material/Search';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const schema = yup.object().shape({
     fullName:yup.string().min(6).required('Confirm Password is required'),
@@ -148,7 +149,7 @@ const EmployeesForm = () => {
 
 
 
-            <Button style={{marginTop:'40px'}} type='submit' color="primary">Показать</Button>
+            <Button style={{marginTop:'40px'}} type='submit' color="primary"><SearchIcon style={{marginRight:'10px'}}/>Показать</Button>
 
 
         </Form>
@@ -156,7 +157,7 @@ const EmployeesForm = () => {
 
 
             <Grid container justifyContent="flex-end">
-            <Link to="/create"><Button /*onClick={handleOpen}*/ color="info">Создать</Button></Link>
+            <Link to="/create"><Button /*onClick={handleOpen}*/ color="info"><PersonAddIcon style={{marginRight:'10px'}}/>Создать</Button></Link>
             </Grid>
 
             <Modal

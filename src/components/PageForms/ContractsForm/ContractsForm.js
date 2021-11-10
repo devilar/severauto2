@@ -8,6 +8,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../CustomButtons/Button";
 import Grid from '@mui/material/Grid';
 import {Alert} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const schema = yup.object().shape({
@@ -82,7 +83,7 @@ const ContractsForm = () => {
 
 
 
-            <Button style={{marginTop:'40px'}} type='submit' color="primary">Показать</Button>
+            <Button style={{marginTop:'40px'}} type='submit' color="primary"><SearchIcon style={{marginRight:'10px'}}/>Показать</Button>
 
 
         </Form>

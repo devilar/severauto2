@@ -13,6 +13,10 @@ import tableResult from "../../store/remainsStore";
 import {Grid, Typography} from "@mui/material";
 import {observer} from "mobx-react-lite";
 import Button from "../../components/CustomButtons/Button";
+import DownloadIcon from '@mui/icons-material/Download';
+import UploadIcon from '@mui/icons-material/Upload';
+import SendIcon from '@mui/icons-material/Send';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 
 const styles = {
@@ -50,9 +54,9 @@ const RemainsPage = observer(() => {
               <RemainsForm/>
 
                 <Grid container justifyContent="flex-end">
-                <Button style={{marginTop:'40px'}} type='submit' color="primary">Скачать</Button>
-                <Button style={{marginTop:'40px'}} type='submit' color="primary">Загрузить</Button>
-                <Button style={{marginTop:'40px'}} type='submit' color="primary">Отправить</Button>
+                <Button style={{marginTop:'40px'}} type='submit' color="primary"><DownloadIcon style={{marginRight:'10px'}}/>Скачать</Button>
+                <Button style={{marginTop:'40px'}} type='submit' color="primary"><UploadIcon style={{marginRight:'10px'}}/>Загрузить</Button>
+                <Button style={{marginTop:'40px'}} type='submit' color="primary"><CheckCircleIcon style={{marginRight:'10px'}}/>Отправить</Button>
                 </Grid>
 
                 <Typography align='left' component="h3" variant="p" mt={4} mb={4}>Результаты формы</Typography>

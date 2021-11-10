@@ -36,7 +36,7 @@ const Regform = () => {
         console.log('data SUBMITHANDLER', data);
         axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
             .then(res => {
-                setMessage('Ошибка №68', res);
+                setMessage('Неправильно введен логин или пароль', res);
                 console.log('message', message);
             })
     }

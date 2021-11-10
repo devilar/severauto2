@@ -12,6 +12,7 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {Alert} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 const schema = yup.object().shape({
@@ -105,7 +106,7 @@ const RemainsForm = () => {
 
 
 
-            <Button style={{marginTop:'40px'}} type='submit' color="primary">Показать</Button>
+            <Button style={{marginTop:'40px'}} type='submit' color="primary"><SearchIcon style={{marginRight:'10px'}}/> Показать</Button>
 
 
         </Form>
