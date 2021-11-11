@@ -13,12 +13,14 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {Alert} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-var MockAdapter = require("axios-mock-adapter");
-var mock = new MockAdapter(axios);
+const instance = axios.create();
+// var MockAdapter = require("axios-mock-adapter");
+// var mock = new MockAdapter(axios);
 
-mock.onGet("/users").reply(200, {
-    users: [{ id: 1, name: "John Smith" }],
-});
+
+// mock.onGet("/users").reply(200, {
+//     users: [{ id: 1, name: "John Smith" }],
+// });
 
 
 const schema = yup.object().shape({
@@ -34,19 +36,21 @@ const RemainsForm = () => {
 
     const submitHandler = (data) => {
         console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+        instance.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
             .then(res => {
                 setMessage('Ошибка №68', res);
             })
     }
 
     const srs = () => {
-
-        axios.get("/users").then(function (response) {
+        instance.get("/users").then(function (response) {
             console.log('mock test', response.data);
         });
 
     }
+
+
+
 
     const {register, handleSubmit, formState:{ errors }} = useForm({
         mode: "onBlur",

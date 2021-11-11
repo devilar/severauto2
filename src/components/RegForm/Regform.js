@@ -11,7 +11,7 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "components/CustomButtons/Button.js";
-
+const instance = axios.create();
 
 
 const schema = yup.object().shape({
@@ -39,11 +39,10 @@ const Regform = () => {
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
-    const[canOpen, setCanOpen] = useState(false);
+    const[canOpen, setCanOpen] = useState(true);
 
     const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+        axios.post(`https://jsonplaceholder.typicode.com/users`, data)
             .then(res => {
                 setMessage('Ошибка №68', res);
                 console.log('message', message);
@@ -59,9 +58,13 @@ const Regform = () => {
 
         axios.get('https://jsonplaceholder.typicode.com/todos/1')
             .then(function (response) {
+                // handle success
                 console.log(response);
-                setCanOpen(true);
-            });
+            })
+
+        console.log('yay!');
+
+
     },[])
 
 
