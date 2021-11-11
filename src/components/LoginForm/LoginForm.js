@@ -12,6 +12,8 @@ import Card from "components/Card/Card.js";
 import CardBody from "components/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "components/CustomButtons/Button.js";
+import loginStore from "../../store/loginStore";
+import {observer} from "mobx-react-lite";
 
 
 
@@ -27,17 +29,22 @@ const useStyles = makeStyles({
     }
 });
 
-const Regform = () => {
+const Regform = observer(() => {
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
 
     const submitHandler = (data) => {
         console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+        axios.post(`https://jsonplaceholder.typicode.com/users`, data)
             .then(res => {
                 setMessage('Неправильно введен логин или пароль', res);
-                console.log('message', message);
+                res.data.token = 'EMGTRS45555';
+                loginStore.isLogged = true;
+                loginStore.currentUser = res.data;
+                localStorage.setItem('token', res.data.token);
+                console.log('res is', res.data);
+
             })
     }
 
@@ -96,6 +103,6 @@ const Regform = () => {
 
         </Container>
     );
-};
+});
 
 export default Regform;

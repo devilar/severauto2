@@ -46,6 +46,7 @@ const Regform = () => {
             .then(res => {
                 setMessage('Ошибка №68', res);
                 console.log('message', message);
+
             })
     }
 

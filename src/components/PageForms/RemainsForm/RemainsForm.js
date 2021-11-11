@@ -129,7 +129,6 @@ const RemainsForm = () => {
         </Form>
         <div className="hrCustom"></div>
 
-            <Button onClick={srs}>test mock</Button>
         </>
 
     );

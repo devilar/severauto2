@@ -18,10 +18,12 @@ import {Link} from 'react-router-dom';
 
 import styles from "assets/jss/material-dashboard-react/dropdownStyle.js";
 import {Typography} from "@mui/material";
+import loginStore from "../../store/loginStore";
+import {observer} from "mobx-react-lite";
 
 const useStyles = makeStyles(styles);
 
-export default function HeaderProfile() {
+const HeaderProfile = observer(() =>{
   const classes = useStyles();
   const [open, setOpen] = React.useState(null);
   const handleToggle = event => {
@@ -47,7 +49,7 @@ export default function HeaderProfile() {
                 className={classes.buttonLink}
             >
             <FaceIcon style={{fill:"#000000"}}/>
-                <Typography ml='5px' color='#ffffff' align='center' component="h6" variant="p" fontSize={14}>Сергей</Typography>
+                <Typography ml='5px' color='#ffffff' align='center' component="h6" variant="p" fontSize={14}>{loginStore.isLogged ? loginStore.currentUser.login : 'Гость'}</Typography>
           </Button>
           <Poppers
               open={Boolean(open)}
@@ -69,30 +71,60 @@ export default function HeaderProfile() {
                           placement === "bottom" ? "center top" : "center bottom"
                     }}
                 >
+
+
                   <Paper>
                     <ClickAwayListener onClickAway={handleClose}>
                       <MenuList role="menu">
-                          <Link to='/profile'>
-                        <MenuItem
-                            onClick={handleClose}
-                            className={classes.dropdownItem}
-                        >
-                            Профиль
-                        </MenuItem>
-                          </Link>
-                        <MenuItem
-                            onClick={handleClose}
-                            className={classes.dropdownItem}
-                        >
-                          Выйти
-                        </MenuItem>
+                          {loginStore.isLogged ?
+                              <>
+                              <Link to='/profile'>
+                                  <MenuItem
+                                      onClick={handleClose}
+                                      className={classes.dropdownItem}
+                                  >
+                                      Профиль
+                                  </MenuItem>
+                              </Link>
+                              <MenuItem
+                                  onClick={handleClose}
+                                  className={classes.dropdownItem}
+                              >
+                                  Выйти
+                              </MenuItem>
+                              </>
+                          :
+                              <>
+                              <Link to='/login'>
+                              <MenuItem
+                              onClick={handleClose}
+                              className={classes.dropdownItem}
+                              >
+                              Войти
+                              </MenuItem>
+                              </Link>
+                              <Link to='/registration'>
+                              <MenuItem
+                              onClick={handleClose}
+                              className={classes.dropdownItem}
+                              >
+                              Регистрация
+                              </MenuItem>
+                              </Link>
+                              </>
+
+                          }
                       </MenuList>
                     </ClickAwayListener>
                   </Paper>
+
+
                 </Grow>
             )}
           </Poppers>
         </div>
       </div>
   );
-}
+})
+
+export default HeaderProfile
