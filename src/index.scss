@@ -14,4 +14,21 @@ div[role="tooltip"]{
 
 .MuiFormControl-root.customSelect {
   margin-top: 16px;
+  min-width: 90px;
+}
+
+.modalHead{
+  text-align:center;
+  padding:20px 0;
+  background:#F55A4E;
+  color:#fff;
+  font-size:18px;
+  font-weight:400;
+}
+.modalContent{
+  padding:40px 30px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  column-gap:30px;
+
 }

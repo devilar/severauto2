@@ -22,13 +22,40 @@ import createUserRoleStore from "../../store/createUserRoleStore";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ControlPointIcon from '@mui/icons-material/ControlPoint';
 import VpnKeyIcon from '@mui/icons-material/VpnKey';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
 
-
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 550,
+    bgcolor: 'background.paper',
+    border: '1px solid #F55A4E',
+    boxShadow: 24,
+};
 
 
 const EmployerCreateForm = observer(() => {
 
+
+
+
+
+
+    const [open, setOpen] = React.useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
 const [includeRules,setInludeRules] = useState({})
+
+    const handleBlockUser = () => {
+        alert('blocked');
+        handleClose();
+    }
 
 
     let test = createUserRoleStore.rolesQuantity.length;
@@ -90,12 +117,16 @@ const [includeRules,setInludeRules] = useState({})
         <div>
 
 
+
             {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
 
 
             <Form onSubmit={handleSubmit(submitHandler)}>
                 <Grid container xs={12}>
+
+
+                    <Grid container xs={6} columnSpacing={2}>
 
                     <Grid item xs={12}>
                         <Input
@@ -160,6 +191,8 @@ const [includeRules,setInludeRules] = useState({})
                         />
                     </Grid>
 
+                    </Grid>
+
 
 
                     <Grid container xs={12} rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
@@ -175,6 +208,7 @@ const [includeRules,setInludeRules] = useState({})
                                         <TableCell>Склад</TableCell>
                                         <TableCell>Просмотр</TableCell>
                                         <TableCell>Редактирование</TableCell>
+                                        <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -205,6 +239,7 @@ const [includeRules,setInludeRules] = useState({})
                                         </TableCell>
                                         <TableCell><Checkbox/></TableCell>
                                         <TableCell><Checkbox/></TableCell>
+                                        <TableCell><RemoveCircleOutlineIcon/></TableCell>
                                     </TableRow>
                                     <TableRow>
                                         <TableCell>
@@ -230,6 +265,7 @@ const [includeRules,setInludeRules] = useState({})
 
                                         <TableCell><Checkbox/></TableCell>
                                         <TableCell><Checkbox/></TableCell>
+                                        <TableCell><RemoveCircleOutlineIcon/></TableCell>
                                     </TableRow>
 
                                 </TableBody>
@@ -295,12 +331,30 @@ const [includeRules,setInludeRules] = useState({})
                     </Grid>
 
 
+                    <Button onClick={handleOpen} style={{marginTop:'40px'}} color="danger"><PersonAddIcon style={{marginRight:'10px'}}/>Удалить</Button>
                     <Button style={{marginTop:'40px'}} type='submit' color="primary"><PersonAddIcon style={{marginRight:'10px'}}/>Создать</Button>
 
 
                 </Grid>
             </Form>
 
+
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div className='modalHead'>Вы действительно хотите заблокировать сотрудника?</div>
+                    <div className='modalContent'>
+                        <Button color='primary' onClick={handleClose}>Нет</Button>
+                        <Button color='danger' onClick={handleBlockUser}>Да</Button>
+                    </div>
+
+
+                </Box>
+            </Modal>
 
         </div>
     );

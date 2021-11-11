@@ -10,8 +10,6 @@ import {Alert, Checkbox} from "@mui/material";
 import {PasswordInput} from "../Input/passwordInput";
 import Grid from '@mui/material/Grid';
 import EditIcon from '@mui/icons-material/Edit';
-import ProfileStockInfo from "./ProfileStockInfo/ProfileStockInfo";
-import ProfileRoleInfo from "./ProfileRoleInfo/ProfileRoleInfo";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
@@ -106,8 +104,6 @@ const ProfileInfo = () => {
 
                     <Grid item xs={6}>
 
-                        <ProfileStockInfo/>
-
                         <Table>
                             <TableHead>
                                 <TableRow>
@@ -141,7 +137,6 @@ const ProfileInfo = () => {
 
 
                     <Grid item xs={6}>
-                        <ProfileRoleInfo/>
 
 
                         <Table>
