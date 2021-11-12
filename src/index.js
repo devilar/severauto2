@@ -41,7 +41,7 @@ ReactDOM.render(
       <Route path="/login" component={Login} />
       <Route path="/rtl" component={RTL} />
       <Route path="/forgotPassword" component={ForgotPassword} />
-      <Redirect from="/" to="/admin/dashboard" />
+      <Redirect from="/" to="/admin/remains" />
     </Switch>
   </BrowserRouter>,
   document.getElementById("root")

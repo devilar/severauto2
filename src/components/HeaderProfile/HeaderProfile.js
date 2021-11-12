@@ -37,6 +37,12 @@ const HeaderProfile = observer(() =>{
   const handleClose = () => {
     setOpen(null);
   };
+
+  const handleLogOut = () => {
+      loginStore.isLogged = false;
+      setOpen(null);
+  }
+
   return (
       <div>
         <div className={classes.manager}>
@@ -87,7 +93,7 @@ const HeaderProfile = observer(() =>{
                                   </MenuItem>
                               </Link>
                               <MenuItem
-                                  onClick={handleClose}
+                                  onClick={handleLogOut}
                                   className={classes.dropdownItem}
                               >
                                   Выйти
