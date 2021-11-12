@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-import Form from "../Form/Form";
-import {Input} from "../Input/Input";
+import Form from "../Ui/Form/Form";
+import {Input} from "../Ui/Input/Input";
 import {useForm} from "react-hook-form";
 import * as yup from "yup";
-import Button from "components/CustomButtons/Button.js";
+import Button from "components/Ui/CustomButtons/Button.js";
 import {Alert, Container} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup";
 import axios from 'axios';
-import CardHeader from "../Card/CardHeader";
-import Card from "components/Card/Card.js";
-import CardBody from "components/Card/CardBody.js";
+import CardHeader from "../Ui/Card/CardHeader";
+import Card from "components/Ui/Card/Card.js";
+import CardBody from "components/Ui/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
 
 

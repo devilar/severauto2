@@ -5,13 +5,13 @@ import InputLabel from "@material-ui/core/InputLabel";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardAvatar from "components/Card/CardAvatar.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
+import CustomInput from "components/Ui/CustomInput/CustomInput.js";
+import Button from "components/Ui/CustomButtons/Button.js";
+import Card from "components/Ui/Card/Card.js";
+import CardHeader from "components/Ui/Card/CardHeader.js";
+import CardAvatar from "components/Ui/Card/CardAvatar.js";
+import CardBody from "components/Ui/Card/CardBody.js";
+import CardFooter from "components/Ui/Card/CardFooter.js";
 
 import avatar from "assets/img/faces/marc.jpg";
 

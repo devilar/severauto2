@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Form from "../../Form/Form";
-import {Input} from "../../Input/Input";
+import Form from "../../Ui/Form/Form";
+import {Input} from "../../Ui/Input/Input";
 import * as yup from "yup";
 import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import Button from "../../CustomButtons/Button";
+import Button from "../../Ui/CustomButtons/Button";
 import Grid from '@mui/material/Grid';
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";

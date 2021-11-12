@@ -5,7 +5,7 @@ import {Typography } from '@mui/material';
 import imageLogo from '../../logo.png';
 import HeaderProfile from '../HeaderProfile/HeaderProfile.js';
 import {Link} from 'react-router-dom';
-import Img from "../Image/Image";
+import Img from "../Ui/Image/Image";
 
 
 

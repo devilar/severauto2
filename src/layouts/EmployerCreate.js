@@ -12,9 +12,9 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 import AdminHeader from "../components/Header/AdminHeader";
-import Card from "../components/Card/Card";
-import CardHeader from "../components/Card/CardHeader";
-import CardBody from "../components/Card/CardBody";
+import Card from "../components/Ui/Card/Card";
+import CardHeader from "../components/Ui/Card/CardHeader";
+import CardBody from "../components/Ui/Card/CardBody";
 import EmployerCreateForm from "../components/EmployerCreateForm/EmployerCreateForm";
 
 

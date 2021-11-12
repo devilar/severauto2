@@ -19,15 +19,15 @@ import Cloud from "@material-ui/icons/Cloud";
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/Table.js";
+import Table from "components/Ui/Table/Table.js";
 import Tasks from "components/Tasks/Tasks.js";
-import CustomTabs from "components/CustomTabs/CustomTabs.js";
+import CustomTabs from "components/Ui/CustomTabs/CustomTabs.js";
 import Danger from "components/Typography/Danger.js";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardIcon from "components/Card/CardIcon.js";
-import CardBody from "components/Card/CardBody.js";
-import CardFooter from "components/Card/CardFooter.js";
+import Card from "components/Ui/Card/Card.js";
+import CardHeader from "components/Ui/Card/CardHeader.js";
+import CardIcon from "components/Ui/Card/CardIcon.js";
+import CardBody from "components/Ui/Card/CardBody.js";
+import CardFooter from "components/Ui/Card/CardFooter.js";
 
 import { bugs, website, server } from "variables/general.js";
 

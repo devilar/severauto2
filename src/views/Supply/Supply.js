@@ -1,9 +1,9 @@
 import React from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "components/Card/Card.js";
-import CardHeader from "components/Card/CardHeader.js";
-import CardBody from "components/Card/CardBody.js";
+import Card from "components/Ui/Card/Card.js";
+import CardHeader from "components/Ui/Card/CardHeader.js";
+import CardBody from "components/Ui/Card/CardBody.js";
 import {observer} from "mobx-react-lite";
 import SupplyForm from "../../components/PageForms/SupplyForm/SupplyForm";
 import {Typography} from "@mui/material";

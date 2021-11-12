@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import Form from "../Form/Form";
-import Button from "../CustomButtons/Button";
+import Form from "../Ui/Form/Form";
+import Button from "../Ui/CustomButtons/Button";
 import * as yup from "yup";
 import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Alert, Checkbox} from "@mui/material";
 import Grid from '@mui/material/Grid';
-import {Input} from "../Input/Input";
+import {Input} from "../Ui/Input/Input";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";

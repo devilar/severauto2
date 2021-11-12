@@ -13,7 +13,7 @@ import Poppers from "@material-ui/core/Popper";
 // @material-ui/icons
 import FaceIcon from '@mui/icons-material/Face';
 //core components
-import Button from "components/CustomButtons/Button.js";
+import Button from "components/Ui/CustomButtons/Button.js";
 import {Link} from 'react-router-dom';
 
 import styles from "assets/jss/material-dashboard-react/dropdownStyle.js";

@@ -19,7 +19,7 @@ import styles from "assets/jss/material-dashboard-react/components/sidebarStyle.
 import {Link} from 'react-router-dom';
 const useStyles = makeStyles(styles);
 import imageLogo from '../../logo.png';
-import Img from "../Image/Image";
+import Img from "../Ui/Image/Image";
 
 export default function Sidebar(props) {
   const classes = useStyles();
