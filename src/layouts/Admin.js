@@ -92,7 +92,12 @@ export default function Admin({ ...rest }) {
       />
       <div className={classes.mainPanel} ref={mainPanel}>
 
-        <AdminHeader/>
+        <AdminHeader
+
+            handleDrawerToggle={handleDrawerToggle}
+            open={mobileOpen}
+
+        />
 
         {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
         {getRoute() ? (
