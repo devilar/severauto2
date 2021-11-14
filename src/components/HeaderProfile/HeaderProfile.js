@@ -15,7 +15,7 @@ import FaceIcon from '@mui/icons-material/Face';
 //core components
 import Button from "components/Ui/CustomButtons/Button.js";
 import {Link} from 'react-router-dom';
-
+import Hidden from "@material-ui/core/Hidden";
 import styles from "assets/jss/material-dashboard-react/dropdownStyle.js";
 import {Typography} from "@mui/material";
 import loginStore from "../../store/loginStore";
@@ -55,7 +55,7 @@ const HeaderProfile = observer(() =>{
                 className={classes.buttonLink}
             >
             <FaceIcon style={{fill:"#000000"}}/>
-                <Typography ml='5px' color='#ffffff' align='center' component="h6" variant="p" fontSize={14}>{loginStore.isLogged ? loginStore.currentUser.login : 'Гость'}</Typography>
+                <Hidden smDown><Typography ml='5px' color='#ffffff' align='center' component="h6" variant="p" fontSize={14}>{loginStore.isLogged ? loginStore.currentUser.login : 'Гость'}</Typography></Hidden>
           </Button>
           <Poppers
               open={Boolean(open)}
