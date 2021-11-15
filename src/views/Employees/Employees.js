@@ -82,7 +82,7 @@ const Employees = observer(() => {
 
                         {employeesStore.result.map(elem=>{
                             return(
-                                <TableRow  className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
+                                <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
                                     <TableCell>{elem.fullName}</TableCell>
                                     <TableCell>{elem.login}</TableCell>
                                     <TableCell>{elem.stocks}</TableCell>
@@ -97,6 +97,7 @@ const Employees = observer(() => {
                 </Table>
 
                 <PersonModalForm
+                    id={activeRow}
                     show={modalShow}
                     onHide={() => setModalShow(false)}
                 />

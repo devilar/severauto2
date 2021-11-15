@@ -2,8 +2,11 @@ import Modal from "react-bootstrap/Modal";
 import Button from "../Ui/CustomButtons/Button";
 import React from "react";
 import EmployerCreateForm from "../EmployerCreateForm/EmployerCreateForm";
+import ProfileInfo from "../Profile/ProfileInfo";
+import ProfileModalInfo from "../Profile/ProfileModalInfo";
 
 const CreateModalForm = (props) =>{
+
 
     return (
         <Modal
@@ -18,7 +21,7 @@ const CreateModalForm = (props) =>{
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-               test!
+            <ProfileModalInfo id={props.id}/>
             </Modal.Body>
             <Modal.Footer>
                 <Button color='primary' onClick={props.onHide}>Закрыть</Button>

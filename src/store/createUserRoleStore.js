@@ -16,6 +16,8 @@ class UserRoleStore {
         {id:4, stockName:'Сергеево', adress:'ул. Пушкина  д.1', read: true, edit: true},
     ]
 
+    activeRole = {}
+
 
     readStatusChange(index){
         this.stockInfo[index].read = !this.stockInfo[index].read;

@@ -14,17 +14,19 @@ const Header = ({...props}) => {
 
     return (
         <Grid className='header' container height='80px' alignItems='center' {...props} style={{padding:'0 0 0 30px'}}>
-            <Hidden mdUp>
-                <Grid spacing={0} xs={2} sm={2} md={1}><span>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={props.handleDrawerToggle}
-                    >
-                    <Menu />
-                    </IconButton>
 
-                </span></Grid>
+            <Hidden mdUp>
+                <Grid item spacing={0} xs={2} sm={2} md={1}>
+                    <span>
+                        <IconButton
+                            color="inherit"
+                            aria-label="open drawer"
+                            onClick={props.handleDrawerToggle}
+                        >
+                        <Menu />
+                        </IconButton>
+                    </span>
+                </Grid>
             </Hidden>
             <Grid spacing={0} xs={6} sm={6} md={10}><Typography color='#ffffff' align='left' component="h4" variant="p">Север-авто</Typography></Grid>
             <Grid align='center' spacing={0} xs={4} sm={4} md={2}><HeaderProfile/></Grid>

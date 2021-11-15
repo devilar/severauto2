@@ -57,7 +57,7 @@ const [includeRules,setInludeRules] = useState({})
     }
 
     const baseScheme = {
-        login:yup.string().min(6, ('test!!!')).max(20).required("Обязательное поле"),
+        login:yup.string().min(6, ('RARA')).max(20).required("Обязательное поле"),
         password:yup.string().min(6, ('test!!!')).max(20).required("Обязательное поле"),
         repeatPassword:yup.string().required('Confirm Password is required')
         .oneOf([yup.ref('password')], 'Пароли должны совпадать'),
@@ -195,7 +195,7 @@ const [includeRules,setInludeRules] = useState({})
                                 >
                                     {createUserRoleStore.rolesList.map((elem, index) =>{
                                         return(
-                                            <MenuItem value={elem.value}>{elem.title}</MenuItem>
+                                            <MenuItem key={elem.id} value={elem.value}>{elem.title}</MenuItem>
                                         )
                                     })}
                                 </Select>
