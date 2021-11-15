@@ -34,8 +34,6 @@ const ProfileModalInfo = (props) => {
 
     const {id} = props;
 
-    const [currentPerson,setCurrentPerson] = useState({id:1, fullName: "Сергей", login:'testlogin123',password:'test555', email:'test@test.com', role:'manager'})
-    console.log('currentPerson is', currentPerson);
 
     const[message,setMessage] = useState('');
     const[password,setPassword] = useState('');
@@ -76,7 +74,7 @@ const ProfileModalInfo = (props) => {
 
             <Grid container xs={12}>
 
-                <div><span>Логин: {currentPerson.login}</span> <span>Активен</span></div>
+                <div><span>Логин: {createUserRoleStore.activePerson.fullName}</span> <span className={createUserRoleStore.activePerson.active? 'supergreen' : ''}>{createUserRoleStore.activePerson.active? 'Активен' : 'Неактивен'}</span></div>
 
                 <Form onSubmit={handleSubmit(submitHandler)}>
 
@@ -85,9 +83,9 @@ const ProfileModalInfo = (props) => {
                             <PasswordInput
                                 {...register('password')}
                                 id="password"
+                                value={createUserRoleStore.activePerson.password}
                                 type="password"
                                 label="Пароль"
-                                value={currentPerson.password}
                                 name="password"
                                 showPasswordBtn="true"
                                 onChange={(e)=>setCurrentPerson({...currentPerson, password: e.target.value})}
@@ -104,9 +102,9 @@ const ProfileModalInfo = (props) => {
                     <Input
                         {...register('fullName')}
                         id="fullName"
-                        value={currentPerson.fullName}
                         onChange={(e)=>setCurrentPerson({...currentPerson, fullName: e.target.value})}
                         type="text"
+                        value={createUserRoleStore.activePerson.fullName}
                         label="ФИО"
                         name="fullName"
                         error={!!errors.fullName}
@@ -118,7 +116,7 @@ const ProfileModalInfo = (props) => {
                         {...register('email')}
                         type="text"
                         id="email"
-                        value={currentPerson.email}
+                        value={createUserRoleStore.activePerson.email}
                         onChange={(e)=>setCurrentPerson({...currentPerson, email: e.target.value})}
                         label="Введите почту"
                         name="email"
@@ -139,10 +137,10 @@ const ProfileModalInfo = (props) => {
                                     {...register('stockRole')}
                                     labelId="stockRole"
                                     id="stockRole"
-                                    value={currentPerson.role}
                                     label="Роль"
                                     onChange={(e)=>setRole(e.target.value)}
                                     error={!!errors.stockRole}
+                                    value={createUserRoleStore.activePerson.role}
                                     helperText={errors?.stockRole?.message}
                                 >
                                     {createUserRoleStore.rolesList.map((elem, index) =>{

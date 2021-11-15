@@ -16,7 +16,7 @@ class UserRoleStore {
         {id:4, stockName:'Сергеево', adress:'ул. Пушкина  д.1', read: true, edit: true},
     ]
 
-    activeRole = {}
+    activePerson = {id:1, fullName: "Сергей", login:'testlogin123',password:'test555', email:'test@test.com', role:'manager', active: true}
 
 
     readStatusChange(index){
