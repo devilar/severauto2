@@ -16,8 +16,8 @@ const Header = ({...props}) => {
     return (
         <Grid className='header' container height='90px' alignItems='center' {...props}>
             <Grid spacing={0} item xs={2}> <div className='logo'><Link to='/'><Img src={imageLogo}/></Link></div></Grid>
-            <Grid spacing={0} item xs={8}><Typography color='#ffffff' align='center' component="h3" variant="p">Север-авто</Typography></Grid>
-            <Grid spacing={0} item xs={2}><HeaderProfile/></Grid>
+            <Grid spacing={0} item xs={9}><Typography color='#ffffff' align='center' component="h3" variant="p">Север-авто</Typography></Grid>
+            <Grid spacing={0} item xs={1}><HeaderProfile/></Grid>
 
         </Grid>
     );

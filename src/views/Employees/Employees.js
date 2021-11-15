@@ -1,5 +1,4 @@
-import React from "react";
-// @material-ui/core components
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
@@ -11,7 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import tableResult from "../../store/supplyStore";
+import employeesStore from "../../store/employeesStore";
+import {observer} from "mobx-react-lite";
+import PersonModalForm from "../../components/Modal/PersonModalForm";
 
 const styles = {
     cardCategoryWhite: {
@@ -34,7 +35,21 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function Employees() {
+
+
+const Employees = observer(() => {
+
+    const [activeRow, setActiveRow] = useState(1);
+    const [modalShow, setModalShow] = React.useState(false);
+    const handleClick = (id) => {
+        setActiveRow(id)
+    }
+
+    const handleDoubleClick = () => {
+        setModalShow(true)
+        console.log('OMG DOUBLE');
+    }
+
     const classes = useStyles();
     return (
         <Card>
@@ -53,38 +68,43 @@ export default function Employees() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Договора</TableCell>
-                            <TableCell>RN Товара</TableCell>
-                            <TableCell>Товар</TableCell>
-                            <TableCell>Количество на начало периода</TableCell>
-                            <TableCell>Количество на конец периода</TableCell>
-                            <TableCell>Склад</TableCell>
+                            <TableCell>ФИО</TableCell>
+                            <TableCell>Логин</TableCell>
+                            <TableCell>Склады</TableCell>
+                            <TableCell>Роли</TableCell>
+                            <TableCell>Статус</TableCell>
+
                         </TableRow>
 
                     </TableHead>
                     <TableBody>
 
 
-                        {tableResult.result.map(elem=>(
-                                <TableRow key={elem.id}>
-
-                                    <TableCell>{elem.number}</TableCell>
-                                    <TableCell>{elem.rn}</TableCell>
-                                    <TableCell>{elem.itemTitle}</TableCell>
-                                    <TableCell>{elem.quantityMonthStart}</TableCell>
-                                    <TableCell>{elem.quantityMonthEnd}</TableCell>
-                                    <TableCell>{elem.stock}</TableCell>
-
+                        {employeesStore.result.map(elem=>{
+                            return(
+                                <TableRow  className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
+                                    <TableCell>{elem.fullName}</TableCell>
+                                    <TableCell>{elem.login}</TableCell>
+                                    <TableCell>{elem.stocks}</TableCell>
+                                    <TableCell>{elem.roles}</TableCell>
+                                    <TableCell>{elem.status}</TableCell>
                                 </TableRow>
                             )
-                        )}
+                        })}
 
 
                     </TableBody>
                 </Table>
 
-                <button onClick={()=>tableResult.buttonClick()}>click me</button>
+                <PersonModalForm
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
+
+                <button onClick={()=>employeesStore.buttonClick({id:4, fullName: 'Иванов Иван Иванович', login:'IvanIvanovich', stocks:'butovo', roles: 'Ответственный за склад', status: 'активен'})}>click me</button>
             </CardBody>
         </Card>
     );
-}
+})
+
+export default Employees;

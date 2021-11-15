@@ -12,12 +12,11 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {Alert} from "@mui/material";
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import Box from '@mui/material/Box';
-import {Link} from "react-router-dom";
+import Modal from 'react-bootstrap/Modal';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import 'bootstrap/dist/css/bootstrap.css';
+import CreateModalForm from "../../Modal/CreateModalForm";
 
 const schema = yup.object().shape({
     fullName:yup.string().min(6).required('Confirm Password is required'),
@@ -26,22 +25,14 @@ const schema = yup.object().shape({
     roles:yup.string().required('Confirm Password is required'),
 });
 
-const style = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    width: 400,
-    bgcolor: 'background.paper',
-    border: '2px solid #000',
-    boxShadow: 24,
-    p: 4,
-};
+
 
 const EmployeesForm = () => {
-    const [open, setOpen] = React.useState(false);
-    //const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
+
+    const [modalShow, setModalShow] = React.useState(false);
+
+
     const [status, setStatus] = React.useState('');
     const [stock, setStock] = React.useState('');
     const [role, setRole] = React.useState('');
@@ -55,7 +46,7 @@ const EmployeesForm = () => {
         axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
             .then(res => {
                 setMessage('Ошибка №68', res);
-                console.log('message', message);
+
             })
     }
 
@@ -157,24 +148,17 @@ const EmployeesForm = () => {
 
 
             <Grid container justifyContent="flex-end">
-            <Link to="/create"><Button /*onClick={handleOpen}*/ color="info"><PersonAddIcon style={{marginRight:'10px'}}/>Создать</Button></Link>
+            <Button onClick={() => setModalShow(true)} color="info"><PersonAddIcon style={{marginRight:'10px'}}/>Создать</Button>
             </Grid>
 
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <Typography id="modal-modal-title" variant="h6" component="h2">
-                        Text in a modal
-                    </Typography>
-                    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                        Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                    </Typography>
-                </Box>
-            </Modal>
+
+
+
+            <CreateModalForm
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
+
 
 
         </>

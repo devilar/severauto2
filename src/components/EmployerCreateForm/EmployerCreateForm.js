@@ -22,6 +22,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import createUserRoleStore from "../../store/createUserRoleStore";
+import employeesStore from "../../store/employeesStore";
 
 const style = {
     position: 'absolute',
@@ -32,10 +33,12 @@ const style = {
     bgcolor: 'background.paper',
     border: '1px solid #F55A4E',
     boxShadow: 24,
+    padding:2
 };
 
 
-const EmployerCreateForm = observer(() => {
+const EmployerCreateForm = observer(({onhide}) => {
+
 
 
 
@@ -73,12 +76,18 @@ const [includeRules,setInludeRules] = useState({})
 
 
     const[message,setMessage] = useState('');
+
+
+
     const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
+        console.log('data SUBMITHANDLER3', data);
         axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
             .then(res => {
-                setMessage('Ошибка №68', res);
+                setMessage('Ошибка №69', res);
                 console.log('message', message);
+                employeesStore.buttonClick({id:4, fullName: 'Барсуков Иван Иванович', login:'IvanIvanovich', stocks:'butovo', roles: 'Ответственный за склад', status: 'активен'});
+                onhide();
+
             })
     }
 
@@ -100,7 +109,7 @@ const [includeRules,setInludeRules] = useState({})
 
 
             <Form onSubmit={handleSubmit(submitHandler)}>
-                    <Grid container xs={6}>
+                    <Grid container xs={12}>
 
                     <Grid container xs={12}>
                         <Grid item xs={6}>

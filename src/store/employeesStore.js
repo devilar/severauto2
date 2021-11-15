@@ -2,11 +2,10 @@ import {makeAutoObservable} from "mobx";
 
 class EmployeesStore {
     result = [
-        {id:1, number:'5149543', rn:'RN5421353', itemTitle:'123', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:3, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:4, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:5, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
+        {id:1, fullName: 'Иванов Иван Иванович', login:'IvanIvanovich', stocks:'butovo', roles: 'Ответственный за склад', status: 'активен'},
+        {id:2, fullName: 'Иванов Иван Иванович', login:'IvanIvanovich', stocks:'butovo', roles: 'Ответственный за склад', status: 'активен'},
+        {id:3, fullName: 'Иванов Иван Иванович', login:'IvanIvanovich', stocks:'butovo', roles: 'Ответственный за склад', status: 'активен'},
+
 
     ]
 
@@ -14,9 +13,10 @@ class EmployeesStore {
         makeAutoObservable(this)
     }
 
-    buttonClick(){
-        console.log('grn!!!')
-        this.result.push({id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'});
+    buttonClick(data){
+        console.log("TAR!!");
+
+        this.result.push(data);
 
     }
 
