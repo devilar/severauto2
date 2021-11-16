@@ -1,22 +1,24 @@
 import React, {useEffect, useState} from 'react';
-import Form from "../Ui/Form/Form";
-import {Input} from "../Ui/Input/Input";
+import Form from "../../Ui/Form/Form";
+import {Input} from "../../Ui/Input/Input";
 import {useForm} from "react-hook-form";
 import * as yup from "yup";
 import {Alert, Container} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup";
 import axios from 'axios';
-import CardHeader from "../Ui/Card/CardHeader";
+import CardHeader from "../../Ui/Card/CardHeader";
 import Card from "components/Ui/Card/Card.js";
 import CardBody from "components/Ui/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "components/Ui/CustomButtons/Button.js";
-const instance = axios.create();
+import useWindowSize from 'react-use/lib/useWindowSize';
+import Confetti from 'react-confetti'
+import {Link} from "react-router-dom";
 
 
 const schema = yup.object().shape({
-    login:yup.string().min(3).max(10).required("Обязательное поле"),
-    password:yup.string().min(6).max(20).required("Обязательное поле"),
+    login:yup.string().min(5,('Поле должно содержать не менее 5 символов')).max(30,('Поле должно содержать не более 30 символов')).required("Обязательное поле"),
+    password:yup.string().min(6,('Поле должно содержать не менее 6 символов')).max(20,('Поле должно содержать не более 20 символов')).required("Обязательное поле"),
     repeatPassword:yup.string().required('Confirm Password is required')
         .oneOf([yup.ref('password')], 'Пароли должны совпадать')
 });
@@ -35,17 +37,20 @@ const Regform = () => {
 
     const loginToolTip = 'Длинна логина должна быть от 5 до 30 символов. Логин должен содержать только буквы Латинского алфавита и не должен состоять только из цифр. Может содержать элементы пунктуации (-_.).Логин не может содержать пробел или заканчиваться точкой';
     const passwordToolTip = 'Длинна пароля не должна быть менее 8 символов. В пароле должны обязательно быть буквы верхнего регистра, быквы нижнего регистра, цифры или спец символы (!,@,#,$,&,*,% и т.п.)';
-
+    const repeatPasswordToolTip = 'Повторите введенный пароль';
+    const { width, height } = useWindowSize();
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
     const[canOpen, setCanOpen] = useState(true);
+    const[regSuccess, setRegSuccess] = useState(false);
+
 
     const submitHandler = (data) => {
         axios.post(`https://jsonplaceholder.typicode.com/users`, data)
             .then(res => {
-                setMessage('Ошибка №68', res);
-                console.log('message', message);
+                //setMessage('Ошибка заполнения формы', res);
+                setRegSuccess(true);
 
             })
     }
@@ -59,27 +64,31 @@ const Regform = () => {
 
         axios.get('https://jsonplaceholder.typicode.com/todos/1')
             .then(function (response) {
-                // handle success
                 console.log(response);
             })
-
-        console.log('yay!');
-
-
     },[])
 
 
     return (
        <>
            <Container maxWidth="sm">
+               {regSuccess &&
+               <Confetti
+                   width={width}
+                   height={height}
+               />
+               }
+
                    <Card className={classes.formBody}>
                    <CardHeader color="primary" style={{fontSize:'18px'}}>
-                       <p>Форма регистрации</p>
+                       <p style={{marginBottom:'0'}}>Форма регистрации</p>
                    </CardHeader>
                    <CardBody className={classes.cardBody}>
                        {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
-                       {canOpen?  <Form onSubmit={handleSubmit(submitHandler)}>
+                       {!regSuccess ?
+                       <>
+                       {canOpen ? <Form onSubmit={handleSubmit(submitHandler)}>
                            <Input
                                {...register('login')}
                                type="text"
@@ -108,13 +117,26 @@ const Regform = () => {
                                name="repeatPassword"
                                error={!!errors.repeatPassword}
                                helperText={errors?.repeatPassword?.message}
+                               tooltip={repeatPasswordToolTip}
 
                            />
                            <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
                        </Form> : <Alert variant="filled" severity="error">Ошибка! Доступ запрещен! Обратитесь к администрации</Alert>}
+                       </>
+                       :
+
+                           <>
+
+
+                               <span style={{textAlign:'center',display:'block',marginTop:'20px'}}>Регистрация успешно завершена. Перейти на страницу авторизации?</span>
+                               <div style={{textAlign:'center',marginTop:'20px'}}><Link to='admin/remains'><Button color='success'>Перейти</Button></Link></div>
+                           </>
+
+                       }
 
 
                    </CardBody>
+
                </Card>
            </Container>
        </>

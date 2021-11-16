@@ -27,7 +27,7 @@ const schema = yup.object().shape({
 
 
 
-const EmployeesForm = () => {
+const EmployeesShowListForm = () => {
 
 
     const [modalShow, setModalShow] = React.useState(false);
@@ -144,6 +144,7 @@ const EmployeesForm = () => {
 
 
         </Form>
+
             <div className="hrCustom"></div>
 
 
@@ -165,4 +166,4 @@ const EmployeesForm = () => {
     );
 };
 
-export default EmployeesForm;
+export default EmployeesShowListForm;

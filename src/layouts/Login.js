@@ -4,7 +4,7 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
-import LoginForm from "../components/LoginForm/LoginForm";
+import LoginForm from "../components/PageForms/LoginForm/LoginForm";
 import Header from "../components/Header/Header";
 import {Container} from "@mui/material";
 

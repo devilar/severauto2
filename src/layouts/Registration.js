@@ -3,7 +3,7 @@ import React from "react";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
-import Regform from "../components/RegForm/Regform";
+import Regform from "../components/PageForms/RegForm/Regform";
 import Header from "../components/Header/Header";
 import { Container } from '@mui/material';
 

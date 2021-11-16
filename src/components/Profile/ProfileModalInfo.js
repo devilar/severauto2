@@ -20,7 +20,9 @@ import InputLabel from "@mui/material/InputLabel";
 import Select from "@mui/material/Select";
 import createUserRoleStore from "../../store/createUserRoleStore";
 import MenuItem from "@mui/material/MenuItem";
-import employeesStore from "../../store/employeesStore";
+import {observer} from "mobx-react-lite";
+import loaderStore from "../../store/loaderStore";
+
 
 
 const schema = yup.object().shape({
@@ -30,9 +32,7 @@ const schema = yup.object().shape({
     stockRole:yup.string().required("Обязательное поле"),
 });
 
-const ProfileModalInfo = (props) => {
-
-    const {id} = props;
+const ProfileModalInfo = observer((props) => {
 
 
     const[message,setMessage] = useState('');
@@ -41,11 +41,12 @@ const ProfileModalInfo = (props) => {
 
 
     const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+
+        axios.get(`https://jsonplaceholder.typicode.com/comments`)
             .then(res => {
                 setMessage('Ошибка №68', res);
                 console.log('message', message);
+
             })
     }
 
@@ -56,15 +57,11 @@ const ProfileModalInfo = (props) => {
 
 
     useEffect(()=>{
-        /*
-        axios.post(`https://jsonplaceholder.typicode.com/users`, )
+        axios.get(`https://jsonplaceholder.typicode.com/comments`)
             .then(res => {
             console.log('RES!',res.data);
-            setCurrentPerson(res.data)
+                createUserRoleStore.addActivePerson({id:1, fullName: "Виктор", login:'testlogin123',password:'test555', email:'test@test.com', role:'manager', active: true})
             })
-
-
-         */
     },[])
 
     return (
@@ -197,8 +194,9 @@ const ProfileModalInfo = (props) => {
 
 
 
+
         </div>
     );
-};
+});
 
 export default ProfileModalInfo;

@@ -16,7 +16,7 @@ class UserRoleStore {
         {id:4, stockName:'Сергеево', adress:'ул. Пушкина  д.1', read: true, edit: true},
     ]
 
-    activePerson = {id:1, fullName: "Сергей", login:'testlogin123',password:'test555', email:'test@test.com', role:'manager', active: true}
+    activePerson = {id:1, fullName: "", login:'',password:'', email:'', role:'', active: false}
 
 
     readStatusChange(index){
@@ -25,6 +25,10 @@ class UserRoleStore {
 
     editStatusChange(index){
         this.stockInfo[index].edit = !this.stockInfo[index].edit;
+    }
+
+    addActivePerson(data){
+        this.activePerson = data;
     }
 
     constructor() {

@@ -1,19 +1,20 @@
 import React, {useState} from 'react';
-import Form from "../Ui/Form/Form";
-import {Input} from "../Ui/Input/Input";
+import Form from "../../Ui/Form/Form";
+import {Input} from "../../Ui/Input/Input";
 import {useForm} from "react-hook-form";
 import * as yup from "yup";
 import {Alert, Container} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup";
 import axios from 'axios';
-import {tarbarsss} from "../Lang/lang";
-import CardHeader from "../Ui/Card/CardHeader";
+import {tarbarsss} from "../../Lang/lang";
+import CardHeader from "../../Ui/Card/CardHeader";
 import Card from "components/Ui/Card/Card.js";
 import CardBody from "components/Ui/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "components/Ui/CustomButtons/Button.js";
-import loginStore from "../../store/loginStore";
+import loginStore from "../../../store/loginStore";
 import {observer} from "mobx-react-lite";
+import {Link} from "react-router-dom";
 
 
 
@@ -33,17 +34,18 @@ const Regform = observer(() => {
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
+    const[loginSuccess, setLoginSuccess] = useState(false);
 
     const submitHandler = (data) => {
         console.log('data SUBMITHANDLER', data);
         axios.post(`https://jsonplaceholder.typicode.com/users`, data)
             .then(res => {
-                setMessage('Неправильно введен логин или пароль', res);
+                //setMessage('Неправильно введен логин или пароль', res);
                 res.data.token = 'EMGTRS45555';
                 loginStore.isLogged = true;
                 loginStore.currentUser = res.data;
                 localStorage.setItem('token', res.data.token);
-                console.log('res is', res.data);
+                setLoginSuccess(true);
 
             })
     }
@@ -56,11 +58,9 @@ const Regform = observer(() => {
 
     return (
         <Container maxWidth="sm">
-
             <Card className={classes.formBody}>
                 <CardHeader color="primary" style={{fontSize:'18px'}}>
-
-                    <p>Форма входа</p>
+                    <p style={{marginBottom:'0'}}>Форма входа</p>
                 </CardHeader>
 
                 <CardBody className={classes.cardBody}>
@@ -68,6 +68,7 @@ const Regform = observer(() => {
 
             {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
+            {!loginSuccess ?
             <Form onSubmit={handleSubmit(submitHandler)}>
                 <Input
                     {...register('login')}
@@ -95,8 +96,18 @@ const Regform = observer(() => {
 '
                 />
 
-                <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
+                <Button style={{marginTop:'40px'}} type='submit' color="primary">Войти</Button>
             </Form>
+                :
+
+                <>
+
+
+                    <span style={{textAlign:'center',display:'block',marginTop:'20px'}}>Вы успешно зашли в свою учетную запись. Перейти на основную панель сайта?</span>
+                    <div style={{textAlign:'center',marginTop:'20px'}}><Link to='admin/remains'><Button color='success'>Перейти</Button></Link></div>
+                </>
+
+            }
                 </CardBody>
 
             </Card>

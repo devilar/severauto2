@@ -18,7 +18,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-
 // core components
 import Admin from "layouts/Admin.js";
 import Registration from "layouts/Registration.js";
@@ -29,6 +28,8 @@ import Login from "./layouts/Login";
 import Profile from "./layouts/Profile";
 import ForgotPassword from "./layouts/ForgotPassword";
 import EmployerCreate from "./layouts/EmployerCreate";
+import loaderStore from "./store/loaderStore";
+import Loader from "./components/Loader/Loader";
 
 
 ReactDOM.render(
@@ -39,10 +40,10 @@ ReactDOM.render(
       <Route path="/create" component={EmployerCreate} />
       <Route path="/profile" component={Profile} />
       <Route path="/login" component={Login} />
-      <Route path="/rtl" component={RTL} />
       <Route path="/forgotPassword" component={ForgotPassword} />
       <Redirect from="/" to="/admin/remains" />
     </Switch>
-  </BrowserRouter>,
+  </BrowserRouter>
+    ,
   document.getElementById("root")
 );

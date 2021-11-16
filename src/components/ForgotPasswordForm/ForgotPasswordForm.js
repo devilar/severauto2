@@ -11,6 +11,7 @@ import CardHeader from "../Ui/Card/CardHeader";
 import Card from "components/Ui/Card/Card.js";
 import CardBody from "components/Ui/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
+import {Link} from "react-router-dom";
 
 
 const schema = yup.object().shape({
@@ -28,13 +29,14 @@ const Regform = () => {
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
+    const[forgotPasswordSuccess, setForgotPasswordSuccess] = useState(false);
 
     const submitHandler = (data) => {
         console.log('data SUBMITHANDLER', data);
         axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
             .then(res => {
-                setMessage('Ошибка №68', res);
-                console.log('message', message);
+                //setMessage('Ошибка №68', res);
+                setForgotPasswordSuccess(true);
             })
     }
 
@@ -49,25 +51,31 @@ const Regform = () => {
             <Card className={classes.formBody}>
                 <CardHeader color="primary" style={{fontSize:'18px'}}>
 
-                    <p>Форма забыли пароль</p>
+                    <p style={{marginBottom:'0'}}>Форма забыли пароль</p>
                 </CardHeader>
 
                 <CardBody className={classes.cardBody}>
 
 
-            {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
-            <Alert severity="info" style={{marginTop:'20px'}}>
+            {message && <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
-                Для восстановаления аккаунта введите E-mail, по которому
-                создавался аккаунт. Если E-mail недоступен или доступ
-                утерян - обратитесь к Администратору.
-                Если вы не создавали аккаунт по E-mail - обратитесь к
-                пользователю, выдавшему данные для входа
 
-            </Alert>
 
+
+           {!forgotPasswordSuccess ?
             <Form onSubmit={handleSubmit(submitHandler)}>
+
+                <Alert severity="info" style={{marginTop:'20px'}}>
+
+                    Для восстановаления аккаунта введите E-mail, по которому
+                    создавался аккаунт. Если E-mail недоступен или доступ
+                    утерян - обратитесь к Администратору.
+                    Если вы не создавали аккаунт по E-mail - обратитесь к
+                    пользователю, выдавшему данные для входа
+
+                </Alert>
+
                 <Input
                     {...register('email')}
                     type="text"
@@ -86,7 +94,18 @@ const Regform = () => {
                 <Button style={{marginTop:'40px'}} type='submit' color="primary">Зарегистрироваться</Button>
             </Form>
 
+                    :
+
+                    <>
+
+
+                        <span style={{textAlign:'center',display:'block',marginTop:'20px'}}>Вы успешно восстановили пароль к сайту. Перейти на страницу авторизации?</span>
+                        <div style={{textAlign:'center',marginTop:'20px'}}><Link to='login/'><Button color='success'>Перейти</Button></Link></div>
+                    </>
+
+                    }
                 </CardBody>
+
 
             </Card>
         </Container>

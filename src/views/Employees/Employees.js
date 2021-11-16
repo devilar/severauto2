@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
 import CardBody from "components/Ui/Card/CardBody.js";
-import EmployeesForm from "../../components/PageForms/EmployeesForm/EmployeesForm";
+import EmployeesShowListForm from "../../components/PageForms/EmployeesForm/EmployeesShowListForm";
 import {Typography} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -13,6 +13,9 @@ import TableBody from "@mui/material/TableBody";
 import employeesStore from "../../store/employeesStore";
 import {observer} from "mobx-react-lite";
 import PersonModalForm from "../../components/Modal/PersonModalForm";
+import Loader from "../../components/Loader/Loader";
+import loaderStore from "../../store/loaderStore";
+
 
 const styles = {
     cardCategoryWhite: {
@@ -41,6 +44,7 @@ const Employees = observer(() => {
 
     const [activeRow, setActiveRow] = useState(1);
     const [modalShow, setModalShow] = React.useState(false);
+    const[useLoader, setUseLoader] = useState(false);
     const handleClick = (id) => {
         setActiveRow(id)
     }
@@ -58,7 +62,7 @@ const Employees = observer(() => {
 
             </CardHeader>
             <CardBody>
-                <EmployeesForm/>
+                <EmployeesShowListForm/>
 
                 <Typography align='left' component="h3" variant="p" mt={4} mb={4}>Результаты формы</Typography>
 
@@ -104,6 +108,7 @@ const Employees = observer(() => {
 
                 <button onClick={()=>employeesStore.buttonClick({id:4, fullName: 'Иванов Иван Иванович', login:'IvanIvanovich', stocks:'butovo', roles: 'Ответственный за склад', status: 'активен'})}>click me</button>
             </CardBody>
+            {loaderStore.isActive && <Loader/>}
         </Card>
     );
 })
