@@ -2,7 +2,7 @@ import React from "react";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
-import ForgotPasswordForm from "../components/ForgotPasswordForm/ForgotPasswordForm";
+import ForgotPasswordForm from "../components/PageForms/ForgotPasswordForm/ForgotPasswordForm";
 import Header from "../components/Header/Header";
 import { Container } from '@mui/material';
 

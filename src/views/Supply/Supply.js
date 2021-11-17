@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
@@ -13,6 +13,9 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import tableResult from "../../store/supplyStore";
+import supplyStore from "../../store/supplyStore";
+import PersonModalForm from "../../components/Modal/PersonModalForm";
+import SupplyModalForm from "../../components/Modal/SupplyModalForm";
 
 const styles = {
     cardCategoryWhite: {
@@ -36,6 +39,13 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 const SupplyPage = observer(() => {
+
+    const [activeRow, setActiveRow] = useState(1);
+    const handleDoubleClick = () => setModalShow(true);
+    const handleClick = id => setActiveRow(id);
+    const [modalShow, setModalShow] = React.useState(false);
+
+
     const classes = useStyles();
     return (
         <Card>
@@ -53,11 +63,10 @@ const SupplyPage = observer(() => {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Договора</TableCell>
-                            <TableCell>RN Товара</TableCell>
+                            <TableCell>Номер- Дата договора</TableCell>
                             <TableCell>Товар</TableCell>
-                            <TableCell>Количество на начало периода</TableCell>
-                            <TableCell>Количество на конец периода</TableCell>
+                            <TableCell>Количество</TableCell>
+                            <TableCell>Дата поставки</TableCell>
                             <TableCell>Склад</TableCell>
                         </TableRow>
 
@@ -65,14 +74,13 @@ const SupplyPage = observer(() => {
                     <TableBody>
 
 
-                        {tableResult.result.map(elem=>(
-                                <TableRow key={elem.id}>
+                        {supplyStore.result.map(elem=>(
+                                <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
 
-                                    <TableCell>{elem.number}</TableCell>
-                                    <TableCell>{elem.rn}</TableCell>
+                                    <TableCell>{elem.numberAndDate}</TableCell>
                                     <TableCell>{elem.itemTitle}</TableCell>
-                                    <TableCell>{elem.quantityMonthStart}</TableCell>
-                                    <TableCell>{elem.quantityMonthEnd}</TableCell>
+                                    <TableCell>{elem.quantity}</TableCell>
+                                    <TableCell>{elem.supplyDate}</TableCell>
                                     <TableCell>{elem.stock}</TableCell>
 
                                 </TableRow>
@@ -83,8 +91,11 @@ const SupplyPage = observer(() => {
                     </TableBody>
                 </Table>
 
-                <button onClick={()=>tableResult.buttonClick()}>click me</button>
-
+                <SupplyModalForm
+                    id={activeRow}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
 
             </CardBody>
         </Card>

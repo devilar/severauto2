@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import Form from "../Ui/Form/Form";
-import Button from "../Ui/CustomButtons/Button";
+import Form from "../../Ui/Form/Form";
+import Button from "../../Ui/CustomButtons/Button";
 import * as yup from "yup";
 import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {Alert, Checkbox} from "@mui/material";
 import Grid from '@mui/material/Grid';
-import {Input} from "../Ui/Input/Input";
+import {Input} from "../../Ui/Input/Input";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -21,8 +21,8 @@ import {observer} from "mobx-react-lite";
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import createUserRoleStore from "../../store/createUserRoleStore";
-import employeesStore from "../../store/employeesStore";
+import createUserRoleStore from "../../../store/createUserRoleStore";
+import employeesStore from "../../../store/employeesStore";
 
 const style = {
     position: 'absolute',
@@ -45,16 +45,11 @@ const EmployerCreateForm = observer(({onhide}) => {
 
 
 
-    const [open, setOpen] = React.useState(false);
-    const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
+
     const [role,setRole] = useState('');
 const [includeRules,setInludeRules] = useState({})
 
-    const handleBlockUser = () => {
-        alert('blocked');
-        handleClose();
-    }
+
 
     const baseScheme = {
         login:yup.string().min(6, ('RARA')).max(20).required("Обязательное поле"),
@@ -206,14 +201,14 @@ const [includeRules,setInludeRules] = useState({})
                     </Grid>
 
 
-
-                    <Grid container xs={12} rowSpacing={2} style={{marginTop:'50px'}}>
+                {role === 'sklad_manager' &&
+                    <Grid container xs={12} rowSpacing={2} style={{marginTop:'30px'}}>
 
                         <Grid item xs={12}>
 
 
 
-                            {role === 'sklad_manager' && <Table>
+                             <Table>
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Склад</TableCell>
@@ -237,38 +232,24 @@ const [includeRules,setInludeRules] = useState({})
 
 
                                 </TableBody>
-                            </Table>}
+                            </Table>
 
 
 
                         </Grid>
 
                     </Grid>
+                }
 
 
-                    <Button onClick={handleOpen} style={{marginTop:'40px'}} color="danger"><PersonAddIcon style={{marginRight:'10px'}}/>Удалить</Button>
+
                     <Button style={{marginTop:'40px'}} type='submit' color="primary"><PersonAddIcon style={{marginRight:'10px'}}/>Создать</Button>
 
 
             </Form>
 
 
-            <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box sx={style}>
-                    <div className='modalHead'>Вы действительно хотите заблокировать сотрудника?</div>
-                    <div className='modalContent'>
-                        <Button color='primary' onClick={handleClose}>Нет</Button>
-                        <Button color='danger' onClick={handleBlockUser}>Да</Button>
-                    </div>
 
-
-                </Box>
-            </Modal>
 
         </div>
     );

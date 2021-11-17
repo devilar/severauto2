@@ -52,7 +52,7 @@ const HeaderProfile = observer(() =>{
                 aria-owns={open ? "menu-list-grow" : null}
                 aria-haspopup="true"
                 onClick={handleToggle}
-                className={classes.buttonLink}
+                style={{padding:'5px 10px', margin:0}}
             >
             <FaceIcon style={{fill:"#000000"}}/>
                 <Hidden smDown><Typography ml='5px' color='#ffffff' align='center' component="h6" variant="p" fontSize={14}>{loginStore.isLogged ? loginStore.currentUser.login : 'Гость'}</Typography></Hidden>

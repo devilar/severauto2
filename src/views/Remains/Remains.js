@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
@@ -17,6 +17,11 @@ import DownloadIcon from '@mui/icons-material/Download';
 import UploadIcon from '@mui/icons-material/Upload';
 import SendIcon from '@mui/icons-material/Send';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import RemainsModalForm from "../../components/Modal/RemainsModalForm";
+import AddAlert from "@material-ui/icons/AddAlert";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
+import Snackbar from "components/Snackbar/Snackbar.js"
+import LoadDocModal from "../../components/Modal/LoadDocModal";
 
 
 const styles = {
@@ -40,7 +45,42 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
+
 const RemainsPage = observer(() => {
+
+
+    const showNotification = (place) => {
+        switch (place) {
+
+
+            case "tc":
+                if (!tc) {
+                    setTC(true);
+                    setTimeout(function () {
+                        setTC(false);
+                    }, 6000);
+                }
+                break;
+
+
+
+            default:
+                break;
+        }
+    };
+
+
+
+    const [tc, setTC] = React.useState(false);
+
+
+
+    const [activeRow, setActiveRow] = useState(1);
+    const handleDoubleClick = () => setModalShow(true);
+    const handleClick = id => setActiveRow(id);
+    const [modalShow, setModalShow] = React.useState(false);
+    const [loadDocModal, setLoadDocModal] = React.useState(false);
+
     const classes = useStyles();
     return (
         <Card>
@@ -53,11 +93,26 @@ const RemainsPage = observer(() => {
 
               <RemainsForm/>
 
+
+
+
+
+
                 <Grid container justifyContent="flex-end">
-                <Button style={{marginTop:'40px'}} type='submit' color="primary"><DownloadIcon style={{marginRight:'10px'}}/>Скачать</Button>
-                <Button style={{marginTop:'40px'}} type='submit' color="primary"><UploadIcon style={{marginRight:'10px'}}/>Загрузить</Button>
+                <Button onClick={() => showNotification("tc")} style={{marginTop:'40px'}} type='submit' color="primary"><DownloadIcon style={{marginRight:'10px'}}/>Скачать</Button>
+                <Button onClick={()=>setLoadDocModal(true)} style={{marginTop:'40px'}} type='submit' color="primary"><UploadIcon style={{marginRight:'10px'}}/>Загрузить</Button>
                 <Button style={{marginTop:'40px'}} type='submit' color="primary"><CheckCircleIcon style={{marginRight:'10px'}}/>Отправить</Button>
                 </Grid>
+
+                <Snackbar
+                    place="tc"
+                    color="success"
+                    icon={AddAlert}
+                    message="Началось скачивание файла"
+                    open={tc}
+                    closeNotification={() => setTC(false)}
+                    close
+                />
 
                 <Typography align='left' component="h3" variant="p" mt={4} mb={4}>Результаты формы</Typography>
 
@@ -80,7 +135,7 @@ const RemainsPage = observer(() => {
 
 
                             {tableResult.result.map(elem=>(
-                                <TableRow key={elem.id}>
+                                <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
 
                                     <TableCell>{elem.number}</TableCell>
                                     <TableCell>{elem.rn}</TableCell>
@@ -94,11 +149,17 @@ const RemainsPage = observer(() => {
                             )}
 
 
+                        <RemainsModalForm
+                            show={modalShow}
+                            onHide={() => setModalShow(false)}
+                        />
+                        <LoadDocModal
+                            show={loadDocModal}
+                            onHide={() => setLoadDocModal(false)}
+                        />
+
                     </TableBody>
                 </Table>
-
-                <button onClick={()=>tableResult.buttonClick()}>click me</button>
-
             </CardBody>
         </Card>
     );

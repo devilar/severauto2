@@ -2,22 +2,24 @@ import {makeAutoObservable} from "mobx";
 
 class SupplyStore {
     result = [
-        {id:1, number:'5149543', rn:'RN5421353', itemTitle:'123', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:3, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:4, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:5, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
+        {id:1, numberAndDate:'5149543 от 21.06.2021', quantity: '51500', supplyDate:'21.08.2021', itemTitle:'Зимние шины повышенного качества', stock:'Butovo'},
+        {id:2, numberAndDate:'5149543 от 21.06.2021', quantity: '51500', supplyDate:'21.08.2021', itemTitle:'Зимние шины повышенного качества', stock:'Butovo'},
+        {id:3, numberAndDate:'5149543 от 21.06.2021', quantity: '51500', supplyDate:'21.08.2021', itemTitle:'Зимние шины повышенного качества', stock:'Butovo'},
+        {id:4, numberAndDate:'5149543 от 21.06.2021', quantity: '51500', supplyDate:'21.08.2021', itemTitle:'Зимние шины повышенного качества', stock:'Butovo'},
+        {id:5, numberAndDate:'5149543 от 21.06.2021', quantity: '51500', supplyDate:'21.08.2021', itemTitle:'Зимние шины повышенного качества', stock:'Butovo'},
+        {id:6, numberAndDate:'5149543 от 21.06.2021', quantity: '51500', supplyDate:'21.08.2021', itemTitle:'Зимние шины повышенного качества', stock:'Butovo'},
 
+    ]
+    innerResult = [
+        {id:1, itemRn:'RN5421353',itemType:'Зимние шины',itemTitle:'Зимние шины повышенного качества', quantity:'512', valutePrice:'22000', rubValutePrice:'1260000',supplyDate:'21.05.2021', stockName:'Южное Бутово'},
+        {id:2, itemRn:'RN5421353',itemType:'Зимние шины',itemTitle:'Зимние шины повышенного качества', quantity:'512', valutePrice:'22000', rubValutePrice:'1260000',supplyDate:'21.05.2021', stockName:'Южное Бутово'},
+        {id:3, itemRn:'RN5421353',itemType:'Зимние шины',itemTitle:'Зимние шины повышенного качества', quantity:'512', valutePrice:'22000', rubValutePrice:'1260000',supplyDate:'21.05.2021', stockName:'Южное Бутово'},
+        {id:4, itemRn:'RN5421353',itemType:'Зимние шины',itemTitle:'Зимние шины повышенного качества', quantity:'512', valutePrice:'22000', rubValutePrice:'1260000',supplyDate:'21.05.2021', stockName:'Южное Бутово'},
+        {id:5, itemRn:'RN5421353',itemType:'Зимние шины',itemTitle:'Зимние шины повышенного качества', quantity:'512', valutePrice:'22000', rubValutePrice:'1260000',supplyDate:'21.05.2021', stockName:'Южное Бутово'},
     ]
 
     constructor() {
         makeAutoObservable(this)
-    }
-
-    buttonClick(){
-        console.log('grn!!!')
-        this.result.push({id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'});
-
     }
 
 }

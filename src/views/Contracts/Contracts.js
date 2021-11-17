@@ -84,7 +84,6 @@ const ContractsPage = observer(() => {
                     </TableBody>
                 </Table>
 
-                <button onClick={()=>tableResult.buttonClick()}>click me</button>
 
 
             </CardBody>

@@ -14,12 +14,6 @@ class ContractsStore {
         makeAutoObservable(this)
     }
 
-    buttonClick(){
-        console.log('grn!!!')
-        this.result.push({id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'});
-
-    }
-
 }
 
 

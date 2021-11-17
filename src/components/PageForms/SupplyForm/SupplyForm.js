@@ -17,7 +17,7 @@ import SearchIcon from '@mui/icons-material/Search';
 
 const schema = yup.object().shape({
     contractNumber:yup.string().min(3).max(10).required("Обязательное поле2"),
-    itemRN:yup.string().min(3).max(10).required("Обязательное поле"),
+    itemName:yup.string().min(3).max(10).required("Обязательное поле"),
     itemPeriod:yup.string().min(6).max(20).required("Обязательное поле"),
     itemStock:yup.string().min(6).required('Confirm Password is required')
 });
@@ -61,13 +61,13 @@ const SupplyForm = () => {
 
                 <Grid item xs={6}>
                     <Input
-                        {...register('itemRN')}
+                        {...register('itemName')}
                         type="text"
-                        id="itemRN"
-                        label="Введите RN Товара"
-                        name="itemRN"
-                        error={!!errors.itemRN}
-                        helperText={errors?.itemRN?.message}/>
+                        id="itemName"
+                        label="Введите название товара"
+                        name="itemName"
+                        error={!!errors.itemName}
+                        helperText={errors?.itemName?.message}/>
                 </Grid>
                 <Grid item xs={6}>
 

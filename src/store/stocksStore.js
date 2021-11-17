@@ -2,22 +2,17 @@ import {makeAutoObservable} from "mobx";
 
 class StocksStore {
     result = [
-        {id:1, number:'5149543', rn:'RN5421353', itemTitle:'123', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:3, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:4, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
-        {id:5, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'},
+        {id:1, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'},
+        {id:2, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'},
+        {id:3, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'},
+        {id:4, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'},
+        {id:5, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'},
+        {id:6, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'},
 
     ]
 
     constructor() {
         makeAutoObservable(this)
-    }
-
-    buttonClick(){
-        console.log('grn!!!')
-        this.result.push({id:2, number:'5149543', rn:'RN5421353', itemTitle:'Большие шины для больших машин', quantityMonthStart:'45', quantityMonthEnd:'45 000', stock:'Butovo'});
-
     }
 
 }

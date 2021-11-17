@@ -6,7 +6,7 @@ import * as yup from "yup";
 import {Alert, Container} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup";
 import axios from 'axios';
-import {tarbarsss} from "../../Lang/lang";
+import {maxString, minString} from "../../Lang/lang";
 import CardHeader from "../../Ui/Card/CardHeader";
 import Card from "components/Ui/Card/Card.js";
 import CardBody from "components/Ui/Card/CardBody.js";
@@ -19,8 +19,8 @@ import {Link} from "react-router-dom";
 
 
 const schema = yup.object().shape({
-    login:yup.string().min(3, tarbarsss(3)).max(10).required("Обязательное поле"),
-    password:yup.string().min(6).max(20).required("Обязательное поле")
+    login:yup.string().min(5, minString(5)).max(10, maxString(30)).required("Обязательное поле"),
+    password:yup.string().min(6, minString(6)).max(20,maxString(20)).required("Обязательное поле")
 });
 
 
@@ -40,12 +40,12 @@ const Regform = observer(() => {
         console.log('data SUBMITHANDLER', data);
         axios.post(`https://jsonplaceholder.typicode.com/users`, data)
             .then(res => {
-                //setMessage('Неправильно введен логин или пароль', res);
+                setMessage('Неправильно введен логин или пароль', res);
                 res.data.token = 'EMGTRS45555';
                 loginStore.isLogged = true;
                 loginStore.currentUser = res.data;
                 localStorage.setItem('token', res.data.token);
-                setLoginSuccess(true);
+                //setLoginSuccess(true);
 
             })
     }

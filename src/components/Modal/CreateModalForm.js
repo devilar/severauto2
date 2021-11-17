@@ -1,7 +1,7 @@
 import Modal from "react-bootstrap/Modal";
 import Button from "../Ui/CustomButtons/Button";
 import React from "react";
-import EmployerCreateForm from "../EmployerCreateForm/EmployerCreateForm";
+import EmployerCreateForm from "../PageForms/EmployerCreateForm/EmployerCreateForm";
 
 const CreateModalForm = (props) =>{
 
@@ -17,12 +17,10 @@ const CreateModalForm = (props) =>{
                     Создание пользователя
                 </Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{padding:'20px 60px 40px 40px'}}>
               <EmployerCreateForm onhide={props.onHide}/>
             </Modal.Body>
-            <Modal.Footer>
-                <Button color='primary' onClick={props.onHide}>Закрыть</Button>
-            </Modal.Footer>
+
         </Modal>
     );
 }

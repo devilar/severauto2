@@ -1,31 +1,30 @@
 import Modal from "react-bootstrap/Modal";
-import Button from "../Ui/CustomButtons/Button";
 import React from "react";
-import EmployerCreateForm from "../PageForms/EmployerCreateForm/EmployerCreateForm";
-import ProfileInfo from "../Profile/ProfileInfo";
-import ProfileModalInfo from "../Profile/ProfileModalInfo";
 
-const CreateModalForm = (props) =>{
+
+const RemainsModalForm = (props) =>{
 
 
 
     return (
         <Modal
             {...props}
-            size="lg"
+            dialogClassName="modal-90w"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">
-                    Профиль пользователя
+                    Поставки
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body style={{padding:'40px 60px 40px 40px'}}>
-            <ProfileModalInfo id={props.id}/>
+
+                Информация по остаткам
+
             </Modal.Body>
         </Modal>
     );
 }
 
-export default CreateModalForm;
+export default RemainsModalForm;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
@@ -10,8 +10,9 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import tableResult from "../../store/supplyStore";
 import StocksForm from "../../components/PageForms/StocksForm/StocksForm";
+import stocksStore from "../../store/stocksStore";
+import StockModalForm from "../../components/Modal/StockModalForm";
 
 const styles = {
     cardCategoryWhite: {
@@ -35,6 +36,12 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 export default function Stocks() {
+
+    const [activeRow, setActiveRow] = useState(1);
+    const handleDoubleClick = () => setModalShow(true);
+    const handleClick = id => setActiveRow(id);
+    const [modalShow, setModalShow] = React.useState(false);
+
     const classes = useStyles();
     return (
         <Card>
@@ -51,27 +58,22 @@ export default function Stocks() {
                 <Table>
                     <TableHead>
                         <TableRow>
-                            <TableCell>Договора</TableCell>
-                            <TableCell>RN Товара</TableCell>
-                            <TableCell>Товар</TableCell>
-                            <TableCell>Количество на начало периода</TableCell>
-                            <TableCell>Количество на конец периода</TableCell>
                             <TableCell>Склад</TableCell>
+                            <TableCell>Адрес</TableCell>
+                            <TableCell>Статус</TableCell>
                         </TableRow>
 
                     </TableHead>
                     <TableBody>
 
 
-                        {tableResult.result.map(elem=>(
-                                <TableRow key={elem.id}>
+                        {stocksStore.result.map(elem=>(
+                                <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
 
-                                    <TableCell>{elem.number}</TableCell>
-                                    <TableCell>{elem.rn}</TableCell>
-                                    <TableCell>{elem.itemTitle}</TableCell>
-                                    <TableCell>{elem.quantityMonthStart}</TableCell>
-                                    <TableCell>{elem.quantityMonthEnd}</TableCell>
-                                    <TableCell>{elem.stock}</TableCell>
+                                    <TableCell>{elem.stockName}</TableCell>
+                                    <TableCell>{elem.adress}</TableCell>
+                                    <TableCell>{elem.status}</TableCell>
+
 
                                 </TableRow>
                             )
@@ -80,8 +82,11 @@ export default function Stocks() {
 
                     </TableBody>
                 </Table>
-
-                <button onClick={()=>tableResult.buttonClick()}>click me</button>
+                <StockModalForm
+                    id={activeRow}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
             </CardBody>
         </Card>
     );

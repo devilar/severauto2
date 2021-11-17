@@ -13,13 +13,6 @@ class EmployeesStore {
         makeAutoObservable(this)
     }
 
-    buttonClick(data){
-        console.log("TAR!!");
-
-        this.result.push(data);
-
-    }
-
 }
 
 

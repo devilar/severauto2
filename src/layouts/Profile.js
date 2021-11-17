@@ -16,6 +16,8 @@ import Card from "../components/Ui/Card/Card";
 import CardHeader from "../components/Ui/Card/CardHeader";
 import CardBody from "../components/Ui/Card/CardBody";
 import ProfileInfo from "../components/Profile/ProfileInfo";
+import HeaderProfile from "../components/HeaderProfile/HeaderProfile";
+import Grid from "@mui/material/Grid";
 
 
 let ps;
@@ -96,9 +98,9 @@ export default function Profile({ ...rest }) {
             />
             <div className={classes.mainPanel} ref={mainPanel}>
 
-                <AdminHeader/>
 
-                <div className={classes.content}>
+
+                <div className={classes.content} style={{marginTop:'0'}}>
 
                     <div className={classes.container}>
 
@@ -106,8 +108,12 @@ export default function Profile({ ...rest }) {
                         <Card>
 
 
-                            <CardHeader color="primary">
-                                <span style={{fontSize:'16px'}} className={classes.cardTitleWhite}>Профиль</span>
+                            <CardHeader color="primary" style={{background:'#00acc1'}}>
+                                <Grid container alignItems="center">
+                                    <Grid item xs={10}><span style={{fontSize:'16px'}} className={classes.cardTitleWhite}>Профиль</span></Grid>
+                                    <Grid item align='center' spacing={0} xs={4} sm={4} md={2}><HeaderProfile/></Grid>
+                                </Grid>
+
                             </CardHeader>
                             <CardBody>
 

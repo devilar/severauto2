@@ -57,7 +57,7 @@ const ProfileInfo = () => {
 
             {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
-            <Grid container xs={12}>
+            <Grid container xs={10}>
 
             <div><span>Логин: TestIgor</span> <span>Активен</span></div>
 
@@ -176,7 +176,26 @@ const ProfileInfo = () => {
             </Form>
             </Grid>
 
-
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
+            <div>test</div>
 
         </div>
     );

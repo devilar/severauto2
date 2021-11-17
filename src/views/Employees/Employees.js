@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
 import CardBody from "components/Ui/Card/CardBody.js";
-import EmployeesShowListForm from "../../components/PageForms/EmployeesForm/EmployeesShowListForm";
+import EmployeesShowListForm from "../../components/PageForms/EmployeesShowListForm/EmployeesShowListForm";
 import {Typography} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
@@ -45,14 +45,9 @@ const Employees = observer(() => {
     const [activeRow, setActiveRow] = useState(1);
     const [modalShow, setModalShow] = React.useState(false);
     const[useLoader, setUseLoader] = useState(false);
-    const handleClick = (id) => {
-        setActiveRow(id)
-    }
+    const handleClick = id => setActiveRow(id);
 
-    const handleDoubleClick = () => {
-        setModalShow(true)
-        console.log('OMG DOUBLE');
-    }
+    const handleDoubleClick = () => setModalShow(true);
 
     const classes = useStyles();
     return (
@@ -106,7 +101,6 @@ const Employees = observer(() => {
                     onHide={() => setModalShow(false)}
                 />
 
-                <button onClick={()=>employeesStore.buttonClick({id:4, fullName: 'Иванов Иван Иванович', login:'IvanIvanovich', stocks:'butovo', roles: 'Ответственный за склад', status: 'активен'})}>click me</button>
             </CardBody>
             {loaderStore.isActive && <Loader/>}
         </Card>

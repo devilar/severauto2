@@ -22,8 +22,21 @@ import createUserRoleStore from "../../store/createUserRoleStore";
 import MenuItem from "@mui/material/MenuItem";
 import {observer} from "mobx-react-lite";
 import loaderStore from "../../store/loaderStore";
+import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
 
-
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 550,
+    bgcolor: 'background.paper',
+    border: '1px solid #F55A4E',
+    boxShadow: 24,
+    padding:2
+};
 
 const schema = yup.object().shape({
     password:yup.string().min(6, ('test!!!')).max(20).required("Обязательное поле"),
@@ -34,11 +47,17 @@ const schema = yup.object().shape({
 
 const ProfileModalInfo = observer((props) => {
 
+    const handleBlockUser = () => {
+        alert('blocked');
+        handleClose();
+    }
 
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
     const[message,setMessage] = useState('');
     const[password,setPassword] = useState('');
     const [role,setRole] = useState('');
-
+    const [open, setOpen] = React.useState(false);
 
     const submitHandler = (data) => {
 
@@ -150,12 +169,13 @@ const ProfileModalInfo = observer((props) => {
                         </Grid>
                     </Grid>
 
-                    <Grid container xs={12} rowSpacing={2} style={{marginTop:'50px'}}>
+
+
+                    {role === 'sklad_manager' &&
+
+                    <Grid container xs={12} rowSpacing={2} style={{marginTop:'30px'}}>
                         <Grid item xs={12}>
-
-
-
-                            {role === 'sklad_manager' && <Table>
+                            <Table>
                                 <TableHead>
                                     <TableRow>
                                         <TableCell>Склад</TableCell>
@@ -179,21 +199,33 @@ const ProfileModalInfo = observer((props) => {
 
 
                                 </TableBody>
-                            </Table>}
-
-
-
+                            </Table>
                         </Grid>
                     </Grid>
-
-
+                    }
+                    <Button onClick={handleOpen} style={{marginTop:'40px'}} color="danger"><PersonAddIcon style={{marginRight:'10px'}}/>Удалить</Button>
                     <Button style={{marginTop:'40px'}} type='submit' color="primary">Сохранить</Button>
 
                 </Form>
             </Grid>
 
 
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+            >
+                <Box sx={style}>
+                    <div className='modalHead'>Вы действительно хотите заблокировать сотрудника?</div>
+                    <div className='modalContent'>
+                        <Button color='primary' onClick={handleClose}>Нет</Button>
+                        <Button color='danger' onClick={handleBlockUser}>Да</Button>
+                    </div>
 
+
+                </Box>
+            </Modal>
 
         </div>
     );

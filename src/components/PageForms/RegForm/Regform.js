@@ -14,12 +14,13 @@ import Button from "components/Ui/CustomButtons/Button.js";
 import useWindowSize from 'react-use/lib/useWindowSize';
 import Confetti from 'react-confetti'
 import {Link} from "react-router-dom";
+import {maxString, minString} from "../../Lang/lang";
 
 
 const schema = yup.object().shape({
-    login:yup.string().min(5,('Поле должно содержать не менее 5 символов')).max(30,('Поле должно содержать не более 30 символов')).required("Обязательное поле"),
-    password:yup.string().min(6,('Поле должно содержать не менее 6 символов')).max(20,('Поле должно содержать не более 20 символов')).required("Обязательное поле"),
-    repeatPassword:yup.string().required('Confirm Password is required')
+    login:yup.string().min(5, minString(5)).max(10, maxString(30)).required("Обязательное поле"),
+    password:yup.string().min(6, minString(6)).max(20,maxString(20)).required("Обязательное поле"),
+    repeatPassword:yup.string().required('Пароли должны совпадать')
         .oneOf([yup.ref('password')], 'Пароли должны совпадать')
 });
 
@@ -72,12 +73,6 @@ const Regform = () => {
     return (
        <>
            <Container maxWidth="sm">
-               {regSuccess &&
-               <Confetti
-                   width={width}
-                   height={height}
-               />
-               }
 
                    <Card className={classes.formBody}>
                    <CardHeader color="primary" style={{fontSize:'18px'}}>
