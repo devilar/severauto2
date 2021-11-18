@@ -12,7 +12,6 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import {Alert} from "@mui/material";
-import Modal from 'react-bootstrap/Modal';
 import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -43,7 +42,7 @@ const EmployeesShowListForm = () => {
     const[message,setMessage] = useState('');
 
     const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
+
         axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
             .then(res => {
                 setMessage('Ошибка №68', res);

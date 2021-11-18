@@ -4,8 +4,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Hidden from "@material-ui/core/Hidden";
 // core components
-import GridItem from "components/Grid/GridItem.js";
-import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Ui/Grid/GridItem.js";
+import GridContainer from "components/Ui/Grid/GridContainer.js";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
 import CardBody from "components/Ui/Card/CardBody.js";

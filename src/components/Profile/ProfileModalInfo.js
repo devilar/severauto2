@@ -73,14 +73,6 @@ const ProfileModalInfo = observer(() => {
     })
 
 
-    useEffect(()=>{
-        axios.get(`https://jsonplaceholder.typicode.com/comments`)
-            .then(res => {
-            console.log('RES!',res.data);
-                createUserRoleStore.addActivePerson({id:1, fullName: "Виктор", login:'testlogin123',password:'test555', email:'test@test.com', role:'manager', active: true})
-            })
-    },[])
-
     return (
         <div>
 

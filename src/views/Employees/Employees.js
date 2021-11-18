@@ -15,6 +15,8 @@ import {observer} from "mobx-react-lite";
 import PersonModalForm from "../../components/Modal/PersonModalForm";
 import Loader from "../../components/Loader/Loader";
 import loaderStore from "../../store/loaderStore";
+import createUserRoleStore from "../../store/createUserRoleStore";
+import axios from "axios";
 
 
 const styles = {
@@ -43,13 +45,24 @@ const useStyles = makeStyles(styles);
 const Employees = observer(() => {
 
     const [activeRow, setActiveRow] = useState(1);
-    const [modalShow, setModalShow] = React.useState(false);
-    const[useLoader, setUseLoader] = useState(false);
     const handleClick = id => setActiveRow(id);
 
-    const handleDoubleClick = () => setModalShow(true);
+    const handleDoubleClick = (id) => {
+
+        axios.get(`https://jsonplaceholder.typicode.com/comments`)
+            .then(res => {
+
+            createUserRoleStore.addActivePerson({id:1, fullName: "Виктор", login:'testlogin123',password:'test555', email:'test@test.com', role:'admin', active: true})
+
+            })
+
+
+    };
 
     const classes = useStyles();
+
+    const isEmpty = Object.keys(createUserRoleStore.activePerson).length == 0;
+
     return (
         <Card>
             <CardHeader color="primary">
@@ -81,7 +94,7 @@ const Employees = observer(() => {
 
                         {employeesStore.result.map(elem=>{
                             return(
-                                <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
+                                <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={()=>handleDoubleClick(elem.id)}>
                                     <TableCell>{elem.fullName}</TableCell>
                                     <TableCell>{elem.login}</TableCell>
                                     <TableCell>{elem.stocks}</TableCell>
@@ -97,9 +110,10 @@ const Employees = observer(() => {
 
                 <PersonModalForm
                     id={activeRow}
-                    show={modalShow}
-                    onHide={() => setModalShow(false)}
+                    show={!isEmpty}
+                    onHide={() => createUserRoleStore.removeActivePerson()}
                 />
+
 
             </CardBody>
             {loaderStore.isActive && <Loader/>}

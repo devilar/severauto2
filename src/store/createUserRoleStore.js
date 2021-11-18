@@ -18,7 +18,12 @@ class UserRoleStore {
     ]
 
 
-    activePerson = {id:1, fullName: "", login:'',password:'', email:'', role:'', active: false}
+    activePerson = {}
+
+    modalisActive = false;
+
+    enableModal = () => this.modalisActive = true;
+    disableModal = () => this.modalisActive = false;
 
     changeValue(item, value){
 
@@ -36,6 +41,9 @@ class UserRoleStore {
 
     addActivePerson(data){
         this.activePerson = data;
+    }
+    removeActivePerson(){
+        this.activePerson = {};
     }
 
     constructor() {

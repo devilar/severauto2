@@ -3,8 +3,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 // core components
-import GridItem from "components/Grid/GridItem.js";
-import GridContainer from "components/Grid/GridContainer.js";
+import GridItem from "components/Ui/Grid/GridItem.js";
+import GridContainer from "components/Ui/Grid/GridContainer.js";
 import CustomInput from "components/Ui/CustomInput/CustomInput.js";
 import Button from "components/Ui/CustomButtons/Button.js";
 import Card from "components/Ui/Card/Card.js";
