@@ -57,57 +57,62 @@ const ProfileInfo = () => {
 
             {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
 
-            <Grid container xs={10}>
+            <Grid container xs={12}>
 
-            <div><span>Логин: TestIgor</span> <span>Активен</span></div>
+            <div style={{marginTop:'30px'}}><span>Логин: Виктор</span> <span className="supergreen">Активен</span></div>
 
             <Form onSubmit={handleSubmit(submitHandler)}>
-
-                <Grid container>
-                 <Grid item xs={6}>
-                <PasswordInput
-                    {...register('password')}
-                    id="password"
-                    type="password"
-                    label="Пароль"
-                    value={password}
-                    name="password"
-                    showPasswordBtn="true"
-                    onChange={(e)=>setPassword(e.target.value)}
-                    error={!!errors.password}
-                    helperText={errors?.password?.message}
-                />
-                 </Grid>
+                <Grid container xs={12}>
                     <Grid item xs={6}>
-                    <Button style={{marginLeft:'80px', marginTop:'20px'}} color="primary" onClick={()=>console.log('tar', password)}>
-                        <EditIcon style={{marginRight:'10px'}}/>Сменить пароль</Button>
+                    <PasswordInput
+                        {...register('password')}
+                        id="password"
+                        type="password"
+                        label="Пароль"
+                        value={password}
+                        name="password"
+                        showPasswordBtn="true"
+                        onChange={(e)=>setPassword(e.target.value)}
+                        error={!!errors.password}
+                        helperText={errors?.password?.message}
+                    />
+                    </Grid>
+                     <Grid item xs={6}>
+                        <Button style={{marginLeft:'80px', marginTop:'20px'}} color="primary" onClick={()=>console.log('tar', password)}>
+                            <EditIcon style={{marginRight:'10px'}}/>Сменить пароль</Button>
+                     </Grid>
+                </Grid>
+                <Grid container xs={12}>
+                    <Grid item xs={6}>
+                        <Input
+                            {...register('fullName')}
+                            id="fullName"
+                            type="text"
+                            label="ФИО"
+                            name="repeatPassword"
+                            error={!!errors.fullName}
+                            helperText={errors?.fullName?.message}
+                            tooltip='test test!'
+                        />
                     </Grid>
                 </Grid>
-
-                <Input
-                    {...register('fullName')}
-                    id="fullName"
-                    type="text"
-                    label="ФИО"
-                    name="repeatPassword"
-                    error={!!errors.fullName}
-                    helperText={errors?.fullName?.message}
-                    tooltip='test test!'
-                />
-
-                <Input
-                    {...register('email')}
-                    type="text"
-                    id="email"
-                    label="Введите почту"
-                    name="email"
-                    error={!!errors.email}
-                    helperText={errors?.email?.message}
-                    tooltip='Email должен содержать имя
-пользовтеля и адрес домена.
-Межуд ними должен располагаться знак @
-'
-                />
+                <Grid container xs={12}>
+                    <Grid item xs={6}>
+                        <Input
+                            {...register('email')}
+                            type="text"
+                            id="email"
+                            label="Введите почту"
+                            name="email"
+                            error={!!errors.email}
+                            helperText={errors?.email?.message}
+                            tooltip='Email должен содержать имя
+        пользовтеля и адрес домена.
+        Межуд ними должен располагаться знак @
+        '
+                        />
+                    </Grid>
+                </Grid>
 
 
                 <Grid container xs={12}>
@@ -175,27 +180,6 @@ const ProfileInfo = () => {
 
             </Form>
             </Grid>
-
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
-            <div>test</div>
 
         </div>
     );

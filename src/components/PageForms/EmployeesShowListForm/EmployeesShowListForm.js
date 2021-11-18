@@ -17,12 +17,13 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import 'bootstrap/dist/css/bootstrap.css';
 import CreateModalForm from "../../Modal/CreateModalForm";
+import {maxString, minString} from "../../Lang/lang";
 
 const schema = yup.object().shape({
-    fullName:yup.string().min(6).required('Confirm Password is required'),
-    status:yup.string().required('Confirm Password is required'),
-    stock:yup.string().required('Confirm Password is required'),
-    roles:yup.string().required('Confirm Password is required'),
+    fullName:yup.string().min(6, minString(6)).max(20,maxString(20)).required('Обязательное поле'),
+    status:yup.string().required('Обязательное поле'),
+    stock:yup.string().required('Обязательное поле'),
+    roles:yup.string().required('Обязательное поле'),
 });
 
 

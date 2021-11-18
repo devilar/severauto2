@@ -13,6 +13,7 @@ class EmployeesStore {
         makeAutoObservable(this)
     }
 
+
 }
 
 

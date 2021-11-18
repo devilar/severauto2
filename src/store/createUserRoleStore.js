@@ -9,14 +9,21 @@ class UserRoleStore {
         {id:4, value: 'admin' , title: 'Администратор подразделения'},
     ]
 
+
     stockInfo = [
-        {id:1, stockName:'Бутово', adress:'ул. Успенская  д.5', read: true, edit: false},
+        {id:1, stockName:'Бутово', adress:'ул. Успенская  д.5', read: true, edit: true},
         {id:2, stockName:'Барсуково', adress:'ул. Пензенская  д.6', read: true, edit: true},
         {id:3, stockName:'Григорьево', adress:'ул. Полякова  д.4', read: true, edit: true},
         {id:4, stockName:'Сергеево', adress:'ул. Пушкина  д.1', read: true, edit: true},
     ]
 
+
     activePerson = {id:1, fullName: "", login:'',password:'', email:'', role:'', active: false}
+
+    changeValue(item, value){
+
+        this.activePerson[item] = value;
+    }
 
 
     readStatusChange(index){

@@ -21,7 +21,6 @@ import Select from "@mui/material/Select";
 import createUserRoleStore from "../../store/createUserRoleStore";
 import MenuItem from "@mui/material/MenuItem";
 import {observer} from "mobx-react-lite";
-import loaderStore from "../../store/loaderStore";
 import PersonAddIcon from "@mui/icons-material/PersonAdd";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
@@ -45,7 +44,7 @@ const schema = yup.object().shape({
     stockRole:yup.string().required("Обязательное поле"),
 });
 
-const ProfileModalInfo = observer((props) => {
+const ProfileModalInfo = observer(() => {
 
     const handleBlockUser = () => {
         alert('blocked');
@@ -56,7 +55,6 @@ const ProfileModalInfo = observer((props) => {
     const handleClose = () => setOpen(false);
     const[message,setMessage] = useState('');
     const[password,setPassword] = useState('');
-    const [role,setRole] = useState('');
     const [open, setOpen] = React.useState(false);
 
     const submitHandler = (data) => {
@@ -96,6 +94,7 @@ const ProfileModalInfo = observer((props) => {
 
                     <Grid container>
                         <Grid item xs={6}>
+
                             <PasswordInput
                                 {...register('password')}
                                 id="password"
@@ -104,7 +103,7 @@ const ProfileModalInfo = observer((props) => {
                                 label="Пароль"
                                 name="password"
                                 showPasswordBtn="true"
-                                onChange={(e)=>setCurrentPerson({...currentPerson, password: e.target.value})}
+                                onChange={(e)=>createUserRoleStore.changeValue('password', e.target.value)}
                                 error={!!errors.password}
                                 helperText={errors?.password?.message}
                             />
@@ -114,11 +113,10 @@ const ProfileModalInfo = observer((props) => {
                                 <EditIcon style={{marginRight:'10px'}}/>Сменить пароль</Button>
                         </Grid>
                     </Grid>
-
                     <Input
                         {...register('fullName')}
                         id="fullName"
-                        onChange={(e)=>setCurrentPerson({...currentPerson, fullName: e.target.value})}
+                        onChange={(e)=>createUserRoleStore.changeValue('fullName', e.target.value)}
                         type="text"
                         value={createUserRoleStore.activePerson.fullName}
                         label="ФИО"
@@ -133,7 +131,7 @@ const ProfileModalInfo = observer((props) => {
                         type="text"
                         id="email"
                         value={createUserRoleStore.activePerson.email}
-                        onChange={(e)=>setCurrentPerson({...currentPerson, email: e.target.value})}
+                       onChange={(e)=>createUserRoleStore.changeValue('email', e.target.value)}
                         label="Введите почту"
                         name="email"
                         error={!!errors.email}
@@ -154,9 +152,9 @@ const ProfileModalInfo = observer((props) => {
                                     labelId="stockRole"
                                     id="stockRole"
                                     label="Роль"
-                                    onChange={(e)=>setRole(e.target.value)}
                                     error={!!errors.stockRole}
                                     value={createUserRoleStore.activePerson.role}
+                                    onChange={(e)=>createUserRoleStore.changeValue('role', e.target.value)}
                                     helperText={errors?.stockRole?.message}
                                 >
                                     {createUserRoleStore.rolesList.map((elem, index) =>{
@@ -171,7 +169,7 @@ const ProfileModalInfo = observer((props) => {
 
 
 
-                    {role === 'sklad_manager' &&
+                    {createUserRoleStore.activePerson.role === 'sklad_manager' &&
 
                     <Grid container xs={12} rowSpacing={2} style={{marginTop:'30px'}}>
                         <Grid item xs={12}>

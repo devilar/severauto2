@@ -7,8 +7,11 @@ import "perfect-scrollbar/css/perfect-scrollbar.css";
 import { makeStyles } from "@material-ui/core/styles";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
+
 import routes from "routes.js";
+
 import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
+
 import bgImage from "assets/img/sidebar-2.jpg";
 import logo from "assets/img/reactlogo.png";
 import AdminHeader from "../components/Header/AdminHeader";
@@ -19,10 +22,7 @@ import ProfileInfo from "../components/Profile/ProfileInfo";
 import HeaderProfile from "../components/HeaderProfile/HeaderProfile";
 import Grid from "@mui/material/Grid";
 
-
 let ps;
-
-
 
 const switchRoutes = (
     <Switch>
@@ -45,7 +45,7 @@ const switchRoutes = (
 
 const useStyles = makeStyles(styles);
 
-export default function Profile({ ...rest }) {
+export default function Admin({ ...rest }) {
     // styles
     const classes = useStyles();
     // ref to help us initialize PerfectScrollbar on windows devices
@@ -62,6 +62,7 @@ export default function Profile({ ...rest }) {
     };
     const resizeFunction = () => {
         if (window.innerWidth >= 960) {
+
             setMobileOpen(false);
         }
     };
@@ -85,7 +86,6 @@ export default function Profile({ ...rest }) {
     }, [mainPanel]);
     return (
         <div className={classes.wrapper}>
-
             <Sidebar
                 routes={routes}
                 logoText={"Creative Tim"}
@@ -98,46 +98,38 @@ export default function Profile({ ...rest }) {
             />
             <div className={classes.mainPanel} ref={mainPanel}>
 
+                <AdminHeader
 
+                    handleDrawerToggle={handleDrawerToggle}
+                    open={mobileOpen}
 
-                <div className={classes.content} style={{marginTop:'0'}}>
-
-                    <div className={classes.container}>
-
-
-                        <Card>
-
-
-                            <CardHeader color="primary" style={{background:'#00acc1'}}>
-                                <Grid container alignItems="center">
-                                    <Grid item xs={10}><span style={{fontSize:'16px'}} className={classes.cardTitleWhite}>Профиль</span></Grid>
-                                    <Grid item align='center' spacing={0} xs={4} sm={4} md={2}><HeaderProfile/></Grid>
-                                </Grid>
-
-                            </CardHeader>
-                            <CardBody>
-
-
-                                <ProfileInfo/>
-
-
-                            </CardBody>
-                        </Card>
-
-
-
-                    </div>
-                </div>
-
-
-
-
-
+                />
 
                 {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
                 {getRoute() ? (
                     <div className={classes.content}>
-                        <div className={classes.container}>{switchRoutes}</div>
+
+                        <div className={classes.container}>
+
+                            <Card>
+                                <CardHeader color="primary">
+                                    <Grid container alignItems="center">
+                                        <Grid item xs={12}><span style={{fontSize:'16px'}} className={classes.cardTitleWhite}>Профиль</span></Grid>
+
+                                    </Grid>
+
+                                </CardHeader>
+                                <CardBody>
+
+
+                                    <ProfileInfo/>
+
+
+                                </CardBody>
+                            </Card>
+
+
+                        </div>
                     </div>
                 ) : (
                     <div className={classes.map}>{switchRoutes}</div>

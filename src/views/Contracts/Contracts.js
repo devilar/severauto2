@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
@@ -12,6 +12,9 @@ import TableBody from "@mui/material/TableBody";
 import tableResult from "../../store/contractsStore";
 import ContractsForm from "../../components/PageForms/ContractsForm/ContractsForm";
 import {observer} from "mobx-react-lite";
+import StockModalForm from "../../components/Modal/StockModalForm";
+import contractsStore from "../../store/contractsStore";
+import ContractsModalForm from "../../components/Modal/ContractsModalForm";
 
 const styles = {
     cardCategoryWhite: {
@@ -35,6 +38,11 @@ const styles = {
 const useStyles = makeStyles(styles);
 
 const ContractsPage = observer(() => {
+
+    const [activeRow, setActiveRow] = useState(1);
+    const handleDoubleClick = () => setModalShow(true);
+    const handleClick = id => setActiveRow(id);
+    const [modalShow, setModalShow] = React.useState(false);
     const classes = useStyles();
     return (
         <Card>
@@ -66,8 +74,8 @@ const ContractsPage = observer(() => {
                     <TableBody>
 
 
-                        {tableResult.result.map(elem=>(
-                                <TableRow key={elem.id}>
+                        {contractsStore.result.map(elem=>(
+                                <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
 
                                     <TableCell>{elem.number}</TableCell>
                                     <TableCell>{elem.rn}</TableCell>
@@ -84,7 +92,11 @@ const ContractsPage = observer(() => {
                     </TableBody>
                 </Table>
 
-
+                <ContractsModalForm
+                    id={activeRow}
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
 
             </CardBody>
         </Card>
