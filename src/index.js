@@ -30,20 +30,7 @@ import ForgotPassword from "./layouts/ForgotPassword";
 import EmployerCreate from "./layouts/EmployerCreate";
 import loaderStore from "./store/loaderStore";
 import Loader from "./components/Ui/Loader/Loader";
+import App from "./App";
 
 
-ReactDOM.render(
-  <BrowserRouter>
-    <Switch>
-      <Route path="/admin" component={Admin} />
-      <Route path="/registration" component={Registration} />
-      <Route path="/create" component={EmployerCreate} />
-      <Route path="/profile" component={Profile} />
-      <Route path="/login" component={Login} />
-      <Route path="/forgotPassword" component={ForgotPassword} />
-      <Redirect from="/" to="/admin/remains" />
-    </Switch>
-  </BrowserRouter>
-    ,
-  document.getElementById("root")
-);
+ReactDOM.render(<App/>, document.getElementById("root"));

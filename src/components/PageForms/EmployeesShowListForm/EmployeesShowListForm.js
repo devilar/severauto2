@@ -18,21 +18,15 @@ import CreateModalForm from "../../Modal/CreateModalForm";
 import {maxString, minString} from "../../Lang/lang";
 import employeesStore from "../../../store/employeesStore";
 import {observer} from "mobx-react-lite";
-
 import axios from 'axios';
 export const dataAPI = axios.create();
 import MockAdapter from 'axios-mock-adapter';
-
 import {employeesMock} from "../../../mock";
-
 import loaderStore from "../../../store/loaderStore";
-
 import Snackbar from "../../Snackbar/Snackbar";
-
 import AddAlert from "@material-ui/icons/AddAlert";
-
+import mainStore from "../../../store/mainStore";
 let mock = new MockAdapter(dataAPI);
-
 mock.onGet("/users").reply(200, {
     users:employeesMock
 });
@@ -44,58 +38,26 @@ const schema = yup.object().shape({
     roles:yup.string().required('Обязательное поле'),
 });
 
-
-
 const EmployeesShowListForm = observer(() => {
 
-
-    const showNotification = (place) => {
-        switch (place) {
-
-
-            case "tc":
-                if (!tc) {
-                    setTC(true);
-                    setTimeout(function () {
-                        setTC(false);
-                    }, 6000);
-                }
-                break;
-
-            default:
-                break;
-        }
-    };
-
-
-
-
     const [modalShow, setModalShow] = React.useState(false);
-    const [tc, setTC] = React.useState(false);
-
     const [status, setStatus] = React.useState('');
     const [stock, setStock] = React.useState('');
     const [role, setRole] = React.useState('');
-
-
-
     const[message,setMessage] = useState('');
 
     const submitHandler = () => {
 
         loaderStore.enableLoader();
-
         dataAPI.get("/users").then((res) => {
             setTimeout(()=>{
                 employeesStore.loadEmployees(res.data.users)
                 loaderStore.disableLoader();
-                showNotification("tc");
+                mainStore.showNotification("tc");
             },1000)
-
         });
 
     }
-
     const {register, handleSubmit, formState:{ errors }} = useForm({
         mode: "onBlur",
         resolver: yupResolver(schema)
@@ -105,7 +67,6 @@ const EmployeesShowListForm = observer(() => {
         <>
         {message&& <Alert style={{marginTop:'10px'}} variant="filled" severity="error">{message}</Alert>}
         <Form className='pageForm' onSubmit={handleSubmit(submitHandler)}>
-
             <Grid container xs={8} rowSpacing={2} columnSpacing={{ xs: 1, sm: 2, md: 5 }}>
                 <Grid item xs={6}>
                     <Input
@@ -136,9 +97,7 @@ const EmployeesShowListForm = observer(() => {
                         </Select>
                     </FormControl>
                 </Grid>
-
                 <Grid item xs={6}>
-
                     <FormControl className='customSelect' variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Выбрать склад</InputLabel>
                         <Select
@@ -157,9 +116,7 @@ const EmployeesShowListForm = observer(() => {
                     </FormControl>
 
                 </Grid>
-
                 <Grid item xs={6}>
-
                     <FormControl className='customSelect' variant="standard" fullWidth>
                         <InputLabel id="demo-simple-select-label">Роли</InputLabel>
                         <Select
@@ -176,48 +133,26 @@ const EmployeesShowListForm = observer(() => {
                         </Select>
                     </FormControl>
                 </Grid>
-
-
             </Grid>
-
-
-
-
-
-
-
             <Button style={{marginTop:'40px'}} type='submit' color="primary"><SearchIcon style={{marginRight:'10px'}}/>Показать</Button>
-
-
         </Form>
-
             <div className="hrCustom"></div>
-
-
             <Grid container justifyContent="flex-end">
-
             <Button onClick={() => setModalShow(true)} color="info"><PersonAddIcon style={{marginRight:'10px'}}/>Создать</Button>
             </Grid>
-
-
-
-
             <CreateModalForm
                 show={modalShow}
                 onHide={() => setModalShow(false)}
             />
-
             <Snackbar
                 place="tc"
                 color="success"
                 icon={AddAlert}
                 message="Список успешно загружен"
-                open={tc}
-                closeNotification={() => setTC(false)}
+                open={mainStore.tc}
+                closeNotification={() => mainStore.disableTC()}
                 close
             />
-
-
         </>
     );
 });

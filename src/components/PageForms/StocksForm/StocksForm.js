@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Form from "../../Ui/Form/Form";
 import * as yup from "yup";
-import axios from "axios";
+
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../Ui/CustomButtons/Button";
@@ -14,6 +14,21 @@ import Grid from '@mui/material/Grid';
 import SearchIcon from '@mui/icons-material/Search';
 
 
+import MockAdapter from 'axios-mock-adapter';
+import axios from "axios";
+import {stockMock} from "../../../mock";
+import loaderStore from "../../../store/loaderStore";
+import AddAlert from "@material-ui/icons/AddAlert";
+import Snackbar from "../../Snackbar/Snackbar";
+import remainsStore from "../../../store/remainsStore";
+import stocksStore from "../../../store/stocksStore";
+export const dataAPI = axios.create();
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/stock").reply(200, {
+    stock:stockMock
+});
+
+
 const schema = yup.object().shape({
     itemStock:yup.string().min(6).required('Confirm Password is required'),
     stockStatus:yup.string().min(6).required('test'),
@@ -21,18 +36,39 @@ const schema = yup.object().shape({
 
 const StocksForm = () => {
 
+    const showNotification = (place) => {
+        switch (place) {
+            case "tc":
+                if (!tc) {
+                    setTC(true);
+                    setTimeout( () => {
+                        setTC(false);
+                    }, 6000);
+                }
+                break;
+
+            default:
+                break;
+        }
+    };
+    const [tc, setTC] = React.useState(false);
+
     const [status, setStatus] = React.useState('');
     const [stock, setStock] = React.useState('');
 
 
     const[message,setMessage] = useState('');
 
-    const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+    const submitHandler = () => {
+        loaderStore.enableLoader();
+        dataAPI.get(`/stock`)
             .then(res => {
-                setMessage('Ошибка №68', res);
-                console.log('message', message);
+                setTimeout(()=>{
+                    console.log("RESU is", res.data.stock);
+                    stocksStore.loadResult(res.data.stock);
+                    loaderStore.disableLoader();
+                    showNotification("tc");
+                },1000)
             })
     }
 
@@ -103,6 +139,15 @@ const StocksForm = () => {
 
         </Form>
     <div className="hrCustom"></div>
+            <Snackbar
+                place="tc"
+                color="success"
+                icon={AddAlert}
+                message="Список успешно загружен"
+                open={tc}
+                closeNotification={() => setTC(false)}
+                close
+            />
     </>
     );
 };

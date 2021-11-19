@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
@@ -154,7 +154,6 @@ const RemainsPage = observer(() => {
                     </TableBody>
                 </Table>: <Alert style={{marginBottom:'20px'}} severity="info">Нет результатов!</Alert>}
             </CardBody>
-            {loaderStore.isActive && <Loader/>}
         </Card>
     );
 })

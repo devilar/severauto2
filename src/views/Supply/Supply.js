@@ -133,7 +133,6 @@ const SupplyPage = observer(() => {
                 />
 
             </CardBody>
-            {loaderStore.isActive && <Loader/>}
         </Card>
     );
 })

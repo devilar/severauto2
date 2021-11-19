@@ -125,7 +125,6 @@ const Employees = observer(() => {
 
 
             </CardBody>
-            {loaderStore.isActive && <Loader/>}
         </Card>
     );
 })

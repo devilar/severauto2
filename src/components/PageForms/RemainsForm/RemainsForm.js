@@ -12,22 +12,20 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {Alert} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-
-import axios from 'axios';
-export const dataAPI = axios.create();
-import MockAdapter from 'axios-mock-adapter';
-
-let mock = new MockAdapter(dataAPI);
-
-import {remainsMock} from "../../../mock";
-import loaderStore from "../../../store/loaderStore";
 import AddAlert from "@material-ui/icons/AddAlert";
 import Snackbar from "../../Snackbar/Snackbar";
-
-
+import MockAdapter from 'axios-mock-adapter';
+import axios from "axios";
+import {remainsMock} from "../../../mock";
+import supplyStore from "../../../store/supplyStore";
+import loaderStore from "../../../store/loaderStore";
+import remainsStore from "../../../store/remainsStore";
+export const dataAPI = axios.create();
+let mock = new MockAdapter(dataAPI);
 mock.onGet("/remains").reply(200, {
     remains:remainsMock
 });
+
 
 
 
@@ -60,17 +58,14 @@ const RemainsForm = () => {
 
     const submitHandler = () => {
         loaderStore.enableLoader();
-        dataAPI.get(`/https://jsonplaceholder.typicode.com/todos/1`).then((res) => {
-        console.log('res', res);
-
-            // setTimeout(()=>{
-            //     remainsStore.loadRemains(res.data.remains);
-            //     loaderStore.disableLoader();
-            //     showNotification("tc");
-            // },1000)
-
-        });
-
+        dataAPI.get('/remains')
+            .then((res) => {
+                setTimeout(()=>{
+                    remainsStore.loadResult(res.data.remains);
+                    loaderStore.disableLoader();
+                    showNotification("tc");
+                },1000)
+            })
     }
 
 

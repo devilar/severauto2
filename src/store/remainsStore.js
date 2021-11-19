@@ -9,7 +9,7 @@ class RemainsStore {
         makeAutoObservable(this)
     }
 
-    loadRemains(data){
+    loadResult(data){
         this.result = data
     }
 

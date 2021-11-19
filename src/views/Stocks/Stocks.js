@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
 import CardBody from "components/Ui/Card/CardBody.js";
-import {Typography} from "@mui/material";
+import {Alert, Typography} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -13,6 +13,9 @@ import TableBody from "@mui/material/TableBody";
 import StocksForm from "../../components/PageForms/StocksForm/StocksForm";
 import stocksStore from "../../store/stocksStore";
 import StockModalForm from "../../components/Modal/StockModalForm";
+import loaderStore from "../../store/loaderStore";
+import Loader from "../../components/Ui/Loader/Loader";
+import {observer} from "mobx-react-lite";
 
 const styles = {
     cardCategoryWhite: {
@@ -35,7 +38,7 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function Stocks() {
+const Stocks = observer(() => {
 
     const [activeRow, setActiveRow] = useState(1);
     const handleDoubleClick = () => setModalShow(true);
@@ -54,8 +57,7 @@ export default function Stocks() {
 
 
 
-
-                <Table>
+                {stocksStore.result.length ? <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Склад</TableCell>
@@ -65,8 +67,6 @@ export default function Stocks() {
 
                     </TableHead>
                     <TableBody>
-
-
                         {stocksStore.result.map(elem=>(
                                 <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
 
@@ -81,7 +81,8 @@ export default function Stocks() {
 
 
                     </TableBody>
-                </Table>
+                </Table> : <Alert style={{marginBottom:'20px'}} severity="info">Нет результатов!</Alert>}
+
                 <StockModalForm
                     id={activeRow}
                     show={modalShow}
@@ -90,4 +91,6 @@ export default function Stocks() {
             </CardBody>
         </Card>
     );
-}
+})
+
+export default Stocks;
