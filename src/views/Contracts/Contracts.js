@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
 import CardBody from "components/Ui/Card/CardBody.js";
-import {Typography} from "@mui/material";
+import {Alert, Typography} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -58,8 +58,7 @@ const ContractsPage = observer(() => {
 
 
 
-
-                <Table>
+                {contractsStore.result.length? <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Договора</TableCell>
@@ -72,8 +71,6 @@ const ContractsPage = observer(() => {
 
                     </TableHead>
                     <TableBody>
-
-
                         {contractsStore.result.map(elem=>(
                                 <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
 
@@ -90,7 +87,8 @@ const ContractsPage = observer(() => {
 
 
                     </TableBody>
-                </Table>
+                </Table> : <Alert style={{marginBottom:'20px'}} severity="info">Нет результатов!</Alert>}
+
 
                 <ContractsModalForm
                     id={activeRow}

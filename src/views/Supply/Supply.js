@@ -6,16 +6,28 @@ import CardHeader from "components/Ui/Card/CardHeader.js";
 import CardBody from "components/Ui/Card/CardBody.js";
 import {observer} from "mobx-react-lite";
 import SupplyForm from "../../components/PageForms/SupplyForm/SupplyForm";
-import {Typography} from "@mui/material";
+import {Alert, Typography} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import tableResult from "../../store/supplyStore";
 import supplyStore from "../../store/supplyStore";
-import PersonModalForm from "../../components/Modal/PersonModalForm";
 import SupplyModalForm from "../../components/Modal/SupplyModalForm";
+import loaderStore from "../../store/loaderStore";
+import Loader from "../../components/Ui/Loader/Loader";
+
+
+export const dataAPI = axios.create();
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import {supplyInnerMock} from "../../mock";
+import createUserRoleStore from "../../store/createUserRoleStore";
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/supplyInner").reply(200, {
+    supplyInner:supplyInnerMock
+});
+
 
 const styles = {
     cardCategoryWhite: {
@@ -40,13 +52,40 @@ const useStyles = makeStyles(styles);
 
 const SupplyPage = observer(() => {
 
+
+
     const [activeRow, setActiveRow] = useState(1);
-    const handleDoubleClick = () => setModalShow(true);
+
+    const handleDoubleClick = () => {
+        loaderStore.enableLoader();
+        setTimeout(() => {
+
+            dataAPI.get(`/supplyInner`)
+                .then(res => {
+                    supplyStore.addInnerResult(res.data.supplyInner)
+                })
+
+            loaderStore.disableLoader();
+
+        }, 1000);
+
+
+
+
+    }
+
     const handleClick = id => setActiveRow(id);
+
+
     const [modalShow, setModalShow] = React.useState(false);
 
 
+
+
+
     const classes = useStyles();
+    const isEmpty = supplyStore.innerResult.length
+    console.log('IZ EMPLTY', isEmpty);
     return (
         <Card>
             <CardHeader color="primary">
@@ -59,8 +98,7 @@ const SupplyPage = observer(() => {
 
 
 
-
-                <Table>
+                {supplyStore.result.length ? <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Номер- Дата договора</TableCell>
@@ -76,28 +114,26 @@ const SupplyPage = observer(() => {
 
                         {supplyStore.result.map(elem=>(
                                 <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={handleDoubleClick}>
-
                                     <TableCell>{elem.numberAndDate}</TableCell>
                                     <TableCell>{elem.itemTitle}</TableCell>
                                     <TableCell>{elem.quantity}</TableCell>
                                     <TableCell>{elem.supplyDate}</TableCell>
                                     <TableCell>{elem.stock}</TableCell>
-
                                 </TableRow>
                             )
                         )}
-
-
                     </TableBody>
-                </Table>
+                </Table> : <Alert style={{marginBottom:'20px'}} severity="info">Нет результатов!</Alert>}
+
 
                 <SupplyModalForm
                     id={activeRow}
-                    show={modalShow}
-                    onHide={() => setModalShow(false)}
+                    show={isEmpty}
+                    onHide={()=>supplyStore.removeInnerResult()}
                 />
 
             </CardBody>
+            {loaderStore.isActive && <Loader/>}
         </Card>
     );
 })

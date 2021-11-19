@@ -4,7 +4,7 @@ import Card from "components/Ui/Card/Card.js";
 import CardHeader from "components/Ui/Card/CardHeader.js";
 import CardBody from "components/Ui/Card/CardBody.js";
 import EmployeesShowListForm from "../../components/PageForms/EmployeesShowListForm/EmployeesShowListForm";
-import {Typography} from "@mui/material";
+import {Alert, Typography} from "@mui/material";
 import Table from "@mui/material/Table";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
@@ -13,10 +13,17 @@ import TableBody from "@mui/material/TableBody";
 import employeesStore from "../../store/employeesStore";
 import {observer} from "mobx-react-lite";
 import PersonModalForm from "../../components/Modal/PersonModalForm";
-import Loader from "../../components/Loader/Loader";
+import Loader from "../../components/Ui/Loader/Loader";
 import loaderStore from "../../store/loaderStore";
 import createUserRoleStore from "../../store/createUserRoleStore";
-import axios from "axios";
+import axios from 'axios';
+export const dataAPI = axios.create();
+import MockAdapter from 'axios-mock-adapter';
+import {singlePopupUser} from "../../mock";
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/getPopupUser").reply(200, {
+    user:singlePopupUser
+});
 
 
 const styles = {
@@ -39,25 +46,26 @@ const styles = {
 };
 
 const useStyles = makeStyles(styles);
-
-
-
 const Employees = observer(() => {
+
+
 
     const [activeRow, setActiveRow] = useState(1);
     const handleClick = id => setActiveRow(id);
 
     const handleDoubleClick = (id) => {
 
-        axios.get(`https://jsonplaceholder.typicode.com/comments`)
+
+        dataAPI.get(`/getPopupUser`)
             .then(res => {
-
-            createUserRoleStore.addActivePerson({id:1, fullName: "Виктор", login:'testlogin123',password:'test555', email:'test@test.com', role:'admin', active: true})
-
+            createUserRoleStore.addActivePerson(res.data.user)
             })
 
 
     };
+
+
+
 
     const classes = useStyles();
 
@@ -72,12 +80,14 @@ const Employees = observer(() => {
             <CardBody>
                 <EmployeesShowListForm/>
 
+
+
                 <Typography align='left' component="h3" variant="p" mt={4} mb={4}>Результаты формы</Typography>
 
 
 
 
-                <Table>
+                {employeesStore.result.length ? <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>ФИО</TableCell>
@@ -90,8 +100,6 @@ const Employees = observer(() => {
 
                     </TableHead>
                     <TableBody>
-
-
                         {employeesStore.result.map(elem=>{
                             return(
                                 <TableRow key={elem.id} className={elem.id === activeRow ? 'active cursor' : 'cursor'} onClick={()=>handleClick(elem.id)} onDoubleClick={()=>handleDoubleClick(elem.id)}>
@@ -103,10 +111,11 @@ const Employees = observer(() => {
                                 </TableRow>
                             )
                         })}
-
-
                     </TableBody>
-                </Table>
+                </Table> : <Alert style={{marginBottom:'20px'}} severity="info">Нет результатов!</Alert>}
+
+
+
 
                 <PersonModalForm
                     id={activeRow}

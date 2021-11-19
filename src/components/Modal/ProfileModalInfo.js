@@ -86,7 +86,6 @@ const ProfileModalInfo = observer(() => {
 
                     <Grid container>
                         <Grid item xs={6}>
-
                             <PasswordInput
                                 {...register('password')}
                                 id="password"

@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Form from "../../Ui/Form/Form";
 import {Input} from "../../Ui/Input/Input";
 import * as yup from "yup";
-import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../Ui/CustomButtons/Button";
@@ -13,6 +12,23 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {Alert} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
+import {supplyMock} from "../../../mock";
+import loaderStore from "../../../store/loaderStore";
+import AddAlert from "@material-ui/icons/AddAlert";
+import Snackbar from "../../Snackbar/Snackbar";
+
+
+import supplyStore from "../../../store/supplyStore";
+
+export const dataAPI = axios.create();
+
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/supply").reply(200, {
+    supply:supplyMock
+});
 
 
 const schema = yup.object().shape({
@@ -26,13 +42,38 @@ const SupplyForm = () => {
 
     const[message,setMessage] = useState('');
     const[stock,setStock] = useState('');
+    const [tc, setTC] = React.useState(false);
 
-    const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+    const showNotification = (place) => {
+        switch (place) {
+
+
+            case "tc":
+                if (!tc) {
+                    setTC(true);
+                    setTimeout(function () {
+                        setTC(false);
+                    }, 6000);
+                }
+                break;
+
+            default:
+                break;
+        }
+    };
+
+    const submitHandler = () => {
+        loaderStore.enableLoader();
+        dataAPI.get(`/supply`)
             .then(res => {
-                setMessage('Ошибка №68', res);
-                console.log('message', message);
+
+                setTimeout(()=>{
+                    supplyStore.loadResult(res.data.supply);
+                    loaderStore.disableLoader();
+                    showNotification("tc");
+                },1000)
+
+
             })
     }
 
@@ -119,6 +160,15 @@ const SupplyForm = () => {
         </Form>
 
     <div className="hrCustom"></div>
+            <Snackbar
+                place="tc"
+                color="success"
+                icon={AddAlert}
+                message="Список успешно загружен"
+                open={tc}
+                closeNotification={() => setTC(false)}
+                close
+            />
         </>
 
     );

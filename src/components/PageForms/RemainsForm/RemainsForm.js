@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Form from "../../Ui/Form/Form";
 import {Input} from "../../Ui/Input/Input";
 import * as yup from "yup";
-import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../Ui/CustomButtons/Button";
@@ -13,14 +12,23 @@ import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import {Alert} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-const instance = axios.create();
-// var MockAdapter = require("axios-mock-adapter");
-// var mock = new MockAdapter(axios);
+
+import axios from 'axios';
+export const dataAPI = axios.create();
+import MockAdapter from 'axios-mock-adapter';
+
+let mock = new MockAdapter(dataAPI);
+
+import {remainsMock} from "../../../mock";
+import loaderStore from "../../../store/loaderStore";
+import AddAlert from "@material-ui/icons/AddAlert";
+import Snackbar from "../../Snackbar/Snackbar";
 
 
-// mock.onGet("/users").reply(200, {
-//     users: [{ id: 1, name: "John Smith" }],
-// });
+mock.onGet("/remains").reply(200, {
+    remains:remainsMock
+});
+
 
 
 const schema = yup.object().shape({
@@ -31,25 +39,39 @@ const schema = yup.object().shape({
 
 const RemainsForm = () => {
 
+    const showNotification = (place) => {
+        switch (place) {
+            case "tc":
+                if (!tc) {
+                    setTC(true);
+                    setTimeout( () => {
+                        setTC(false);
+                    }, 6000);
+                }
+                break;
+
+            default:
+                break;
+        }
+    };
+    const [tc, setTC] = React.useState(false);
     const[message,setMessage] = useState('');
     const [stock, setStock] = React.useState('');
 
-    const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        instance.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
-            .then(res => {
-                setMessage('Ошибка №68', res);
-            })
-    }
+    const submitHandler = () => {
+        loaderStore.enableLoader();
+        dataAPI.get(`/https://jsonplaceholder.typicode.com/todos/1`).then((res) => {
+        console.log('res', res);
 
-    const srs = () => {
-        instance.get("/users").then(function (response) {
-            console.log('mock test', response.data);
+            // setTimeout(()=>{
+            //     remainsStore.loadRemains(res.data.remains);
+            //     loaderStore.disableLoader();
+            //     showNotification("tc");
+            // },1000)
+
         });
 
     }
-
-
 
 
     const {register, handleSubmit, formState:{ errors }} = useForm({
@@ -128,6 +150,16 @@ const RemainsForm = () => {
 
         </Form>
         <div className="hrCustom"></div>
+
+            <Snackbar
+                place="tc"
+                color="success"
+                icon={AddAlert}
+                message="Список успешно загружен"
+                open={tc}
+                closeNotification={() => setTC(false)}
+                close
+            />
 
         </>
 

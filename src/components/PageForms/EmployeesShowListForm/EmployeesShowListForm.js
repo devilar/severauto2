@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import Form from "../../Ui/Form/Form";
 import {Input} from "../../Ui/Input/Input";
 import * as yup from "yup";
-import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../Ui/CustomButtons/Button";
@@ -17,6 +16,26 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import 'bootstrap/dist/css/bootstrap.css';
 import CreateModalForm from "../../Modal/CreateModalForm";
 import {maxString, minString} from "../../Lang/lang";
+import employeesStore from "../../../store/employeesStore";
+import {observer} from "mobx-react-lite";
+
+import axios from 'axios';
+export const dataAPI = axios.create();
+import MockAdapter from 'axios-mock-adapter';
+
+import {employeesMock} from "../../../mock";
+
+import loaderStore from "../../../store/loaderStore";
+
+import Snackbar from "../../Snackbar/Snackbar";
+
+import AddAlert from "@material-ui/icons/AddAlert";
+
+let mock = new MockAdapter(dataAPI);
+
+mock.onGet("/users").reply(200, {
+    users:employeesMock
+});
 
 const schema = yup.object().shape({
     fullName:yup.string().min(6, minString(6)).max(20,maxString(20)).required('Обязательное поле'),
@@ -27,11 +46,32 @@ const schema = yup.object().shape({
 
 
 
-const EmployeesShowListForm = () => {
+const EmployeesShowListForm = observer(() => {
+
+
+    const showNotification = (place) => {
+        switch (place) {
+
+
+            case "tc":
+                if (!tc) {
+                    setTC(true);
+                    setTimeout(function () {
+                        setTC(false);
+                    }, 6000);
+                }
+                break;
+
+            default:
+                break;
+        }
+    };
+
+
 
 
     const [modalShow, setModalShow] = React.useState(false);
-
+    const [tc, setTC] = React.useState(false);
 
     const [status, setStatus] = React.useState('');
     const [stock, setStock] = React.useState('');
@@ -41,13 +81,19 @@ const EmployeesShowListForm = () => {
 
     const[message,setMessage] = useState('');
 
-    const submitHandler = (data) => {
+    const submitHandler = () => {
 
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
-            .then(res => {
-                setMessage('Ошибка №68', res);
+        loaderStore.enableLoader();
 
-            })
+        dataAPI.get("/users").then((res) => {
+            setTimeout(()=>{
+                employeesStore.loadEmployees(res.data.users)
+                loaderStore.disableLoader();
+                showNotification("tc");
+            },1000)
+
+        });
+
     }
 
     const {register, handleSubmit, formState:{ errors }} = useForm({
@@ -161,10 +207,19 @@ const EmployeesShowListForm = () => {
                 onHide={() => setModalShow(false)}
             />
 
+            <Snackbar
+                place="tc"
+                color="success"
+                icon={AddAlert}
+                message="Список успешно загружен"
+                open={tc}
+                closeNotification={() => setTC(false)}
+                close
+            />
 
 
         </>
     );
-};
+});
 
 export default EmployeesShowListForm;

@@ -2,13 +2,29 @@ import React, {useState} from 'react';
 import Form from "../../Ui/Form/Form";
 import {Input} from "../../Ui/Input/Input";
 import * as yup from "yup";
-import axios from "axios";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import Button from "../../Ui/CustomButtons/Button";
 import Grid from '@mui/material/Grid';
 import {Alert} from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
+
+import axios from 'axios';
+export const dataAPI = axios.create();
+import MockAdapter from 'axios-mock-adapter';
+
+import employeesStore from "../../../store/employeesStore";
+import loaderStore from "../../../store/loaderStore";
+import {contractsInnerMock} from "../../../mock";
+import Snackbar from "../../Snackbar/Snackbar";
+import AddAlert from "@material-ui/icons/AddAlert";
+import contractsStore from "../../../store/contractsStore";
+import Loader from "../../Ui/Loader/Loader";
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/getContracts").reply(200, {
+    contracts:contractsInnerMock
+});
+
 
 
 const schema = yup.object().shape({
@@ -19,14 +35,40 @@ const schema = yup.object().shape({
 
 const ContractsForm = () => {
 
+
+    const showNotification = (place) => {
+        switch (place) {
+
+
+            case "tc":
+                if (!tc) {
+                    setTC(true);
+                    setTimeout(function () {
+                        setTC(false);
+                    }, 6000);
+                }
+                break;
+
+            default:
+                break;
+        }
+    };
+
     const[message,setMessage] = useState('');
+    const [tc, setTC] = React.useState(false);
 
     const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
-            .then(res => {
-                setMessage('Ошибка №68', res);
-            })
+        loaderStore.enableLoader();
+        dataAPI.get("/getContracts").then((res) => {
+            setTimeout(()=>{
+                contractsStore.loadResult(res.data.contracts)
+                loaderStore.disableLoader();
+                showNotification("tc");
+            },1000)
+
+        });
+
+
     }
 
     const {register, handleSubmit, formState:{ errors }} = useForm({
@@ -88,6 +130,16 @@ const ContractsForm = () => {
 
         </Form>
     <div className="hrCustom"></div>
+            <Snackbar
+                place="tc"
+                color="success"
+                icon={AddAlert}
+                message="Список успешно загружен"
+                open={tc}
+                closeNotification={() => setTC(false)}
+                close
+            />
+            {loaderStore.isActive && <Loader/>}
         </>
     );
 };

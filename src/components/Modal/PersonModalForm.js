@@ -3,7 +3,7 @@ import Button from "../Ui/CustomButtons/Button";
 import React from "react";
 import EmployerCreateForm from "../PageForms/EmployerCreateForm/EmployerCreateForm";
 import ProfileInfo from "../Profile/ProfileInfo";
-import ProfileModalInfo from "../Profile/ProfileModalInfo";
+import ProfileModalInfo from "./ProfileModalInfo";
 import createUserRoleStore from "../../store/createUserRoleStore";
 import {observer} from "mobx-react-lite";
 

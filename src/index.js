@@ -29,7 +29,7 @@ import Profile from "./layouts/Profile";
 import ForgotPassword from "./layouts/ForgotPassword";
 import EmployerCreate from "./layouts/EmployerCreate";
 import loaderStore from "./store/loaderStore";
-import Loader from "./components/Loader/Loader";
+import Loader from "./components/Ui/Loader/Loader";
 
 
 ReactDOM.render(

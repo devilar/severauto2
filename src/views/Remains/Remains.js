@@ -10,18 +10,19 @@ import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import tableResult from "../../store/remainsStore";
-import {Grid, Typography} from "@mui/material";
+import {Alert, Grid, Typography} from "@mui/material";
 import {observer} from "mobx-react-lite";
 import Button from "../../components/Ui/CustomButtons/Button";
 import DownloadIcon from '@mui/icons-material/Download';
 import UploadIcon from '@mui/icons-material/Upload';
-import SendIcon from '@mui/icons-material/Send';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RemainsModalForm from "../../components/Modal/RemainsModalForm";
 import AddAlert from "@material-ui/icons/AddAlert";
-import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 import Snackbar from "components/Snackbar/Snackbar.js"
 import LoadDocModal from "../../components/Modal/LoadDocModal";
+import remainsStore from "../../store/remainsStore";
+import loaderStore from "../../store/loaderStore";
+import Loader from "../../components/Ui/Loader/Loader";
 
 
 const styles = {
@@ -48,11 +49,8 @@ const useStyles = makeStyles(styles);
 
 const RemainsPage = observer(() => {
 
-
     const showNotification = (place) => {
         switch (place) {
-
-
             case "tc":
                 if (!tc) {
                     setTC(true);
@@ -61,15 +59,10 @@ const RemainsPage = observer(() => {
                     }, 6000);
                 }
                 break;
-
-
-
             default:
                 break;
         }
     };
-
-
 
     const [tc, setTC] = React.useState(false);
 
@@ -118,8 +111,8 @@ const RemainsPage = observer(() => {
 
 
 
-
-                <Table>
+                {remainsStore.result.length?
+                    <Table>
                     <TableHead>
                         <TableRow>
                             <TableCell>Договора</TableCell>
@@ -159,8 +152,9 @@ const RemainsPage = observer(() => {
                         />
 
                     </TableBody>
-                </Table>
+                </Table>: <Alert style={{marginBottom:'20px'}} severity="info">Нет результатов!</Alert>}
             </CardBody>
+            {loaderStore.isActive && <Loader/>}
         </Card>
     );
 })
