@@ -55,3 +55,5 @@ export const stockMock = [
     {id:5, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'},
     {id:6, stockName:'Бутово', adress:'г. Москва ул. Пушкина д.42 пом.3', status:'Активен'}
 ]
+
+export const resultRegData = {status:true}

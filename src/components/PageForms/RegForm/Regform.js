@@ -5,16 +5,23 @@ import {useForm} from "react-hook-form";
 import * as yup from "yup";
 import {Alert, Container} from '@mui/material';
 import {yupResolver} from "@hookform/resolvers/yup";
-import axios from 'axios';
 import CardHeader from "../../Ui/Card/CardHeader";
 import Card from "components/Ui/Card/Card.js";
 import CardBody from "components/Ui/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
 import Button from "components/Ui/CustomButtons/Button.js";
 import useWindowSize from 'react-use/lib/useWindowSize';
-import Confetti from 'react-confetti'
 import {Link} from "react-router-dom";
 import {maxString, minString} from "../../Lang/lang";
+
+import axios from 'axios';
+export const dataAPI = axios.create();
+import MockAdapter from 'axios-mock-adapter';
+import {resultRegData} from "../../../mock";
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/registration").reply(200, {
+    regData:resultRegData
+});
 
 
 const schema = yup.object().shape({
@@ -47,11 +54,11 @@ const Regform = () => {
     const[regSuccess, setRegSuccess] = useState(false);
 
 
-    const submitHandler = (data) => {
-        axios.post(`https://jsonplaceholder.typicode.com/users`, data)
+    const submitHandler = () => {
+        dataAPI.get(`/registration`)
             .then(res => {
-                //setMessage('Ошибка заполнения формы', res);
-                setRegSuccess(true);
+                console.log('res is', res.data)
+                //setRegSuccess(true);
 
             })
     }
@@ -62,11 +69,13 @@ const Regform = () => {
     })
 
     useEffect(()=>{
-
+        /*
         axios.get('https://jsonplaceholder.typicode.com/todos/1')
             .then(function (response) {
                 console.log(response);
             })
+
+         */
     },[])
 
 

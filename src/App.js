@@ -41,7 +41,7 @@ const App = observer(() => {
                 icon={AddAlert}
                 message="Список успешно загружен"
                 open={mainStore.tc}
-                closeNotification={() => setTC(false)}
+                closeNotification={() => mainStore.disableTC()}
                 close
             />
 

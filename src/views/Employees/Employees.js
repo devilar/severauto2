@@ -13,8 +13,6 @@ import TableBody from "@mui/material/TableBody";
 import employeesStore from "../../store/employeesStore";
 import {observer} from "mobx-react-lite";
 import PersonModalForm from "../../components/Modal/PersonModalForm";
-import Loader from "../../components/Ui/Loader/Loader";
-import loaderStore from "../../store/loaderStore";
 import createUserRoleStore from "../../store/createUserRoleStore";
 import axios from 'axios';
 export const dataAPI = axios.create();
