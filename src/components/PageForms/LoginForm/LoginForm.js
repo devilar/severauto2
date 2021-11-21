@@ -15,6 +15,14 @@ import Button from "components/Ui/CustomButtons/Button.js";
 import loginStore from "../../../store/loginStore";
 import {observer} from "mobx-react-lite";
 import {Link} from "react-router-dom";
+import MockAdapter from "axios-mock-adapter";
+import {loginMock} from "../../../mock";
+
+export const dataAPI = axios.create();
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/login").reply(200, {
+    loginData:loginMock
+});
 
 
 
@@ -37,11 +45,9 @@ const Regform = observer(() => {
     const[loginSuccess, setLoginSuccess] = useState(false);
 
     const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, data)
+        dataAPI.get(`/login`)
             .then(res => {
-                setMessage('Неправильно введен логин или пароль', res);
-                res.data.token = 'EMGTRS45555';
+                console.log('test', res.data.loginData);
                 loginStore.isLogged = true;
                 loginStore.currentUser = res.data;
                 localStorage.setItem('token', res.data.token);

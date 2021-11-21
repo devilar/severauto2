@@ -57,3 +57,6 @@ export const stockMock = [
 ]
 
 export const resultRegData = {status:true}
+export const resultCanOpenData = {canOpen:true}
+
+export const loginMock = {login:'test555', password:'qwerty12345',token:'EMGTRS45555'}

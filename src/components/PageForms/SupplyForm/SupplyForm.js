@@ -22,6 +22,7 @@ import Snackbar from "../../Snackbar/Snackbar";
 
 
 import supplyStore from "../../../store/supplyStore";
+import mainStore from "../../../store/mainStore";
 
 export const dataAPI = axios.create();
 
@@ -42,41 +43,18 @@ const SupplyForm = () => {
 
     const[message,setMessage] = useState('');
     const[stock,setStock] = useState('');
-    const [tc, setTC] = React.useState(false);
-
-    const showNotification = (place) => {
-        switch (place) {
-
-
-            case "tc":
-                if (!tc) {
-                    setTC(true);
-                    setTimeout(function () {
-                        setTC(false);
-                    }, 6000);
-                }
-                break;
-
-            default:
-                break;
-        }
-    };
 
     const submitHandler = () => {
         loaderStore.enableLoader();
         dataAPI.get(`/supply`)
             .then(res => {
-
                 setTimeout(()=>{
                     supplyStore.loadResult(res.data.supply);
                     loaderStore.disableLoader();
-                    showNotification("tc");
+                    mainStore.showNotification("tc");
                 },1000)
-
-
             })
     }
-
     const {register, handleSubmit, formState:{ errors }} = useForm({
         mode: "onBlur",
         resolver: yupResolver(schema)
@@ -160,15 +138,6 @@ const SupplyForm = () => {
         </Form>
 
     <div className="hrCustom"></div>
-            <Snackbar
-                place="tc"
-                color="success"
-                icon={AddAlert}
-                message="Список успешно загружен"
-                open={tc}
-                closeNotification={() => setTC(false)}
-                close
-            />
         </>
 
     );

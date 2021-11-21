@@ -17,10 +17,16 @@ import {maxString, minString} from "../../Lang/lang";
 import axios from 'axios';
 export const dataAPI = axios.create();
 import MockAdapter from 'axios-mock-adapter';
-import {resultRegData} from "../../../mock";
+import {resultCanOpenData, resultRegData} from "../../../mock";
+import loaderStore from "../../../store/loaderStore";
+import regStore from "../../../store/regStore";
 let mock = new MockAdapter(dataAPI);
+
 mock.onGet("/registration").reply(200, {
     regData:resultRegData
+});
+mock.onGet("/canOpen").reply(200, {
+    canOpenData:resultCanOpenData
 });
 
 
@@ -37,10 +43,6 @@ const useStyles = makeStyles({
     }
 });
 
-
-
-
-
 const Regform = () => {
 
     const loginToolTip = 'Длинна логина должна быть от 5 до 30 символов. Логин должен содержать только буквы Латинского алфавита и не должен состоять только из цифр. Может содержать элементы пунктуации (-_.).Логин не может содержать пробел или заканчиваться точкой';
@@ -48,18 +50,19 @@ const Regform = () => {
     const repeatPasswordToolTip = 'Повторите введенный пароль';
     const { width, height } = useWindowSize();
     const classes = useStyles();
-
     const[message,setMessage] = useState('');
-    const[canOpen, setCanOpen] = useState(true);
     const[regSuccess, setRegSuccess] = useState(false);
 
 
     const submitHandler = () => {
+        loaderStore.enableLoader();
         dataAPI.get(`/registration`)
             .then(res => {
-                console.log('res is', res.data)
-                //setRegSuccess(true);
-
+               setTimeout(()=>{
+                   console.log('res is', res.data)
+                   loaderStore.disableLoader();
+                   setRegSuccess(true);
+               },1000)
             })
     }
 
@@ -69,13 +72,16 @@ const Regform = () => {
     })
 
     useEffect(()=>{
-        /*
-        axios.get('https://jsonplaceholder.typicode.com/todos/1')
-            .then(function (response) {
-                console.log(response);
-            })
 
-         */
+    loaderStore.enableLoader();
+    dataAPI.get(`/canOpen`)
+        .then(res => {
+            setTimeout(()=>{
+                res.data.canOpenData.canOpen ? regStore.enableForm() : regStore.disableForm();
+                loaderStore.disableLoader();
+            },500)
+    })
+
     },[])
 
 
@@ -92,7 +98,7 @@ const Regform = () => {
 
                        {!regSuccess ?
                        <>
-                       {canOpen ? <Form onSubmit={handleSubmit(submitHandler)}>
+                       {regStore.canOpen ? <Form onSubmit={handleSubmit(submitHandler)}>
                            <Input
                                {...register('login')}
                                type="text"
@@ -128,10 +134,7 @@ const Regform = () => {
                        </Form> : <Alert variant="filled" severity="error">Ошибка! Доступ запрещен! Обратитесь к администрации</Alert>}
                        </>
                        :
-
                            <>
-
-
                                <span style={{textAlign:'center',display:'block',marginTop:'20px'}}>Регистрация успешно завершена. Перейти на страницу авторизации?</span>
                                <div style={{textAlign:'center',marginTop:'20px'}}><Link to='admin/remains'><Button color='success'>Перейти</Button></Link></div>
                            </>

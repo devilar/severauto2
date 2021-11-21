@@ -22,6 +22,7 @@ import AddAlert from "@material-ui/icons/AddAlert";
 import Snackbar from "../../Snackbar/Snackbar";
 import remainsStore from "../../../store/remainsStore";
 import stocksStore from "../../../store/stocksStore";
+import mainStore from "../../../store/mainStore";
 export const dataAPI = axios.create();
 let mock = new MockAdapter(dataAPI);
 mock.onGet("/stock").reply(200, {
@@ -36,23 +37,6 @@ const schema = yup.object().shape({
 
 const StocksForm = () => {
 
-    const showNotification = (place) => {
-        switch (place) {
-            case "tc":
-                if (!tc) {
-                    setTC(true);
-                    setTimeout( () => {
-                        setTC(false);
-                    }, 6000);
-                }
-                break;
-
-            default:
-                break;
-        }
-    };
-    const [tc, setTC] = React.useState(false);
-
     const [status, setStatus] = React.useState('');
     const [stock, setStock] = React.useState('');
 
@@ -64,10 +48,9 @@ const StocksForm = () => {
         dataAPI.get(`/stock`)
             .then(res => {
                 setTimeout(()=>{
-                    console.log("RESU is", res.data.stock);
                     stocksStore.loadResult(res.data.stock);
                     loaderStore.disableLoader();
-                    showNotification("tc");
+                    mainStore.showNotification("tc");
                 },1000)
             })
     }
@@ -139,15 +122,6 @@ const StocksForm = () => {
 
         </Form>
     <div className="hrCustom"></div>
-            <Snackbar
-                place="tc"
-                color="success"
-                icon={AddAlert}
-                message="Список успешно загружен"
-                open={tc}
-                closeNotification={() => setTC(false)}
-                close
-            />
     </>
     );
 };
