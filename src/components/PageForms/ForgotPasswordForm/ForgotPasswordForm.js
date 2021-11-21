@@ -12,6 +12,16 @@ import Card from "components/Ui/Card/Card.js";
 import CardBody from "components/Ui/Card/CardBody.js";
 import {makeStyles} from "@material-ui/core/styles";
 import {Link} from "react-router-dom";
+import MockAdapter from "axios-mock-adapter";
+import {forgotPasswordMock} from "../../../mock";
+import loaderStore from "../../../store/loaderStore";
+
+
+export const dataAPI = axios.create();
+let mock = new MockAdapter(dataAPI);
+mock.onGet("/forgotPassword").reply(200, {
+    forgotPasswordData:forgotPasswordMock
+});
 
 
 const schema = yup.object().shape({
@@ -25,20 +35,30 @@ const useStyles = makeStyles({
     }
 });
 
-const Regform = () => {
+const ForgotPasswordForm = () => {
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
     const[forgotPasswordSuccess, setForgotPasswordSuccess] = useState(false);
 
+
     const submitHandler = (data) => {
-        console.log('data SUBMITHANDLER', data);
-        axios.post(`https://jsonplaceholder.typicode.com/users`, { id:1, title:'sar'})
+        loaderStore.enableLoader();
+        dataAPI.get(`/forgotPassword`)
             .then(res => {
-                //setMessage('Ошибка №68', res);
-                setForgotPasswordSuccess(true);
+                setTimeout(()=>{
+                    res.data.forgotPasswordData.status ? setForgotPasswordSuccess(true) : setMessage('Ошибка');
+                    loaderStore.disableLoader();
+                },1000)
             })
     }
+
+
+
+
+
+
+
 
     const {register, handleSubmit, formState:{ errors }} = useForm({
         mode: "onBlur",
@@ -51,7 +71,7 @@ const Regform = () => {
             <Card className={classes.formBody}>
                 <CardHeader color="primary" style={{fontSize:'18px'}}>
 
-                    <p style={{marginBottom:'0'}}>Форма забыли пароль</p>
+                    <p style={{marginBottom:'0'}}>Восстановление пароля</p>
                 </CardHeader>
 
                 <CardBody className={classes.cardBody}>
@@ -99,7 +119,7 @@ const Regform = () => {
                     <>
 
 
-                        <span style={{textAlign:'center',display:'block',marginTop:'20px'}}>Вы успешно восстановили пароль к сайту. Перейти на страницу авторизации?</span>
+                        <span style={{textAlign:'center',display:'block',marginTop:'20px'}}>Новый пароль выслан вам на почту. Перейти на страницу авторизации?</span>
                         <div style={{textAlign:'center',marginTop:'20px'}}><Link to='login/'><Button color='success'>Перейти</Button></Link></div>
                     </>
 
@@ -112,4 +132,4 @@ const Regform = () => {
     );
 };
 
-export default Regform;
+export default ForgotPasswordForm;

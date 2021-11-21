@@ -17,6 +17,7 @@ import {observer} from "mobx-react-lite";
 import {Link} from "react-router-dom";
 import MockAdapter from "axios-mock-adapter";
 import {loginMock} from "../../../mock";
+import loaderStore from "../../../store/loaderStore";
 
 export const dataAPI = axios.create();
 let mock = new MockAdapter(dataAPI);
@@ -45,14 +46,16 @@ const Regform = observer(() => {
     const[loginSuccess, setLoginSuccess] = useState(false);
 
     const submitHandler = (data) => {
+        loaderStore.enableLoader();
         dataAPI.get(`/login`)
             .then(res => {
-                console.log('test', res.data.loginData);
-                loginStore.isLogged = true;
-                loginStore.currentUser = res.data;
-                localStorage.setItem('token', res.data.token);
-                //setLoginSuccess(true);
-
+               setTimeout(()=>{
+                   loginStore.isLogged = true;
+                   loginStore.currentUser = res.data.loginData;
+                   localStorage.setItem('token', res.data.token);
+                   loaderStore.disableLoader();
+                   setLoginSuccess(true);
+               },1000)
             })
     }
 
