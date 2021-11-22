@@ -21,8 +21,7 @@ import AddAlert from "@material-ui/icons/AddAlert";
 import Snackbar from "components/Snackbar/Snackbar.js"
 import LoadDocModal from "../../components/Modal/LoadDocModal";
 import remainsStore from "../../store/remainsStore";
-import loaderStore from "../../store/loaderStore";
-import Loader from "../../components/Ui/Loader/Loader";
+import mainStore from "../../store/mainStore";
 
 
 const styles = {
@@ -49,25 +48,6 @@ const useStyles = makeStyles(styles);
 
 const RemainsPage = observer(() => {
 
-    const showNotification = (place) => {
-        switch (place) {
-            case "tc":
-                if (!tc) {
-                    setTC(true);
-                    setTimeout(function () {
-                        setTC(false);
-                    }, 6000);
-                }
-                break;
-            default:
-                break;
-        }
-    };
-
-    const [tc, setTC] = React.useState(false);
-
-
-
     const [activeRow, setActiveRow] = useState(1);
     const handleDoubleClick = () => setModalShow(true);
     const handleClick = id => setActiveRow(id);
@@ -75,6 +55,9 @@ const RemainsPage = observer(() => {
     const [loadDocModal, setLoadDocModal] = React.useState(false);
 
     const classes = useStyles();
+
+
+
     return (
         <Card>
 
@@ -92,7 +75,7 @@ const RemainsPage = observer(() => {
 
 
                 <Grid container justifyContent="flex-end">
-                <Button onClick={() => showNotification("tc")} style={{marginTop:'40px'}} type='submit' color="primary"><DownloadIcon style={{marginRight:'10px'}}/>Скачать</Button>
+                <Button onClick={() => mainStore.showNotification("tc")} style={{marginTop:'40px'}} type='submit' color="primary"><DownloadIcon style={{marginRight:'10px'}}/>Скачать</Button>
                 <Button onClick={()=>setLoadDocModal(true)} style={{marginTop:'40px'}} type='submit' color="primary"><UploadIcon style={{marginRight:'10px'}}/>Загрузить</Button>
                 <Button style={{marginTop:'40px'}} type='submit' color="primary"><CheckCircleIcon style={{marginRight:'10px'}}/>Отправить</Button>
                 </Grid>
@@ -102,8 +85,8 @@ const RemainsPage = observer(() => {
                     color="success"
                     icon={AddAlert}
                     message="Началось скачивание файла"
-                    open={tc}
-                    closeNotification={() => setTC(false)}
+                    open={mainStore.tc}
+                    closeNotification={() => mainStore.disableTC()}
                     close
                 />
 
@@ -142,17 +125,20 @@ const RemainsPage = observer(() => {
                             )}
 
 
-                        <RemainsModalForm
-                            show={modalShow}
-                            onHide={() => setModalShow(false)}
-                        />
-                        <LoadDocModal
-                            show={loadDocModal}
-                            onHide={() => setLoadDocModal(false)}
-                        />
+
 
                     </TableBody>
                 </Table>: <Alert style={{marginBottom:'20px'}} severity="info">Нет результатов!</Alert>}
+
+                <RemainsModalForm
+                    show={modalShow}
+                    onHide={() => setModalShow(false)}
+                />
+                <LoadDocModal
+                    show={loadDocModal}
+                    onHide={() => setLoadDocModal(false)}
+                />
+
             </CardBody>
         </Card>
     );

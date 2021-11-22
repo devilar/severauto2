@@ -29,7 +29,7 @@ mock.onGet("/login").reply(200, {
 
 const schema = yup.object().shape({
     login:yup.string().min(5, minString(5)).max(10, maxString(30)).required("Обязательное поле"),
-    password:yup.string().min(6, minString(6)).max(20,maxString(20)).required("Обязательное поле")
+    password:yup.string().min(8, minString(8)).max(20,maxString(20)).required("Обязательное поле")
 });
 
 
@@ -39,7 +39,7 @@ const useStyles = makeStyles({
     }
 });
 
-const Regform = observer(() => {
+const LoginForm = observer(() => {
     const classes = useStyles();
 
     const[message,setMessage] = useState('');
@@ -57,7 +57,17 @@ const Regform = observer(() => {
                    setLoginSuccess(true);
                },1000)
             })
+            .catch(function (error) {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                    console.log(error.response.headers);
+                }
+            });
     }
+
+
+
 
     const {register, handleSubmit, formState:{ errors }} = useForm({
         mode: "onBlur",
@@ -125,4 +135,4 @@ const Regform = observer(() => {
     );
 });
 
-export default Regform;
+export default LoginForm;

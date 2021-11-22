@@ -25,12 +25,13 @@ mock.onGet("/remains").reply(200, {
 });
 const schema = yup.object().shape({
     itemRN:yup.string().min(3).max(10).required("Обязательное поле"),
-    itemPeriod:yup.string().min(6).max(20).required("Обязательное поле"),
-    itemStock:yup.string().min(6).required('Confirm Password is required')
+    itemPeriod:yup.string().required("Обязательное поле"),
+    itemStock:yup.string().required('Confirm Password is required'),
 });
 const RemainsForm = () => {
     const[message,setMessage] = useState('');
     const [stock, setStock] = React.useState('');
+
     const submitHandler = () => {
         loaderStore.enableLoader();
         dataAPI.get('/remains').then(res=>{
@@ -62,14 +63,25 @@ const RemainsForm = () => {
                 </Grid>
                 <Grid item xs={6}></Grid>
                 <Grid item xs={6}>
-                    <Input
-                        {...register('itemPeriod')}
-                        type="text"
-                        id="itemPeriod"
-                        label="Введите отчетный период"
-                        name="itemPeriod"
-                        error={!!errors.itemPeriod}
-                        helperText={errors?.itemPeriod?.message}/>
+
+                    <FormControl className='customSelect' variant="standard" fullWidth>
+                        <InputLabel id="demo-simple-select-label">Введите отчетный период</InputLabel>
+                        <Select
+                            {...register('itemPeriod')}
+                            labelId="itemPeriod"
+                            id="itemPeriod"
+                            value={stock}
+                            label="Введите отчетный период"
+                            onChange={(e)=>setStock(e.target.value)}
+                            error={!!errors.itemPeriod}
+                            helperText={errors?.itemPeriod?.message}
+                        >
+                            <MenuItem value={'butovo'}>Январь</MenuItem>
+                            <MenuItem value={'cherkizovo'}>Февраль</MenuItem>
+                        </Select>
+                    </FormControl>
+
+
                 </Grid>
                 <Grid item xs={6}>
                     <FormControl className='customSelect' variant="standard" fullWidth>

@@ -47,7 +47,8 @@ const ForgotPasswordForm = () => {
         dataAPI.get(`/forgotPassword`)
             .then(res => {
                 setTimeout(()=>{
-                    res.data.forgotPasswordData.status ? setForgotPasswordSuccess(true) : setMessage('Ошибка');
+                    console.log('you', res.data.forgotPasswordData.status);
+                    res.data.forgotPasswordData.status ? setForgotPasswordSuccess(true) : setMessage('Ошибка! Не найден пользователь с такой почтой!');
                     loaderStore.disableLoader();
                 },1000)
             })

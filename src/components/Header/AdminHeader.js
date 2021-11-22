@@ -29,8 +29,8 @@ const Header = ({...props}) => {
                     </span>
                 </Grid>
             </Hidden>
-            <Grid item spacing={0} xs={6} sm={6} md={10}><Typography color='#ffffff' align='left' component="h4" variant="p">Север-авто</Typography></Grid>
-            <Grid item align='center' spacing={0} xs={4} sm={4} md={2}><HeaderProfile/></Grid>
+            <Grid container spacing={0} xs={6} sm={6} md={10}><Typography color='#ffffff' align='left' component="h4" variant="p">Север-авто</Typography></Grid>
+            <Grid container align='center' spacing={0} xs={4} sm={4} md={2}><HeaderProfile/></Grid>
 
         </Grid>
     );

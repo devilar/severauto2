@@ -31,8 +31,8 @@ mock.onGet("/canOpen").reply(200, {
 
 
 const schema = yup.object().shape({
-    login:yup.string().min(5, minString(5)).max(10, maxString(30)).required("Обязательное поле"),
-    password:yup.string().min(6, minString(6)).max(20,maxString(20)).required("Обязательное поле"),
+    login:yup.string().min(5, minString(5)).max(30, maxString(30)).matches(/[A-Za-z0-9]+/ , 'Некорректный формат').required("Обязательное поле"),
+    password:yup.string().min(8, minString(8)).max(20,maxString(20)).matches(/^\S{6,}$/ , 'Пароль не должен содержать пробелов').required("Обязательное поле"),
     repeatPassword:yup.string().required('Пароли должны совпадать')
         .oneOf([yup.ref('password')], 'Пароли должны совпадать')
 });

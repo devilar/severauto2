@@ -1,26 +1,15 @@
 import {makeAutoObservable} from "mobx";
 
-class LoginStore {
-    currentUser = {};
-    isLogged = false;
+class forgotPasswordStore {
 
 
     constructor() {
         makeAutoObservable(this)
     }
 
-    login(data){
-
-    }
-
-    logout(){
-
-    }
-
-
 
 }
 
 
 
-export default new LoginStore();
+export default new forgotPasswordStore();
