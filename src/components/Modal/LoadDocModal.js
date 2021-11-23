@@ -84,7 +84,7 @@ const LoadDocModel = (props) =>{
 
     }
 
-    const {register, handleSubmit, formState:{ errors }} = useForm({
+    const {control, register, handleSubmit, formState:{ errors }} = useForm({
         mode: "onBlur",
         resolver: yupResolver(schema)
     })
@@ -159,10 +159,7 @@ const LoadDocModel = (props) =>{
 
 
 
-                        <FileInput
-
-                            {...register('file')}
-                        />
+                        <FileInput name="file" control={control} />
 
 
 
